@@ -1,42 +1,39 @@
 language: cpp
 dist: bionic
 os: linux
+env:
+    -   BUILD_TYPE=Debug
+    -   BUILD_TYPE=Release
 
 jobs:
     include:
         -   os: windows
-            env:
-                -   BUILD_TYPE=Debug
-
-        -   os: windows
-            env:
-                -   BUILD_TYPE=Release
   
-#    - os: linux
-#      dist: bionic
-#      addons:
-#          apt:
-#              sources:
-#                - ubuntu-toolchain-r-test
-#              packages:
-#                - g++-7
-#
-#    - os: linux
-#      dist: bionic
-#      addons:
-#          apt:
-#              sources:
-#                - ubuntu-toolchain-r-test
-#                - llvm-toolchain-bionic-7
-#              packages:
-#                - clang-7
-#
-#    - os: osx
-#      osx_image: xcode10
-#      compiler: clang
-#      env: 
-#        - COMPILER=clang++
-#        - CPP17=1
+        -   os: linux
+            dist: bionic
+            addons:
+                apt:
+                    sources:
+                        - ubuntu-toolchain-r-test
+                    packages:
+                        - g++-7
+
+        -   os: linux
+            dist: bionic
+            addons:
+                apt:
+                    sources:
+                        - ubuntu-toolchain-r-test
+                        - llvm-toolchain-bionic-7
+                    packages:
+                        - clang-7
+
+        -   os: osx
+            osx_image: xcode10
+            compiler: clang
+            env: 
+                - COMPILER=clang++
+                - CPP17=1
 
 
 
@@ -45,41 +42,11 @@ install:
     -   git submodule update --init --recursive
     -   cmake --version
     -   $CXX --version
-    -   PowerShell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
 
 script:
-    #-   PowerShell -File scripts/windows_build.ps1
     -   mkdir build
     -   cd build
-    -   echo $BUILD_TYPE
+
     -   cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
     -   cmake --build . --config $BUILD_TYPE
     -   ctest --build-config $BUILD_TYPE --output-on-failure --no-label-summary --no-subproject-summary --progress
-
-
-#script:
-#    -   mkdir build
-#    -   cd build
-#       
-#    -   echo "Generating Build Files"
-#    -   echo cmake ..
-#    -   cmake ..
-#    
-#    -   echo "Building Project"
-#    -   echo cmake --build .
-#    -   cmake --build .
-#    
-#    -   echo "Running Tests"
-#    -   echo ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
-#    -   ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
-#
-#    -   ls test
-#    -   ls test/Debug
-#    -   ls test/Release
-#    -   ./test/Debug/ZenoTest.exe
-#    -   ./test/Release/ZenoTest.exe
-#    -   ls examples
-#    -   ls examples/Debug
-#    -   ls examples/Release
-#    -   ./examples/Debug/ZenoMat4x4Printer.exe 1
-#    -   ./examples/Release/ZenoMat4x4Printer.exe 1
