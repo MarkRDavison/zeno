@@ -8,6 +8,7 @@ configuration:
 install:
   - if [ "$CXX" = "g++" ]; then export CXX="/usr/bin/clang++-5.0" CC="/usr/bin/clang-5.0"; fi
   - git submodule update --init --recursive
+  - cmake --version
 
 addons:
   apt:
