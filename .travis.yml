@@ -30,6 +30,7 @@ jobs:
                         - libxrandr-dev
                         - libxinerama-dev
                         - libxcursor-dev
+                        - libxi-dev
 
         -   name: "Linux G++ Release"
             os: linux
@@ -47,6 +48,7 @@ jobs:
                         - libxrandr-dev
                         - libxinerama-dev
                         - libxcursor-dev
+                        - libxi-dev
         
         -   name: "Linux Clang Debug"
             os: linux
@@ -65,6 +67,7 @@ jobs:
                         - libxrandr-dev
                         - libxinerama-dev
                         - libxcursor-dev
+                        - libxi-dev
 
         -   name: "Linux Clang Release"
             os: linux
@@ -83,6 +86,7 @@ jobs:
                         - libxrandr-dev
                         - libxinerama-dev
                         - libxcursor-dev
+                        - libxi-dev
         
         -   name: "OSX Clang Debug"
             os: osx
