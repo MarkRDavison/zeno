@@ -5,6 +5,8 @@ os: linux
 jobs:
     include:
         -   os: windows
+            env:
+                -   BUILD_TYPE=Debug
   
 #    - os: linux
 #      dist: bionic
@@ -42,8 +44,14 @@ install:
     -   PowerShell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
 
 script:
-    -   PowerShell -File scripts/windows_build.ps1
-    
+    #-   PowerShell -File scripts/windows_build.ps1
+    -   mkdir build
+    -   cd build
+    -   echo $BUILD_TYPE
+    -   cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+    -   cmake --build . --config $BUILD_TYPE ..
+    -   ctest --build-config $BUILD_TYPE --output-on-failure --no-label-summary --no-subproject-summary --progress
+
 
 #script:
 #    -   mkdir build
