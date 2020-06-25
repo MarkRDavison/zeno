@@ -25,19 +25,14 @@ matrix:
 #                - clang-7
 
     - os: osx
-      dist: bionic
-      addons:
-          apt:
-              sources:
-                - ubuntu-toolchain-r-test
-              packages:
-                - g++-7
+      osx_image: xcode8
 
 
 
 install:
     -   git submodule update --init --recursive
     -   cmake --version
+    -   $CXX --version
 
 script:
     -   mkdir build
