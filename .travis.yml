@@ -1,15 +1,15 @@
 language: cpp
 dist: bionic
 os: linux
-env: BUILD_TYPE=Debug
+env: CMAKE_BUILD_TYPE=Debug
 
 jobs:
     include:
         -   os: windows
-            env: BUILD_TYPE=Debug
+            env: CMAKE_BUILD_TYPE=Debug
 
         -   os: windows
-            env: BUILD_TYPE=Release
+            env: CMAKE_BUILD_TYPE=Release
   
 #    - os: linux
 #      dist: bionic
@@ -50,16 +50,20 @@ script:
     -   cd build
        
     -   echo "Generating Build Files"
-    -   echo cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
-    -   cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+    -   echo cmake ..
+    -   cmake ..
     
     -   echo "Building Project"
     -   echo cmake --build .
     -   cmake --build .
     
-    -   ./examples/Release/ZenoMat4x4Printer.exe 1.0f
-    -   ./examples/test\Release\ZenoTest.exe
-    
     -   echo "Running Tests"
     -   echo ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
     -   ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
+
+    -   ls test
+    -   ls test/Debug
+    -   ls test/Release
+    -   ls examples
+    -   ls examples/Debug
+    -   ls examples/Release
