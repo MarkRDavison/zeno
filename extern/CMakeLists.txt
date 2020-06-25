@@ -2,9 +2,9 @@ add_subdirectory(Catch2)
 find_package(OpenGL REQUIRED)
 
 
-
-#FIND_PACKAGE(GLEW REQUIRED)
-
+# TODO: Need to check if GLFW_ROOT is set, if so try and use the existing libraries we are pointed to
+#	Either way try the find_package, if its just installed it'd be nice to not compile etc.
+#	Maybe remove the submodule init etc if we find it without it
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build GLFW without examples")
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build GLFW without tests")
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "Build GLFW without docs")

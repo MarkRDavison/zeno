@@ -1,56 +1,31 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <stdexcept>
-#include <iostream>
-#include <cstdlib>
-#include <string>
-
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
+#include <zeno/Window.hpp>
 
 int main(int _argc, char** _argv) {
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    ze::GLFWContext context{};
 
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
-    
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-    if (window == NULL) {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-    while (!glfwWindowShouldClose(window)) {
-        processInput(window);
-
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+    ze::VideoMode mode = ze::VideoMode(800, 600, "Glfw Window");
+    ze::Window window;
+    if (!window.initialise(mode)) {
+        return EXIT_FAILURE;
     }
 
-    glfwTerminate();
+    bool running = true;
 
-	return EXIT_SUCCESS;
+    while (running) {
 
-}
+        ze::Event event;
+        window.pumpEvents();
+        while (window.pollEvent(event)) {
+            if (event.type == ze::Event::WindowClosed) {
+                running = false;
+            }
+        }
 
-void processInput(GLFWwindow* window) {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-}
+        window.clear();
+        window.display();
+    }
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
+    window.close();
+
+    return EXIT_SUCCESS;
 }

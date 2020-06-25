@@ -1,7 +1,7 @@
 # CMake build : library
 
 #configure variables
-SET(MODULE_NAME "core")
+SET(MODULE_NAME "window")
 SET(LIB_NAME "zeno-${MODULE_NAME}${LIBRARY_EXTENSION}")
 
 #configure directories
@@ -17,13 +17,15 @@ file (GLOB_RECURSE LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 #set library
 add_library (${LIB_NAME} ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
 TARGET_LINK_LIBRARIES(${LIB_NAME} PRIVATE glfw)
+TARGET_LINK_LIBRARIES(${LIB_NAME} PRIVATE libglew_static)
 target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})
+target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/core/include")
 #target_include_directories(${LIB_NAME} PUBLIC ${GLFW_INCLUDE_DIRS})
-target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/window/include")
+#target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/window/include")
 
 #export vars
-SET(LIBRARY_INCLUDE_PATH_CORE ${LIBRARY_INCLUDE_PATH} PARENT_SCOPE)
-SET(LIB_NAME_CORE ${LIB_NAME} PARENT_SCOPE)
+SET(LIBRARY_INCLUDE_PATH_WINDOW ${LIBRARY_INCLUDE_PATH} PARENT_SCOPE)
+SET(LIB_NAME_WINDOW ${LIB_NAME} PARENT_SCOPE)
 
 INSTALL(TARGETS ${LIB_NAME} DESTINATION ${LIBRARY_INSTALL_FOLDER})
 
