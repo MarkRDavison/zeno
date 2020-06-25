@@ -44,7 +44,6 @@ install:
     -   git submodule update --init --recursive
     -   cmake --version
     -   $CXX --version
-    -   $BUILD_TYPE
 
 script:
     -   echo $BUILD_TYPE
