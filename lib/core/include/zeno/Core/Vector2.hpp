@@ -32,8 +32,27 @@ namespace ze {
 	}
 
 	template <typename T>
+	inline Vector2<T>& operator*=(Vector2<T>& _lhs, T _rhs) {
+		_lhs.x *= _rhs;
+		_lhs.y *= _rhs;
+		return _lhs;
+	}
+
+	template <typename T>
+	inline Vector2<T> operator*(T _lhs, const Vector2<T>& _rhs) {
+		return Vector2<T>{_lhs * _rhs.x, _lhs * _rhs.y};
+	}
+
+	template <typename T>
 	inline Vector2<T> operator/(const Vector2<T>& _lhs, T _rhs) {
 		return Vector2<T>{_lhs.x / _rhs, _lhs.y / _rhs};
+	}
+
+	template <typename T>
+	inline Vector2<T>& operator/=(Vector2<T>& _lhs, T _rhs) {
+		_lhs.x /= _rhs;
+		_lhs.y /= _rhs;
+		return _lhs;
 	}
 
 	template <typename T>
@@ -49,15 +68,14 @@ namespace ze {
 	}
 
 	template <typename T>
-	inline Vector2<T>& operator*=(Vector2<T>& _lhs, T _rhs) {
-		_lhs.x *= _rhs;
-		_lhs.y *= _rhs;
-		return _lhs;
-	}
-
-	template <typename T>
 	inline Vector2<T> operator-(const Vector2<T>& _lhs, const Vector2<T>& _rhs) {
 		return Vector2<T>{_lhs.x - _rhs.x, _lhs.y - _rhs.y};
+	}
+	template <typename T>
+	inline Vector2<T>& operator-=(Vector2<T>& _lhs, const Vector2<T>& _rhs) {
+		_lhs.x -= _rhs.x;
+		_lhs.y -= _rhs.y;
+		return _lhs;
 	}
 
 	template <typename T>

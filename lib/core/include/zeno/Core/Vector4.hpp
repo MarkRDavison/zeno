@@ -14,7 +14,7 @@ namespace ze {
 
         template <typename U>
         Vector4(const Vector4<U>& _other) :
-            Vector4(static_cast<T>(_other.x_, static_cast<T>(_other.y), static_cast<T>(_other.z), static_cast<T>(_other.w))) {
+            Vector4(static_cast<T>(_other.x), static_cast<T>(_other.y), static_cast<T>(_other.z), static_cast<T>(_other.w)) {
         }
 
         Vector4(const Vector3<T>& _other, T _w) :
@@ -30,6 +30,80 @@ namespace ze {
         T z;
         T w;
     };
+
+    template <typename T>
+    inline Vector4<T> operator*(const Vector4<T>& _lhs, T _rhs) {
+        return Vector4<T>{_lhs.x* _rhs, _lhs.y* _rhs, _lhs.z* _rhs, _lhs.w};
+    }
+
+    template <typename T>
+    inline Vector4<T>& operator*=(Vector4<T>& _lhs, T _rhs) {
+        _lhs.x *= _rhs;
+        _lhs.y *= _rhs;
+        _lhs.z *= _rhs;
+        return _lhs;
+    }
+
+    template <typename T>
+    inline Vector4<T> operator*(T _lhs, Vector4<T>& _rhs) {
+        return Vector4<T>{_rhs.x* _lhs, _rhs.y* _lhs, _rhs.z* _lhs, _rhs.w};
+    }
+
+    template <typename T>
+    inline Vector4<T> operator/(const Vector4<T>& _lhs, T _rhs) {
+        return Vector4<T>{_lhs.x / _rhs, _lhs.y / _rhs, _lhs.z / _rhs, _lhs.w};
+    }
+
+    template <typename T>
+    inline Vector4<T>& operator/=(Vector4<T>& _lhs, T _rhs) {
+        _lhs.x /= _rhs;
+        _lhs.y /= _rhs;
+        _lhs.z /= _rhs;
+        return _lhs;
+    }
+
+    template <typename T>
+    inline Vector4<T> operator+(const Vector4<T>& _lhs, const Vector4<T>& _rhs) {
+        return Vector4<T>{_lhs.x + _rhs.x, _lhs.y + _rhs.y, _lhs.z + _rhs.z, 1};
+    }
+
+    template <typename T>
+    inline Vector4<T>& operator+=(Vector4<T>& _lhs, const Vector4<T>& _rhs) {
+        _lhs.x += _rhs.x;
+        _lhs.y += _rhs.y;
+        _lhs.z += _rhs.z;
+        return _lhs;
+    }
+
+    template <typename T>
+    inline Vector4<T> operator-(const Vector4<T>& _vec) {
+        return Vector4<T>{-_vec.x, -_vec.y, -_vec.z, _vec.w};
+    }
+
+    template <typename T>
+    inline Vector4<T> operator-(const Vector4<T>& _lhs, const Vector4<T>& _rhs) {
+        return Vector4<T>{_lhs.x - _rhs.x, _lhs.y - _rhs.y, _lhs.z - _rhs.z, 1};
+    }
+    template <typename T>
+    inline Vector4<T>& operator-=(Vector4<T>& _lhs, const Vector4<T>& _rhs) {
+        _lhs.x -= _rhs.x;
+        _lhs.y -= _rhs.y;
+        _lhs.z -= _rhs.z;
+        return _lhs;
+    }
+
+    template <typename T>
+    inline bool operator!=(const Vector4<T>& _lhs, const Vector4<T>& _rhs) {
+        return
+            _lhs.x != _rhs.x ||
+            _lhs.y != _rhs.y ||
+            _lhs.z != _rhs.z ||
+            _lhs.w != _rhs.w;
+    }
+    template <typename T>
+    inline bool operator==(const Vector4<T>& _lhs, const Vector4<T>& _rhs) {
+        return !(_lhs != _rhs);
+    }
 
     using Vector4f = Vector4<float>;
     using Vector4i = Vector4<int>;
