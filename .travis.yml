@@ -3,7 +3,9 @@ dist: bionic
 os: linux
 
 jobs:
-  include:
+    include:
+
+        -   os: windows
   
 #    - os: linux
 #      dist: bionic
@@ -23,13 +25,14 @@ jobs:
 #                - llvm-toolchain-bionic-7
 #              packages:
 #                - clang-7
+#
+#    - os: osx
+#      osx_image: xcode10
+#      compiler: clang
+#      env: 
+#        - COMPILER=clang++
+#        - CPP17=1
 
-    - os: osx
-      osx_image: xcode10
-      compiler: clang
-      env: 
-        - COMPILER=clang++
-        - CPP17=1
 
 
 

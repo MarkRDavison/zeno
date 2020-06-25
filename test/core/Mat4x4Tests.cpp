@@ -5,13 +5,4 @@ TEST_CASE("Testing mat4x4 1", "[Mat4x4]") {
 	ze::Mat4x4 mat(1.0f);
 
 	REQUIRE(1.0f == mat[0]);
-
-	auto fxn = []() -> int { return 11; };
-	
-	if (auto v = fxn(); v == 11) {
-		REQUIRE(true);
-	}
-	else {
-		REQUIRE(false);
-	}
 }
