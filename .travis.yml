@@ -4,17 +4,26 @@ os: linux
 
 matrix:
   include:
-
+  
     - os: linux
       dist: bionic
-      compiler: clang
       addons:
           apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-bionic-7
-          packages:
-            - clang-7
+              sources:
+                - ubuntu-toolchain-r-test
+              packages:
+                - g++-7
+
+#    - os: linux
+#      dist: bionic
+#      addons:
+#          apt:
+#              sources:
+#                - ubuntu-toolchain-r-test
+#                - llvm-toolchain-bionic-7
+#              packages:
+#                - clang-7
+
 
 
 install:
