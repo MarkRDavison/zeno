@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 sudo: false
 language: cpp
 
@@ -23,4 +23,3 @@ script:
     -   cmake ..
     -   cmake --build .
     -   ctest --no-label-summary --no-subproject-summary
-    -   cmake --install .
