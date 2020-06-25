@@ -81,7 +81,6 @@ $build_type = "Release"
 $intall_dir_root = "installed"
 
 Build-Glew -BuildType $build_type
-exit
 Generate-ZenoBuildFiles -BuildType $build_type
 Build-ZenoSolution -BuildType $build_type
 Install-ZenoArtifacts -BuildType $build_type
