@@ -19,8 +19,8 @@ matrix:
       env: COMPILER='clang++-6.0'
 
 install:
-  - git submodule update --init --recursive
-  - cmake --version
+    -   git submodule update --init --recursive
+    -   cmake --version
 script:
     -   mkdir build
     -   cd build
