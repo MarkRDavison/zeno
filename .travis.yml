@@ -44,6 +44,7 @@ install:
     -   git submodule update --init --recursive
     -   cmake --version
     -   $CXX --version
+    -   $BUILD_TYPE
 
 script:
     -   echo $BUILD_TYPE
@@ -51,7 +52,7 @@ script:
     -   cd build
     -   echo cmake --config $BUILD_TYPE ..
     -   cmake --config $BUILD_TYPE ..
-    -   echo cmake --build .
-    -   cmake --build .
+    -   echo cmake --build . --config $BUILD_TYPE
+    -   cmake --build . --config $BUILD_TYPE
     -   echo ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
     -   ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
