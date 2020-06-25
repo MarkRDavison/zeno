@@ -14,7 +14,7 @@ init:
  - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2019" ( set generator="Visual Studio 16 2019" )
  - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2017" ( set generator="Visual Studio 15 2017" )
 
- install:
+install:
 - cmd: |-
     git submodule update --init --recursive
 
