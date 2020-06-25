@@ -7,16 +7,16 @@ matrix:
   include:
   
     - os: linux
-      dist: xenial
+      dist: trusty
       compiler: clang
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-xenial-6.0
+            - llvm-toolchain-trusty-8.0
           packages:
-            - clang-6.0
-      env: COMPILER='clang++-6.0'
+            - clang-8.0
+      env: COMPILER='clang++-8.0'
 
 install:
     -   git submodule update --init --recursive
