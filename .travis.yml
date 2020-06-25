@@ -6,16 +6,20 @@ configuration:
     -   Debug
 
 install:
-  - if [ "$CXX" = "g++" ]; then export CXX="/usr/bin/clang++-5.0" CC="/usr/bin/clang-5.0"; fi
   - git submodule update --init --recursive
   - cmake --version
+  
+matrix:
+  include:
 
-addons:
-  apt:
-    sources:
-      - llvm-toolchain-trusty-5.0
-    packages:
-      - clang-5.0
+    - os: linux
+      compiler: clang
+      addons:
+        apt:
+          sources: llvm-toolchain-trusty-6.0
+          packages: ['clang-6.0']
+      env: COMPILER='clang++-6.0
+
 
 script:
     -   mkdir build
