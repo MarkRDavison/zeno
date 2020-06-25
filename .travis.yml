@@ -26,10 +26,8 @@ jobs:
 
     - os: osx
       osx_image: xcode10
-      addons:
-          apt:
-              packages:
-                - clang-7
+      compiler: clang
+      env: COMPILER='clang++'
 
 
 
