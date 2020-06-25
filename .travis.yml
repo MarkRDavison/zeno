@@ -24,6 +24,10 @@ jobs:
                         - ubuntu-toolchain-r-test
                     packages:
                         - g++-7
+                        - glew-utils
+                        - libglew-dev
+                        - libudev-dev
+                        - libxrandr-dev
 
         -   name: "Linux G++ Release"
             os: linux
@@ -35,6 +39,10 @@ jobs:
                         - ubuntu-toolchain-r-test
                     packages:
                         - g++-7
+                        - glew-utils
+                        - libglew-dev
+                        - libudev-dev
+                        - libxrandr-dev
         
         -   name: "Linux Clang Debug"
             os: linux
@@ -47,6 +55,10 @@ jobs:
                         - llvm-toolchain-bionic-7
                     packages:
                         - clang-7
+                        - glew-utils
+                        - libglew-dev
+                        - libudev-dev
+                        - libxrandr-dev
 
         -   name: "Linux Clang Release"
             os: linux
@@ -59,6 +71,10 @@ jobs:
                         - llvm-toolchain-bionic-7
                     packages:
                         - clang-7
+                        - glew-utils
+                        - libglew-dev
+                        - libudev-dev
+                        - libxrandr-dev
         
         -   name: "OSX Clang Debug"
             os: osx
