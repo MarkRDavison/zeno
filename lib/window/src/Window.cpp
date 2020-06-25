@@ -3,7 +3,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <future>
 #include <cmath>
 
 namespace ze {
@@ -161,32 +160,6 @@ namespace ze {
 
     void Window::setVerticalSync(bool _vsync) {
         glfwSwapInterval(_vsync ? 1 : 0);
-    }
-
-    void Window::dumpSystemInfo() {
-        int CPUInfo[4] = { -1 };
-        char CPUBrandString[0x40];
-        // Get the information associated with each extended ID.
-        __cpuid(CPUInfo, 0x80000000);
-        const unsigned nExIds = CPUInfo[0];
-        for (unsigned i = 0x80000000; i <= nExIds; ++i) {
-            __cpuid(CPUInfo, i);
-            // Interpret CPU brand string
-            if (i == 0x80000002)
-                memcpy(CPUBrandString, CPUInfo, sizeof(CPUInfo));
-            else if (i == 0x80000003)
-                memcpy(CPUBrandString + 16, CPUInfo, sizeof(CPUInfo));
-            else if (i == 0x80000004)
-                memcpy(CPUBrandString + 32, CPUInfo, sizeof(CPUInfo));
-        }
-
-        std::cout << "CPU          : " << CPUBrandString << std::endl;
-        std::cout << "GLFW version : " << glfwGetVersionString() << std::endl;
-        std::cout << "GLEW_VERSION : " << glewGetString(GLEW_VERSION) << std::endl;
-        std::cout << "GL_VERSION   : " << glGetString(GL_VERSION) << std::endl;
-        std::cout << "GL_VENDOR    : " << glGetString(GL_VENDOR) << std::endl;
-        std::cout << "GL_RENDERER  : " << glGetString(GL_RENDERER) << std::endl;
-        std::cout << "GLSL_VERSION : " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
     }
 
     void Window::pumpEvents() const {

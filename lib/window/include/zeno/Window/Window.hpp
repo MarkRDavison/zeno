@@ -24,8 +24,6 @@ namespace ze {
 
         bool initialise(VideoMode _videoMode);
 
-        static void dumpSystemInfo();
-
         void pumpEvents() const;
         bool pollEvent(Event& _event);
         static void clear();
