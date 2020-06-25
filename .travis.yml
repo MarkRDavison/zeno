@@ -7,6 +7,10 @@ jobs:
         -   os: windows
             env:
                 -   BUILD_TYPE=Debug
+
+        -   os: windows
+            env:
+                -   BUILD_TYPE=Release
   
 #    - os: linux
 #      dist: bionic
@@ -49,7 +53,7 @@ script:
     -   cd build
     -   echo $BUILD_TYPE
     -   cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
-    -   cmake --build . --config $BUILD_TYPE ..
+    -   cmake --build . --config $BUILD_TYPE
     -   ctest --build-config $BUILD_TYPE --output-on-failure --no-label-summary --no-subproject-summary --progress
 
 
