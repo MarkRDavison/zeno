@@ -26,4 +26,4 @@ Write-Host "===================================" -ForegroundColor Yellow
 Write-Host "Running Tests" -ForegroundColor Yellow
 Write-Host "===================================" -ForegroundColor Yellow
 
-ctest --build-config Debug --no-label-summary --no-subproject-summary --progress
+ctest --build-config Debug --output-on-failure --no-label-summary --no-subproject-summary --progress

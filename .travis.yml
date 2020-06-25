@@ -44,4 +44,4 @@ script:
     -   cd build
     -   cmake ..
     -   cmake --build .
-    -   ctest --no-label-summary --no-subproject-summary
+    -   ctest --no-label-summary --no-subproject-summary --output-on-failure
