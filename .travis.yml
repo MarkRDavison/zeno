@@ -1,7 +1,7 @@
 language: cpp
 dist: bionic
 os: linux
-config: Debug
+env: BUILD_TYPE=Debug
 
 jobs:
     include:
@@ -40,11 +40,10 @@ install:
     -   git submodule update --init --recursive
     -   cmake --version
     -   $CXX --version
-    -   clang --version
 
 script:
     -   mkdir build
     -   cd build
-    -   cmake ..
+    -   cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
     -   cmake --build .
-    -   ctest --no-label-summary --no-subproject-summary --output-on-failure
+    -   ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
