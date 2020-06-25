@@ -50,12 +50,15 @@ script:
     -   cd build
        
     -   echo "Generating Build Files"
-    -   echo cmake --config $BUILD_TYPE ..
-    -   cmake --config $BUILD_TYPE ..
+    -   echo cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+    -   cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
     
     -   echo "Building Project"
-    -   echo cmake --build . --config $BUILD_TYPE
-    -   cmake --build . --config $BUILD_TYPE
+    -   echo cmake --build .
+    -   cmake --build .
+    
+    -   "C:\Users\travis\build\MarkRDavison\zeno\build\examples\Release\ZenoMat4x4Printer.exe 1.0f"
+    -   "C:\Users\travis\build\MarkRDavison\zeno\build\test\Release\ZenoTest.exe"
     
     -   echo "Running Tests"
     -   echo ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
