@@ -50,5 +50,5 @@ script:
     -   mkdir build
     -   cd build
     -   cmake --config $BUILD_TYPE ..
-    -   cmake --config $BUILD_TYPE --build .
+    -   cmake --build .
     -   ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
