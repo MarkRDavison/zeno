@@ -1,6 +1,7 @@
 #ifndef INCLUDED_ZENO_CORE_HPP_
 #define INCLUDED_ZENO_CORE_HPP_
 
+#include <zeno/Core/Clock.hpp>
 #include <zeno/Core/Mat4x4.hpp>
 #include <zeno/Core/Vector2.hpp>
 #include <zeno/Core/Vector3.hpp>

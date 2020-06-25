@@ -1,4 +1,5 @@
-#include <zeno/Core/Mat4x4.hpp>
+#include <zeno/Core.hpp>
+#include <zeno/Graphics.hpp>
 #include <stdexcept>
 #include <iostream>
 #include <cstdlib>

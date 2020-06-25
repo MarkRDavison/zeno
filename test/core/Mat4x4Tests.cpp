@@ -174,7 +174,7 @@ TEST_CASE("Mat4x4 Test inverse method", "[Mat4x4]") {
 
 	ze::Mat4x4 id = mat * mat2;
 
-	for (unsigned int i = 0; i < 16; i += 1, "[Mat4x4]") {
+	for (unsigned int i = 0; i < 16; i += 1) {
 		REQUIRE(fabsf(id[i] - ze::Mat4x4(1.0f)[i]) < 0.001f);
 	}
 }
