@@ -5,10 +5,6 @@ configuration:
   
 common_sources: &all_sources
   - ubuntu-toolchain-r-test
-  - llvm-toolchain-trusty
-  - llvm-toolchain-trusty-3.9
-  - llvm-toolchain-trusty-4.0
-  - llvm-toolchain-xenial-5.0
   - llvm-toolchain-xenial-6.0
 
 matrix:
@@ -18,9 +14,12 @@ matrix:
       dist: xenial
       compiler: clang
       addons:
-          apt:
-              sources: *all_sources
-              packages: ['clang-6.0']
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-xenial-6.0
+            packages: 
+            - 'clang-6.0'
       env: COMPILER='clang++-6.0'
       
 install:
