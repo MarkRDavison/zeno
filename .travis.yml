@@ -25,9 +25,9 @@ jobs:
 #                - clang-7
 
     - os: osx
-      osx_image: xcode9.1
-      compiler: clang
-      env: COMPILER='clang++' CPP14=1
+      osx_image: xcode8
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
 
 
 
@@ -35,7 +35,6 @@ install:
     -   git submodule update --init --recursive
     -   cmake --version
     -   $CXX --version
-    -   clang --version
 
 script:
     -   mkdir build
