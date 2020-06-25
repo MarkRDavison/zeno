@@ -1,5 +1,6 @@
 language: cpp
 dist: bionic
+os: linux
 
 matrix:
   include:
@@ -14,9 +15,6 @@ matrix:
             - llvm-toolchain-bionic-7
           packages:
             - clang-7
-      env:
-        - CC=clang-7.0
-        - CXX=clang++-7.0
 
 
 install:
