@@ -1,7 +1,7 @@
 $build_type = "Release"
-#$intall_dir_root = "installed"
+$intall_dir_root = "installed"
 
-#Remove-Item -Path $intall_dir_root -Recurse -ErrorAction SilentlyContinue
+Remove-Item -Path $intall_dir_root -Recurse -ErrorAction SilentlyContinue
 
 Write-Host "===================================" -ForegroundColor Yellow
 Write-Host "Generating Build Files" -ForegroundColor Yellow
@@ -19,14 +19,14 @@ $cmd = 'cmake --build . --config ' + $build_type
 Write-Host $cmd -ForegroundColor Cyan
 Invoke-Expression $cmd
 
-#Write-Host "===================================" -ForegroundColor Yellow
-#Write-Host "Installing Artifacts" -ForegroundColor Yellow
-#Write-Host "===================================" -ForegroundColor Yellow
-#
-#New-Item -Path $intall_dir_root -ItemType directory | Out-Null
-#$cmd = 'cmake --install . --prefix installed --config ' + $build_type
-#Write-Host $cmd -ForegroundColor Cyan
-#Invoke-Expression $cmd
+Write-Host "===================================" -ForegroundColor Yellow
+Write-Host "Installing Artifacts" -ForegroundColor Yellow
+Write-Host "===================================" -ForegroundColor Yellow
+
+New-Item -Path $intall_dir_root -ItemType directory | Out-Null
+$cmd = 'cmake --install . --prefix installed --config ' + $build_type
+Write-Host $cmd -ForegroundColor Cyan
+Invoke-Expression $cmd
 
 Write-Host "===================================" -ForegroundColor Yellow
 Write-Host "Running Tests" -ForegroundColor Yellow
