@@ -6,5 +6,12 @@ TEST_CASE("Testing mat4x4 1", "[Mat4x4]") {
 
 	REQUIRE(1.0f == mat[0]);
 
-	REQUIRE(0 == __cplusplus);
+	auto fxn = []() -> int { return 11; };
+	
+	if (auto v = fxn(); v == 11) {
+		REQUIRE(true);
+	}
+	else {
+		REQUIRE(false);
+	}
 }
