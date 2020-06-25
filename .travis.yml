@@ -42,7 +42,7 @@ install:
     -   PowerShell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
 
 script:
-    -   PowerShell -File ../scripts/windows_build.ps1
+    -   PowerShell -File scripts/windows_build.ps1
     
 
 #script:
