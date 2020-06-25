@@ -15,11 +15,12 @@ matrix:
               key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
           packages:
             - clang-9
-      env: TOOLSET=clang COMPILER=clang++-9 CXXSTD=c++17
+      env: CXX=clang++-9 CC=clang-9
 
 install:
     -   git submodule update --init --recursive
     -   cmake --version
+    -   clang --version
 script:
     -   mkdir build
     -   cd build
