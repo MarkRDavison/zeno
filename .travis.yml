@@ -25,10 +25,11 @@ jobs:
 #                - clang-7
 
     - os: osx
-        osx_image: xcode10
-        compiler: clang
-        env: 
-            -   COMPILER='clang++' CPP17=1
+      osx_image: xcode10
+      compiler: clang
+      env: 
+        - COMPILER=clang++
+        - CPP17=1
 
 
 
