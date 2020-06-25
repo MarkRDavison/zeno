@@ -28,8 +28,7 @@ jobs:
         osx_image: xcode10
         compiler: clang
         env: 
-            -   COMPILER=clang++
-            -   CPP17=1
+            -   COMPILER='clang++' CPP17=1
 
 
 
