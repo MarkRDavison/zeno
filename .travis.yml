@@ -2,13 +2,16 @@ language: cpp
 
 jobs:
     include:
-        -   os: windows
+        -   name: "Windows Debug"
+            os: windows
             env: BUILD_TYPE=Debug
 
-        -   os: windows
+        -   name: "Windows Release"
+            os: windows
             env: BUILD_TYPE=Release
   
-        -   os: linux
+        -   name: "Linux G++ Debug"
+            os: linux
             dist: bionic
             env: BUILD_TYPE=Debug
             addons:
@@ -18,7 +21,8 @@ jobs:
                     packages:
                         - g++-7
 
-        -   os: linux
+        -   name: "Linux G++ Release"
+            os: linux
             dist: bionic
             env: BUILD_TYPE=Release
             addons:
@@ -28,7 +32,8 @@ jobs:
                     packages:
                         - g++-7
         
-        -   os: linux
+        -   name: "Linux Clang Debug"
+            os: linux
             dist: bionic
             env: BUILD_TYPE=Debug
             addons:
@@ -39,7 +44,8 @@ jobs:
                     packages:
                         - clang-7
 
-        -   os: linux
+        -   name: "Linux Clang Release"
+            os: linux
             dist: bionic
             env: BUILD_TYPE=Release
             addons:
@@ -50,7 +56,8 @@ jobs:
                     packages:
                         - clang-7
         
-        -   os: osx
+        -   name: "OSX Clang Debug"
+            os: osx
             osx_image: xcode10
             env: BUILD_TYPE=Debug
             compiler: clang
@@ -58,7 +65,8 @@ jobs:
                 - COMPILER=clang++
                 - CPP17=1
 
-        -   os: osx
+        -   name: "OSX Clang Release"
+            os: osx
             osx_image: xcode10
             env: BUILD_TYPE=Release
             compiler: clang
