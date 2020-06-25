@@ -1,4 +1,4 @@
-SET(AppMain "ZenoApp")
+SET(AppMain "ZenoMat4x4Printer")
 
 ADD_EXECUTABLE(${AppMain} "main.cpp")
 TARGET_LINK_LIBRARIES(${AppMain} PRIVATE ${LIB_NAME_CORE})

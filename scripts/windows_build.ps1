@@ -19,7 +19,7 @@ Write-Host "===================================" -ForegroundColor Yellow
 Write-Host "Installing Artifacts" -ForegroundColor Yellow
 Write-Host "===================================" -ForegroundColor Yellow
 
-New-Item -Path $intall_dir_root -ItemType directory
+New-Item -Path $intall_dir_root -ItemType directory | Out-Null
 cmake --install . --prefix installed --config Debug
 
 Write-Host "===================================" -ForegroundColor Yellow

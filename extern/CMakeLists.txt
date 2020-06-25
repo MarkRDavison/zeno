@@ -1,2 +1,1 @@
-ADD_LIBRARY(Catch2 INTERFACE)
-TARGET_INCLUDE_DIRECTORIES(Catch2 INTERFACE ${CMAKE_SOURCE_DIR}/extern/Catch2/single_include)
+add_subdirectory(Catch2)
