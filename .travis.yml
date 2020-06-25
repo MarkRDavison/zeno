@@ -1,7 +1,5 @@
 language: cpp
-
-configuration:
-    -   Debug
+dist: trusty
 
 matrix:
   include:
@@ -13,10 +11,10 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-8.0
+            - llvm-toolchain-trusty-6.0
           packages:
-            - clang-8.0
-      env: COMPILER='clang++-8.0'
+            - clang-6.0
+      env: COMPILER='clang++-6.0'
 
 install:
     -   git submodule update --init --recursive
