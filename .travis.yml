@@ -6,6 +6,10 @@ env: BUILD_TYPE=Debug
 jobs:
     include:
         -   os: windows
+            env: BUILD_TYPE=Debug
+
+        -   os: windows
+            env: BUILD_TYPE=Release
   
 #    - os: linux
 #      dist: bionic
@@ -44,6 +48,6 @@ install:
 script:
     -   mkdir build
     -   cd build
-    -   cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+    -   cmake --build-config $BUILD_TYPE ..
     -   cmake --build .
     -   ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
