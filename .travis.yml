@@ -1,5 +1,9 @@
 language: cpp
 
+branches:
+    except:
+        -   appveyor-dev
+
 jobs:
     include:
         -   name: "Windows Debug"

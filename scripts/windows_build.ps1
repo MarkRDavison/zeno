@@ -1,4 +1,4 @@
-$build_type = "Release"
+$build_type = "Debug"
 $intall_dir_root = "installed"
 
 Remove-Item -Path $intall_dir_root -Recurse -ErrorAction SilentlyContinue
