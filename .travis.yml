@@ -1,10 +1,10 @@
 language: cpp
 dist: bionic
 os: linux
+config: Debug
 
 jobs:
     include:
-
         -   os: windows
   
 #    - os: linux
