@@ -16,7 +16,7 @@ int main(int _argc, char** _argv) {
         ze::Event event;
         window.pumpEvents();
         while (window.pollEvent(event)) {
-            if (event.type == ze::Event::WindowClosed) {
+            if (event.type == ze::Event::EventType::WindowClosed) {
                 running = false;
             }
         }

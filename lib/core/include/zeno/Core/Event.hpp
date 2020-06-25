@@ -9,7 +9,7 @@ namespace ze {
 
     class Event {
     public:
-        enum EventType {
+        enum class EventType {
             WindowClosed,
             GainedFocus,
             LostFocus,
