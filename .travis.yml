@@ -1,15 +1,11 @@
 language: cpp
 dist: bionic
 os: linux
-env: BUILD_TYPE=Debug
 
 jobs:
+    -   BUILD_TYPE=Debug
     include:
         -   os: windows
-            env: BUILD_TYPE=Debug
-
-        -   os: windows
-            env: BUILD_TYPE=Release
   
 #    - os: linux
 #      dist: bionic
@@ -44,7 +40,7 @@ install:
     -   git submodule update --init --recursive
     -   cmake --version
     -   $CXX --version
-    -   $BUILD_TYPE
+    -   ${BUILD_TYPE}
 
 script:
     -   echo $BUILD_TYPE
