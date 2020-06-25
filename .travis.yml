@@ -3,14 +3,14 @@ language: cpp
 jobs:
     include:
         -   os: windows
-            env: BUILD_TYP=Debug
+            env: BUILD_TYPE=Debug
 
         -   os: windows
-            env: BUILD_TYP=Release
+            env: BUILD_TYPE=Release
   
         -   os: linux
             dist: bionic
-            env: BUILD_TYP=Debug
+            env: BUILD_TYPE=Debug
             addons:
                 apt:
                     sources:
@@ -20,7 +20,7 @@ jobs:
 
         -   os: linux
             dist: bionic
-            env: BUILD_TYP=Release
+            env: BUILD_TYPE=Release
             addons:
                 apt:
                     sources:
@@ -30,7 +30,7 @@ jobs:
         
         -   os: linux
             dist: bionic
-            env: BUILD_TYP=Debug
+            env: BUILD_TYPE=Debug
             addons:
                 apt:
                     sources:
@@ -41,7 +41,7 @@ jobs:
 
         -   os: linux
             dist: bionic
-            env: BUILD_TYP=Release
+            env: BUILD_TYPE=Release
             addons:
                 apt:
                     sources:
@@ -52,7 +52,7 @@ jobs:
         
         -   os: osx
             osx_image: xcode10
-            env: BUILD_TYP=Debug
+            env: BUILD_TYPE=Debug
             compiler: clang
             env: 
                 - COMPILER=clang++
@@ -60,7 +60,7 @@ jobs:
 
         -   os: osx
             osx_image: xcode10
-            env: BUILD_TYP=Release
+            env: BUILD_TYPE=Release
             compiler: clang
             env: 
                 - COMPILER=clang++
