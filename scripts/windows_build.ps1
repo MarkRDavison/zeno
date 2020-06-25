@@ -55,12 +55,15 @@ function Build-ZenoSolution {
 }
 function Install-ZenoArtifacts {
 	param([string] $BuildType)
+
+	$install_dir_root = "installed"
+
 	Write-Host "===================================" -ForegroundColor Yellow
 	Write-Host "Installing Artifacts" -ForegroundColor Yellow
 	Write-Host "===================================" -ForegroundColor Yellow
 
-	New-Item -Path $intall_dir_root -ItemType directory | Out-Null
-	$cmd = 'cmake --install . --prefix installed --config ' + $BuildType
+	New-Item -Path $install_dir_root -ItemType directory | Out-Null
+	$cmd = 'cmake --install . --prefix ' + $install_dir_root + ' --config ' + $BuildType
 	Write-Host $cmd -ForegroundColor Cyan
 	Invoke-Expression $cmd
 }
@@ -76,12 +79,11 @@ function Run-ZenoTests {
 	Invoke-Expression $cmd
 }
 
-
-$build_type = "Release"
-$intall_dir_root = "installed"
-
-Build-Glew -BuildType $build_type
-Generate-ZenoBuildFiles -BuildType $build_type
-Build-ZenoSolution -BuildType $build_type
-Install-ZenoArtifacts -BuildType $build_type
-Run-ZenoTests -BuildType $build_type
+function Do-TheThing {
+	param([string] $BuildType)
+	Build-Glew -BuildType $BuildType
+	Generate-ZenoBuildFiles -BuildType $BuildType
+	Build-ZenoSolution -BuildType $BuildType
+	Install-ZenoArtifacts -BuildType $BuildType
+	Run-ZenoTests -BuildType $BuildType
+}
