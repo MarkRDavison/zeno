@@ -16,9 +16,10 @@ init:
 
 before_build:
 - cmd: |-
+    git submodule update --init --recursive
     mkdir build
     cd build
-    echo {CONFIGURATION}
+    echo %CONFIGURATION%
     echo %generator%
     cmake -G %generator% -DCMAKE_BUILD_TYPE={CONFIGURATION} ..
 
