@@ -5,4 +5,6 @@ TEST_CASE("Testing mat4x4 1", "[Mat4x4]") {
 	ze::Mat4x4 mat(1.0f);
 
 	REQUIRE(1.0f == mat[0]);
+
+	REQUIRE(0 == __cplusplus);
 }

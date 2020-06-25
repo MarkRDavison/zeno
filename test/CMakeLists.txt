@@ -1,7 +1,7 @@
 SET(TestMain "ZenoTest")
 
 ADD_EXECUTABLE(${TestMain} "main.cpp")
-TARGET_COMPILE_FEATURES(${TestMain} PRIVATE cxx_std_14)
+TARGET_COMPILE_FEATURES(${TestMain} PRIVATE cxx_std_17)
 TARGET_LINK_LIBRARIES(${TestMain} PRIVATE Catch2)
 
 # Core Module Tests
