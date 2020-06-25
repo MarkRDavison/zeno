@@ -9,31 +9,31 @@ jobs:
     include:
         -   os: windows
   
-        -   os: linux
-            dist: bionic
-            addons:
-                apt:
-                    sources:
-                        - ubuntu-toolchain-r-test
-                    packages:
-                        - g++-7
-
-        -   os: linux
-            dist: bionic
-            addons:
-                apt:
-                    sources:
-                        - ubuntu-toolchain-r-test
-                        - llvm-toolchain-bionic-7
-                    packages:
-                        - clang-7
-
-        -   os: osx
-            osx_image: xcode10
-            compiler: clang
-            env: 
-                - COMPILER=clang++
-                - CPP17=1
+        #-   os: linux
+        #    dist: bionic
+        #    addons:
+        #        apt:
+        #            sources:
+        #                - ubuntu-toolchain-r-test
+        #            packages:
+        #                - g++-7
+        #
+        #-   os: linux
+        #    dist: bionic
+        #    addons:
+        #        apt:
+        #            sources:
+        #                - ubuntu-toolchain-r-test
+        #                - llvm-toolchain-bionic-7
+        #            packages:
+        #                - clang-7
+        #
+        #-   os: osx
+        #    osx_image: xcode10
+        #    compiler: clang
+        #    env: 
+        #        - COMPILER=clang++
+        #        - CPP17=1
 
 
 
