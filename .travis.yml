@@ -5,15 +5,15 @@ os: linux
 matrix:
   include:
   
-    - os: linux
-      dist: bionic
-      addons:
-          apt:
-              sources:
-                - ubuntu-toolchain-r-test
-              packages:
-                - g++-7
-
+#    - os: linux
+#      dist: bionic
+#      addons:
+#          apt:
+#              sources:
+#                - ubuntu-toolchain-r-test
+#              packages:
+#                - g++-7
+#
 #    - os: linux
 #      dist: bionic
 #      addons:
@@ -24,14 +24,21 @@ matrix:
 #              packages:
 #                - clang-7
 
+    - os: osx
+      dist: bionic
+      addons:
+          apt:
+              sources:
+                - ubuntu-toolchain-r-test
+              packages:
+                - g++-7
+
 
 
 install:
     -   git submodule update --init --recursive
-    -   echo $CC
-    -   echo $CXX
     -   cmake --version
-    -   clang --version
+
 script:
     -   mkdir build
     -   cd build
