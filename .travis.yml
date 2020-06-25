@@ -46,12 +46,17 @@ install:
     -   $CXX --version
 
 script:
-    -   echo $BUILD_TYPE
     -   mkdir build
     -   cd build
+       
+    -   echo "Generating Build Files"
     -   echo cmake --config $BUILD_TYPE ..
     -   cmake --config $BUILD_TYPE ..
+    
+    -   echo "Building Project"
     -   echo cmake --build . --config $BUILD_TYPE
     -   cmake --build . --config $BUILD_TYPE
+    
+    -   echo "Running Tests"
     -   echo ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
     -   ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
