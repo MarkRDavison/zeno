@@ -4,6 +4,9 @@ PROJECT(zeno
 	VERSION 0.1
 	LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules)
 
 # Currently always making static libraries
