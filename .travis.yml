@@ -57,8 +57,8 @@ script:
     -   echo cmake --build .
     -   cmake --build .
     
-    -   "C:\Users\travis\build\MarkRDavison\zeno\build\examples\Release\ZenoMat4x4Printer.exe 1.0f"
-    -   "C:\Users\travis\build\MarkRDavison\zeno\build\test\Release\ZenoTest.exe"
+    -   ./examples/Release/ZenoMat4x4Printer.exe 1.0f
+    -   ./examples/test\Release\ZenoTest.exe
     
     -   echo "Running Tests"
     -   echo ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
