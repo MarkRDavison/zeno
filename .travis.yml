@@ -37,6 +37,7 @@ install:
     -   git submodule update --init --recursive
     -   cmake --version
     -   $CXX --version
+    -   clang --version
 
 script:
     -   mkdir build
