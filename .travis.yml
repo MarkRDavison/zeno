@@ -1,37 +1,70 @@
 language: cpp
-env:
-    -   BUILD_TYPE=Debug
-    -   BUILD_TYPE=Release
 
 jobs:
     include:
         -   os: windows
+            env: BUILD_TYP=Debug
+
+        -   os: windows
+            env: BUILD_TYP=Release
   
-        #-   os: linux
-        #    dist: bionic
-        #    addons:
-        #        apt:
-        #            sources:
-        #                - ubuntu-toolchain-r-test
-        #            packages:
-        #                - g++-7
-        #
-        #-   os: linux
-        #    dist: bionic
-        #    addons:
-        #        apt:
-        #            sources:
-        #                - ubuntu-toolchain-r-test
-        #                - llvm-toolchain-bionic-7
-        #            packages:
-        #                - clang-7
-        #
-        #-   os: osx
-        #    osx_image: xcode10
-        #    compiler: clang
-        #    env: 
-        #        - COMPILER=clang++
-        #        - CPP17=1
+        -   os: linux
+            dist: bionic
+            env: BUILD_TYP=Debug
+            addons:
+                apt:
+                    sources:
+                        - ubuntu-toolchain-r-test
+                    packages:
+                        - g++-7
+
+        -   os: linux
+            dist: bionic
+            env: BUILD_TYP=Release
+            addons:
+                apt:
+                    sources:
+                        - ubuntu-toolchain-r-test
+                    packages:
+                        - g++-7
+        
+        -   os: linux
+            dist: bionic
+            env: BUILD_TYP=Debug
+            addons:
+                apt:
+                    sources:
+                        - ubuntu-toolchain-r-test
+                        - llvm-toolchain-bionic-7
+                    packages:
+                        - clang-7
+
+        -   os: linux
+            dist: bionic
+            env: BUILD_TYP=Release
+            addons:
+                apt:
+                    sources:
+                        - ubuntu-toolchain-r-test
+                        - llvm-toolchain-bionic-7
+                    packages:
+                        - clang-7
+        
+        -   os: osx
+            osx_image: xcode10
+            env: BUILD_TYP=Debug
+            compiler: clang
+            env: 
+                - COMPILER=clang++
+                - CPP17=1
+
+        -   os: osx
+            osx_image: xcode10
+            env: BUILD_TYP=Release
+            compiler: clang
+            env: 
+                - COMPILER=clang++
+                - CPP17=1
 
 
 
