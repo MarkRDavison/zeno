@@ -1,7 +1,6 @@
 language: cpp
 dist: bionic
 os: linux
-env: CMAKE_BUILD_TYPE=Debug
 
 jobs:
     include:
@@ -40,9 +39,10 @@ install:
     -   git submodule update --init --recursive
     -   cmake --version
     -   $CXX --version
+    -   PowerShell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
 
 script:
-    -   powershell ../scripts/windows_build.ps1
+    -   PowerShell -File ../scripts/windows_build.ps1
     
 
 #script:
