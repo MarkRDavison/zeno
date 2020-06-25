@@ -49,6 +49,9 @@ script:
     -   echo $BUILD_TYPE
     -   mkdir build
     -   cd build
+    -   echo cmake --config $BUILD_TYPE ..
     -   cmake --config $BUILD_TYPE ..
+    -   echo cmake --build .
     -   cmake --build .
+    -   echo ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
     -   ctest --build-config $BUILD_TYPE --no-label-summary --no-subproject-summary --output-on-failure
