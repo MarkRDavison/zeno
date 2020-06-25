@@ -1,6 +1,7 @@
 language: cpp
 dist: bionic
 os: linux
+env: BUILD_TYPE=Debug
 
 jobs:
     include:
@@ -43,7 +44,6 @@ install:
     -   git submodule update --init --recursive
     -   cmake --version
     -   $CXX --version
-    -   $BUILD_TYPE
 
 script:
     -   echo $BUILD_TYPE
