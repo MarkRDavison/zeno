@@ -3,9 +3,12 @@ dist: bionic
 os: linux
 
 jobs:
-    -   BUILD_TYPE=Debug
     include:
         -   os: windows
+            env: BUILD_TYPE=Debug
+
+        -   os: windows
+            env: BUILD_TYPE=Release
   
 #    - os: linux
 #      dist: bionic
