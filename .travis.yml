@@ -14,10 +14,15 @@ matrix:
             - llvm-toolchain-bionic-7
           packages:
             - clang-7
+      env:
+        - CC=clang-7.0
+        - CXX=clang++-7.0
 
 
 install:
     -   git submodule update --init --recursive
+    -   echo $CC
+    -   echo $CXX
     -   cmake --version
     -   clang --version
 script:
