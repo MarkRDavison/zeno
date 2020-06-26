@@ -29,16 +29,17 @@ find_package(glfw QUIET)
 
 
 MESSAGE("We did not find GLFW, do use the submodule")
-    find_package(Git REQUIRED)
-    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive --remote extern/glfw WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} RESULT_VARIABLE _result)# OUTPUT_QUIET ERROR_QUIET)
-    if(${_result} GREATER 0 )
-        message(FATAL_ERROR "GLFW was not found.\n"
-                            "We tried: 'git submodule init && git submodule update' and resulted in error" )
-	endif()
-	set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build GLFW without examples")
-	set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build GLFW without tests")
-	set(GLFW_BUILD_DOCS OFF CACHE BOOL "Build GLFW without docs")
-	add_subdirectory(glfw EXCLUDE_FROM_ALL)
+find_package(Git REQUIRED)
+execute_process(COMMAND ${GIT_EXECUTABLE} submodule init extern/glfw WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} RESULT_VARIABLE _result1)# OUTPUT_QUIET ERROR_QUIET)
+execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive --remote extern/glfw WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} RESULT_VARIABLE _result2)# OUTPUT_QUIET ERROR_QUIET)
+if(${_result1} GREATER 0 OR ${_result2} GREATER 0)
+    message(FATAL_ERROR "GLFW was not found.\n"
+                        "We tried: 'git submodule init && git submodule update' and resulted in error" )
+endif()
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build GLFW without examples")
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build GLFW without tests")
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "Build GLFW without docs")
+add_subdirectory(glfw EXCLUDE_FROM_ALL)
 
 #################
 #	GLEW
