@@ -30,7 +30,7 @@ find_package(glfw QUIET)
 
 MESSAGE("We did not find GLFW, do use the submodule")
     find_package(Git REQUIRED)
-    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --remote extern/glfw WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} RESULT_VARIABLE _result)# OUTPUT_QUIET ERROR_QUIET)
+    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive --remote extern/glfw WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} RESULT_VARIABLE _result)# OUTPUT_QUIET ERROR_QUIET)
     if(${_result} GREATER 0 )
         message(FATAL_ERROR "GLFW was not found.\n"
                             "We tried: 'git submodule init && git submodule update' and resulted in error" )
