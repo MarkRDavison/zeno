@@ -1,9 +1,4 @@
 #################
-#	Catch2
-#################
-add_subdirectory(Catch2)
-
-#################
 #	GLFW
 #################
 find_package(glfw QUIET)
@@ -27,6 +22,14 @@ ELSE(GLFW_FOUND)
 	set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build GLFW without tests")
 	set(GLFW_BUILD_DOCS OFF CACHE BOOL "Build GLFW without docs")
 	add_subdirectory(glfw EXCLUDE_FROM_ALL)
+ENDIF()
+
+#################
+#	Catch2
+#################
+
+IF (${ZENO_BUILD_TESTS})
+	add_subdirectory(Catch2)
 ENDIF()
 
 #################
