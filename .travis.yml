@@ -5,15 +5,25 @@ branches:
         -   appveyor-dev
 
 jobs:
-    include:
-        -   name: "Windows Debug"
-            os: windows
+    include:  
+        -   name: "OSX Clang Debug"
+            os: osx
+            osx_image: xcode10
             env: BUILD_TYPE=Debug
+            compiler: clang
+            env: 
+                - COMPILER=clang++
+                - CPP17=1
 
-        -   name: "Windows Release"
-            os: windows
+        -   name: "OSX Clang Release"
+            os: osx
+            osx_image: xcode10
             env: BUILD_TYPE=RelWithDebInfo
-  
+            compiler: clang
+            env: 
+                - COMPILER=clang++
+                - CPP17=1
+
         -   name: "Linux G++ Debug"
             os: linux
             dist: bionic
@@ -100,23 +110,13 @@ jobs:
                         - libgl1-mesa-dev
                         - libglu1-mesa-dev
         
-        -   name: "OSX Clang Debug"
-            os: osx
-            osx_image: xcode10
+        -   name: "Windows Debug"
+            os: windows
             env: BUILD_TYPE=Debug
-            compiler: clang
-            env: 
-                - COMPILER=clang++
-                - CPP17=1
 
-        -   name: "OSX Clang Release"
-            os: osx
-            osx_image: xcode10
+        -   name: "Windows Release"
+            os: windows
             env: BUILD_TYPE=RelWithDebInfo
-            compiler: clang
-            env: 
-                - COMPILER=clang++
-                - CPP17=1
 
 
 
