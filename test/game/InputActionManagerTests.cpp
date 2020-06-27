@@ -1,6 +1,5 @@
 #include <catch2/catch.hpp>
-#define CATCH_INTERNAL_UNSUPPRESS_PARENTHESES_WARNINGS
-#include <fakeit.hpp>
+#include "../testfakeit.hpp"
 #include <zeno/Game/InputActionManager.hpp>
 #include <zeno/Game/InputManager.hpp>
 #include <zeno/Core/Event.hpp>
