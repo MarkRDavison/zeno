@@ -34,11 +34,23 @@ ENDIF()
 #################
 IF (${ZENO_BUILD_TESTS})
 	add_subdirectory(Catch2)
+ENDIF()
+
+#################
+#	FakeIt
+#################
+IF (${ZENO_BUILD_TESTS})
 	add_subdirectory(FakeIt)
 
 	add_library(fakeit INTERFACE)
 	target_include_directories(fakeit INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/FakeIt/single_header/catch")
 ENDIF()
+
+#################
+#	stb
+#################
+add_library(zeno-stb INTERFACE)
+target_include_directories(zeno-stb INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/stb")
 
 #################
 #	GLEW

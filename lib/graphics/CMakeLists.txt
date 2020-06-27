@@ -14,6 +14,12 @@ target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})
 add_library("zeno-${MODULE_NAME}" INTERFACE)
 target_include_directories("zeno-${MODULE_NAME}" INTERFACE ${LIBRARY_INCLUDE_PATH})
 target_link_libraries("zeno-${MODULE_NAME}" INTERFACE ${LIB_NAME})
+target_link_libraries(${LIB_NAME} PRIVATE zeno-glew)
+target_link_libraries(${LIB_NAME} PRIVATE zeno-opengl)
+TARGET_LINK_LIBRARIES(${LIB_NAME} PRIVATE zeno-window)
+TARGET_LINK_LIBRARIES(${LIB_NAME} PRIVATE zeno-core)
+TARGET_LINK_LIBRARIES(${LIB_NAME} PRIVATE zeno-utility)
+TARGET_LINK_LIBRARIES(${LIB_NAME} PRIVATE zeno-stb)
 
 INSTALL(TARGETS ${LIB_NAME} DESTINATION ${LIBRARY_INSTALL_FOLDER})
 
