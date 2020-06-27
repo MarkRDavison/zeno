@@ -73,8 +73,8 @@ ELSE(GLEW_FOUND)
 
 	add_subdirectory(glew EXCLUDE_FROM_ALL)
 	
-	add_library(zeno-glfw INTERFACE)
-	target_link_libraries(zeno-glfw INTERFACE glfw)
+	add_library(zeno-glew INTERFACE)
+	target_link_libraries(zeno-glew INTERFACE glew)
 	IF (${GLEW_STATIC})
 		target_compile_definitions(zeno-glew INTERFACE GLEW_STATIC=ON)
 	ENDIF()
