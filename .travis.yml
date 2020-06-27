@@ -31,6 +31,8 @@ jobs:
                         - libxinerama-dev
                         - libxcursor-dev
                         - libxi-dev
+                        - libgl-dev
+                        - libgl1-mesa-dev
 
         -   name: "Linux G++ Release"
             os: linux
@@ -49,6 +51,8 @@ jobs:
                         - libxinerama-dev
                         - libxcursor-dev
                         - libxi-dev
+                        - libgl-dev
+                        - libgl1-mesa-dev
         
         -   name: "Linux Clang Debug"
             os: linux
@@ -68,6 +72,8 @@ jobs:
                         - libxinerama-dev
                         - libxcursor-dev
                         - libxi-dev
+                        - libgl-dev
+                        - libgl1-mesa-dev
 
         -   name: "Linux Clang Release"
             os: linux
@@ -87,6 +93,8 @@ jobs:
                         - libxinerama-dev
                         - libxcursor-dev
                         - libxi-dev
+                        - libgl-dev
+                        - libgl1-mesa-dev
         
         -   name: "OSX Clang Debug"
             os: osx
