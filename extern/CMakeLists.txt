@@ -1,19 +1,21 @@
+if(POLICY CMP0072)
+  cmake_policy(SET CMP0072 NEW)
+endif()
+if(POLICY CMP0048)
+  cmake_policy(SET CMP0048 NEW)
+endif()
+
 #################
 #	GLFW
 #################
-
 IF(GLFW_ROOT)
 find_package(glfw QUIET)
 ENDIF()
 IF(GLFW_FOUND)
-	MESSAGE(NOTICE "We found GLFW!!!! dont use the submodule")
-
 	add_library(zeno-glfw INTERFACE)
 	target_include_directories(zeno-glfw INTERFACE ${GLFW_INCLUDE_DIRS})
 	target_link_libraries(zeno-glfw INTERFACE ${GLFW_LIBRARIES})
 ELSE(GLFW_FOUND)
-	MESSAGE(NOTICE "We did not find GLFW, do use the submodule")
-
 	set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build GLFW without examples")
 	set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build GLFW without tests")
 	set(GLFW_BUILD_DOCS OFF CACHE BOOL "Build GLFW without docs")
@@ -26,7 +28,6 @@ ENDIF()
 #################
 #	Catch2
 #################
-
 IF (${ZENO_BUILD_TESTS})
 	add_subdirectory(Catch2)
 ENDIF()
@@ -34,15 +35,8 @@ ENDIF()
 #################
 #	GLEW
 #################
-if(POLICY CMP0048)
-  cmake_policy(SET CMP0048 OLD)
-endif()
 find_package(GLEW QUIET)
 IF (GLEW_FOUND) 
-	MESSAGE(NOTICE "We found GLEW!!!! dont use the submodule")
-	MESSAGE(NOTICE "GLEW_LIBRARY: ${GLEW_LIBRARY}")
-	MESSAGE(NOTICE "GLEW_INCLUDE_DIR: ${GLEW_INCLUDE_DIR}")
-
 	add_library(zeno-glew INTERFACE)
 	target_include_directories(zeno-glew INTERFACE ${GLEW_INCLUDE_DIR})
 	target_link_libraries(zeno-glew INTERFACE ${GLEW_LIBRARY})
@@ -50,8 +44,6 @@ IF (GLEW_FOUND)
 		target_compile_definitions(zeno-glew INTERFACE GLEW_STATIC=ON)
 	ENDIF()
 ELSE(GLEW_FOUND)
-	MESSAGE(NOTICE "We did not find GLEW, do use the submodule")
-	
 	SET(ONLY_LIBS ON CACHE BOOL "Do not build executables")
 	SET(glew-cmake_BUILD_STATIC ON CACHE BOOL "Build the static glew library")
 	SET(glew-cmake_BUILD_SHARED OFF CACHE BOOL "Build the shared glew library")
@@ -78,9 +70,6 @@ ENDIF()
 #################
 #	OpenGl
 #################
-if(POLICY CMP0072)
-  cmake_policy(SET CMP0072 NEW)
-endif()
 find_package(OpenGL REQUIRED)
 add_library(zeno-opengl INTERFACE)
 target_include_directories(zeno-opengl INTERFACE ${OPENGL_INCLUDE_DIRECTORIES})
