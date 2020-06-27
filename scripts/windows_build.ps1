@@ -1,3 +1,57 @@
+function Get-VisualStudioInstallPath {
+	$pfPath = (dir env:'ProgramFiles(x86)').Value
+
+	Write-Host "Program Files Path" $pfPath
+
+	$vsPath = &(Join-Path $pfPath "\Microsoft Visual Studio\Installer\vswhere.exe") -property installationpath
+
+	Write-Host "Visual Studio Path" $vsPath
+
+	return $vsPath;
+}
+
+function Build-GlewPowershell {
+	param([string] $BuildType)
+
+	$platform = 'x64'
+
+	$pfPath = (dir env:'ProgramFiles(x86)').Value
+
+	Write-Host $pfPath
+
+	$vsPath = &(Join-Path $pfPath "\Microsoft Visual Studio\Installer\vswhere.exe") -property installationpath
+
+	Write-Host $vsPath
+
+	$dsPath = (Join-Path $vsPath "Common7\Tools\Microsoft.VisualStudio.DevShell.dll")
+
+	Write-Host $dsPath
+
+	pushd
+
+	Import-Module $dsPath
+	Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation
+
+	Write-Host "===================================" -ForegroundColor Yellow
+	Write-Host "Initializing pre-build" -ForegroundColor Yellow
+	Write-Host "===================================" -ForegroundColor Yellow
+
+	popd
+	pushd
+
+	cd ../extern/glew/build/vc15	
+	
+	$cmd = 'devenv /upgrade glew.sln'
+	Write-Host $cmd -ForegroundColor Cyan
+	Invoke-Expression $cmd
+
+	$cmd = 'msbuild glew.sln /property:Configuration=' + $BuildType
+	Write-Host $cmd -ForegroundColor Cyan
+	Invoke-Expression $cmd
+
+	popd
+}
+
 function Build-Glew {
 	param([string] $BuildType)
 

@@ -6,7 +6,7 @@
       "configurationType": "Debug",
       "buildRoot": "${projectDir}\\out\\build\\${name}",
       "installRoot": "${projectDir}\\out\\install\\${name}",
-      "cmakeCommandArgs": "-DGLEW_LOCATION=\"C:/Workspace/Libraries/glew-2.1.0\" -DGLEW_STATIC=ON -DGLFW_ROO11T=\"C:/Workspace/Libraries/glfw-3.2.1.bin.WIN32\"",
+      "cmakeCommandArgs": "-DGLEW_LOCATION=\"C:/Works44pace/Libraries/glew-2.1.0\" -DGLEW_STATIC=ON -DGLFW_ROO11T=\"C:/Workspace/Libraries/glfw-3.2.1.bin.WIN32\"",
       "buildCommandArgs": "",
       "ctestCommandArgs": "",
       "inheritEnvironments": [ "msvc_x86" ],

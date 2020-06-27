@@ -4,13 +4,13 @@
 find_package(glfw QUIET)
 IF(GLFW_FOUND)
 	MESSAGE(STATUS "We found GLFW!!!! dont use the submodule")
-	MESSAGE(STATUS ${GLFW_INCLUDE_DIRS})
-	MESSAGE(STATUS ${GLFW_LIBRARIES})
+
 	add_library(glfw INTERFACE)
 	target_include_directories(glfw INTERFACE ${GLFW_INCLUDE_DIRS})
 	target_link_libraries(glfw INTERFACE ${GLFW_LIBRARIES})
 ELSE(GLFW_FOUND)
 	MESSAGE(STATUS "We did not find GLFW, do use the submodule")
+
 	set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build GLFW without examples")
 	set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build GLFW without tests")
 	set(GLFW_BUILD_DOCS OFF CACHE BOOL "Build GLFW without docs")
@@ -28,12 +28,45 @@ ENDIF()
 #################
 #	GLEW
 #################
-find_package(GLEW REQUIRED)
-add_library(glew INTERFACE)
-target_include_directories(glew INTERFACE ${GLEW_INCLUDE_DIR})
-target_link_libraries(glew INTERFACE ${GLEW_LIBRARY})
-IF (${GLEW_STATIC})
-	target_compile_definitions(glew INTERFACE GLEW_STATIC=ON)
+
+find_package(glew QUIET)
+IF (GLEW_FOUND) 
+	MESSAGE(STATUS "We found GLEW!!!! dont use the submodule")
+
+	add_library(glew INTERFACE)
+	target_include_directories(glew INTERFACE ${GLEW_INCLUDE_DIR})
+	target_link_libraries(glew INTERFACE ${GLEW_LIBRARY})
+	IF (${GLEW_STATIC})
+		target_compile_definitions(glew INTERFACE GLEW_STATIC=ON)
+	ENDIF()
+ELSE(GLEW_FOUND)
+	MESSAGE(STATUS "We did not find GLEW, do use the submodule")
+	
+	SET(glew-cmake_BUILD_SHARED OFF CACHE BOOL "Build the shared glew library")
+	SET(glew-cmake_BUILD_STATIC ON CACHE BOOL "Build the static glew library")
+
+	IF (${GLEW_STATIC}) 
+		SET(glew-cmake_BUILD_SHARED ON)
+		SET(glew-cmake_BUILD_STATIC OFF)
+	ELSE(${GLEW_STATIC})
+		SET(glew-cmake_BUILD_SHARED OFF)
+		SET(glew-cmake_BUILD_STATIC ON)
+	ENDIF()
+
+	SET(ONLY_LIBS ON CACHE BOOL "Do not build executables")
+
+	IF (${CMAKE_CXX_COMPILER_ID} STREQUAL ${MSVC})
+		MESSAGE(STATUS "Visual Studio Compiler detected, need to 'make extensions' via the project upgrade")
+		SET(MAKE_GLEW_PROJECT_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/build_glew_extensions.ps1")
+		execute_process(COMMAND powershell -ExecutionPolicy Bypass -File ${MAKE_GLEW_PROJECT_SCRIPT} OUTPUT VERBOSE)
+
+	ENDIF()
+
+	add_subdirectory(glew EXCLUDE_FROM_ALL)
+
+	IF (${GLEW_STATIC} AND ${glew-cmake_BUILD_STATIC})
+		target_compile_definitions(glew INTERFACE GLEW_STATIC=ON)
+	ENDIF()
 ENDIF()
 
 #################
