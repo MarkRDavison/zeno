@@ -5,7 +5,7 @@ function Generate-ZenoBuildFiles {
 	Write-Host "Generating Build Files" -ForegroundColor Yellow
 	Write-Host "===================================" -ForegroundColor Yellow
 
-	$cmd = 'cmake -DCMAKE_BUILD_TYPE=' + $BuildType + ' ..'
+	$cmd = 'cmake -DGLEW_STATIC=ON -DCMAKE_BUILD_TYPE=' + $BuildType + ' ..'
 	Write-Host $cmd -ForegroundColor Cyan
 	Invoke-Expression $cmd
 
