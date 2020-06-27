@@ -142,7 +142,7 @@ namespace ze {
 		return many.front();
 	}
 	const std::vector<XmlNode*> XmlDocument::selectMany(XmlNode* _start, const std::string& _selection) const {
-		auto parts = split(_selection, '/');
+		auto& parts = split(_selection, '/');
 
 		XmlNode* node = _start;
 		if (parts.empty() || node->name != parts[0]) {

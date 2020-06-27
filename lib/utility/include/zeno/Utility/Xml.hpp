@@ -88,7 +88,7 @@ namespace ze {
 
 	template <typename T>
 	static T getAttribute(const XmlNode* _node, const std::string& _name) {
-		throw std::exception("Could not get attribute.");
+		throw std::exception();
 	}
 
 	template <>
