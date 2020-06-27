@@ -73,15 +73,8 @@ ELSE(GLEW_FOUND)
 
 	add_subdirectory(glew EXCLUDE_FROM_ALL)
 	
-	SET(GLEW_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/glew")
-
-	find_package(GLEW REQUIRED)
-	MESSAGE(NOTICE "GLEW_LIBRARY: ${GLEW_LIBRARY}")
-	MESSAGE(NOTICE "GLEW_INCLUDE_DIR: ${GLEW_INCLUDE_DIR}")	
-	
-	add_library(zeno-glew INTERFACE)
-	target_include_directories(zeno-glew INTERFACE ${GLEW_INCLUDE_DIR})
-	target_link_libraries(zeno-glew INTERFACE ${GLEW_LIBRARY})
+	add_library(zeno-glfw INTERFACE)
+	target_link_libraries(zeno-glfw INTERFACE glfw)
 	IF (${GLEW_STATIC})
 		target_compile_definitions(zeno-glew INTERFACE GLEW_STATIC=ON)
 	ENDIF()
