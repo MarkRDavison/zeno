@@ -15,7 +15,7 @@ file (GLOB_RECURSE LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 
 #set library
 add_library (${LIB_NAME} ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
-target_link_libraries(${LIB_NAME} PRIVATE glfw)
+target_link_libraries(${LIB_NAME} PRIVATE zeno-glfw)
 target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})
 target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/window/include")
 

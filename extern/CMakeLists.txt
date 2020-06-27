@@ -1,20 +1,24 @@
+if(POLICY CMP0048)
+  cmake_policy(SET CMP0048 NEW)
+endif()
 if(POLICY CMP0072)
   cmake_policy(SET CMP0072 NEW)
 endif()
-if(POLICY CMP0048)
-  cmake_policy(SET CMP0048 NEW)
+if(POLICY CMP0074)
+  cmake_policy(SET CMP0074 NEW)
 endif()
 
 #################
 #	GLFW
 #################
 IF(GLFW_ROOT)
-find_package(glfw QUIET)
+find_package(GLFW QUIET)
 ENDIF()
 IF(GLFW_FOUND)
 	add_library(zeno-glfw INTERFACE)
 	target_include_directories(zeno-glfw INTERFACE ${GLFW_INCLUDE_DIRS})
 	target_link_libraries(zeno-glfw INTERFACE ${GLFW_LIBRARIES})
+
 ELSE(GLFW_FOUND)
 	set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build GLFW without examples")
 	set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build GLFW without tests")
