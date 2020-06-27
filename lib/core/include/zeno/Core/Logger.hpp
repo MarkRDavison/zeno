@@ -2,6 +2,7 @@
 #define INCLUDED_ZENO_CORE_LOGGER_HPP_
 
 #include <ostream>
+#include <string>
 
 namespace ze {
 
