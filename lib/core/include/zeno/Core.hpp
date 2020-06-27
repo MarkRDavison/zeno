@@ -4,6 +4,7 @@
 #include <zeno/Core/Clock.hpp>
 #include <zeno/Core/Event.hpp>
 #include <zeno/Core/Keyboard.hpp>
+#include <zeno/Core/Logger.hpp>
 #include <zeno/Core/Mat4x4.hpp>
 #include <zeno/Core/Mouse.hpp>
 #include <zeno/Core/Rect.hpp>

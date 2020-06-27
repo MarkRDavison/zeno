@@ -74,14 +74,21 @@ namespace ze {
             std::cerr << "Trying to draw vertex array that hasn't been created" << std::endl;
         }
 
-        if (_info.shader != nullptr) {
-            _info.shader->bind();
+        if (_info.shader == nullptr) {
+            if (_info.texture == nullptr) {
+                _info.shader = &Shader::VertexArrayShader;
+            } else {
+                _info.shader = &Shader::VertexArrayTextureShader;
+            }
         }
+        assert(_info.shader != nullptr);
+
+        _info.shader->bind();
+
         if (_info.texture != nullptr) {
             _info.texture->bind();
         }
 
-        assert(_info.shader != nullptr);
         _info.shader->passUniform("model", _info.model);
         _info.shader->passUniform("view", _info.view);
         _info.shader->passUniform("projection", _info.projection);

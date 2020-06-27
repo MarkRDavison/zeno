@@ -10,6 +10,9 @@
 
 namespace ze {
 
+    Shader Shader::VertexArrayShader;
+    Shader Shader::VertexArrayTextureShader;
+
     void CheckStatus(GLuint obj) {
         GLint status = GL_FALSE;
         if (glIsShader(obj)) glGetShaderiv(obj, GL_COMPILE_STATUS, &status);
@@ -37,6 +40,9 @@ namespace ze {
         return createShader(m_VertexSource, m_FragmentSource);
     }
     bool Shader::createShader(const std::string& _vertex, const std::string& _fragment) {
+        return createShader(_vertex, _fragment, {});
+    }
+    bool Shader::createShader(const std::string& _vertex, const std::string& _fragment, const std::vector<std::string>& _uniforms) {
         m_Loaded = false;
         if (m_ProgramId != 0) {
             glDeleteProgram(m_ProgramId);
@@ -69,6 +75,13 @@ namespace ze {
         CheckStatus(m_ProgramId);
 
         m_Loaded = true;
+
+        for (const auto& u : _uniforms) {
+            if (!findLocationOfUniform(u)) {
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -143,5 +156,68 @@ namespace ze {
     }
     bool Shader::isLoaded() const {
         return m_Loaded;
+    }
+
+
+    void Shader::createDefaultShaders() {
+        const std::string vertexArray_Vertex = R"(
+#version 410 core
+
+layout(location = 0) in vec3 in_Position;
+layout(location = 1) in vec4 in_Color;
+
+uniform mat4 model = mat4(1.0f);
+uniform mat4 view = mat4(1.0f);
+uniform mat4 projection = mat4(1.0f);
+
+out vec4 fragColor;
+
+void main() {
+    gl_Position = projection * model * view * vec4(in_Position, 1.0);
+    fragColor = in_Color;
+})";
+        const std::string vertexArray_Fragment = R"(
+#version 410 core
+
+in vec4 fragColor;
+out vec4 FragColor;
+
+void main() {
+    FragColor = fragColor;
+})";
+        const std::string vertexArrayTexture_Vertex = R"(
+#version 410 core
+
+layout(location = 0) in vec3 in_Position;
+layout(location = 1) in vec4 in_Color;
+layout(location = 2) in vec2 in_TexUV;
+
+uniform mat4 model = mat4(1.0f);
+uniform mat4 view = mat4(1.0f);
+uniform mat4 projection = mat4(1.0f);
+
+out vec4 fragColor;
+out vec2 texUV;
+
+void main() {
+    gl_Position = projection * view * model * vec4(in_Position, 1.0);
+    fragColor = in_Color;
+    texUV = in_TexUV;
+})";
+        const std::string vertexArrayTexture_Fragment = R"(
+#version 410 core
+
+in vec4 fragColor;
+in vec2 texUV;
+
+uniform sampler2D tex;
+out vec4 FragColor;
+
+void main() {
+    FragColor = texture(tex, texUV) * fragColor;
+})";
+
+        VertexArrayShader.createShader(vertexArray_Vertex, vertexArray_Fragment, {"model", "view", "projection"});
+        VertexArrayTextureShader.createShader(vertexArrayTexture_Vertex, vertexArrayTexture_Fragment, { "model", "view", "projection" });
     }
 }

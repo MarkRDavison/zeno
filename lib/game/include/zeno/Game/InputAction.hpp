@@ -7,7 +7,7 @@
 namespace ze {
 
 	struct InputAction {
-		enum InputActivationType {
+		enum class InputActivationType {
 			KeyPress,
 			KeyHold,
 			MouseButtonPress,

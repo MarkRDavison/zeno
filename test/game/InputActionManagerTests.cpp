@@ -9,7 +9,6 @@ namespace ze {
 	TEST_CASE("non registered action is not invoked", "[InputActionManager]") {
 		fakeit::Mock<IInputManager> inputManager;
 		InputActionManager actionManager(inputManager.get());
-		std::cout << "Here1" << std::endl;
 		InputAction ac;
 		REQUIRE_FALSE(actionManager.isActionInvoked(ac));
 	}

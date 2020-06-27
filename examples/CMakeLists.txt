@@ -1,2 +1,2 @@
 add_subdirectory(Mat4x4Printer)
-add_subdirectory(GlfwApp)
+add_subdirectory(Window)

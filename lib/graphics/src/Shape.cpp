@@ -1,15 +1,13 @@
 #include <zeno/Graphics/Shape.hpp>
-
 #include <zeno/Core/VectorMath.hpp>
-
 #include <GL/glew.h>
-
+#include <cassert>
 #include <limits>
 
 namespace ze {
 
 	Shape::Shape(void) :
-		m_InternalColour(Colour::Black),
+		m_InternalColour(Colour::White),
 		m_OutlineColour(Colour::White),
 		m_OutlineThickness(0.0f),
 		m_PointsToRender(0),
@@ -35,9 +33,17 @@ namespace ze {
 	}
 
 	void Shape::render(const Window& _window, RenderInfo _info) const {
-		if (_info.shader != nullptr) {
-			_info.shader->bind();
+		if (_info.shader == nullptr) {
+			if (_info.texture == nullptr) {
+				_info.shader = &Shader::VertexArrayShader;
+			} else {
+				_info.shader = &Shader::VertexArrayTextureShader;
+			}
 		}
+		assert(_info.shader != nullptr);
+
+		_info.shader->bind();
+
 		if (_info.texture != nullptr) {
 			_info.texture->bind();
 		}
@@ -47,11 +53,10 @@ namespace ze {
 		_info.model *= Mat4x4::createTranslation(Vector3f(getTranslation(), 0.0f));
 		_info.model *= Mat4x4::createTranslation(Vector3f(getOrigin(), 0.0f));
 
-		if (_info.shader != nullptr) {
-			_info.shader->passUniform("model", _info.model);
-			_info.shader->passUniform("view", _info.view);
-			_info.shader->passUniform("projection", _info.projection);
-		}
+		_info.shader->passUniform("model", _info.model);
+		_info.shader->passUniform("view", _info.view);
+		_info.shader->passUniform("projection", _info.projection);
+		
 
 		glBindVertexArray(m_InternalVAO);
 		glDrawArrays(GL_TRIANGLE_FAN, 0, m_PointsToRender);

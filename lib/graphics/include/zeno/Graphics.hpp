@@ -11,5 +11,7 @@
 #include <zeno/Graphics/Shader.hpp>
 #include <zeno/Graphics/Shape.hpp>
 #include <zeno/Graphics/Texture.hpp>
+#include <zeno/Graphics/Vertex.hpp>
+#include <zeno/Graphics/VertexArray.hpp>
 
 #endif // INCLUDED_ZENO_GRAPHICS_HPP_
