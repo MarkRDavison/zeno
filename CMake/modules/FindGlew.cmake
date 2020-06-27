@@ -132,3 +132,5 @@ find_package_handle_standard_args(GLEW
         GLEW_INCLUDE_DIR
         GLEW_LIBRARY
 )
+
+mark_as_advanced(GLEW_INCLUDE_DIR GLEW_LIBRARY)
