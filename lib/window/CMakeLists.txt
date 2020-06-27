@@ -3,6 +3,11 @@
 #configure variables
 SET(MODULE_NAME "window")
 SET(LIB_NAME "zeno-${MODULE_NAME}${LIBRARY_EXTENSION}")
+#	set_target_properties(libglew_static PROPERTIES
+#		OUTPUT_NAME "glew"
+#		DEBUG_POSTFIX d)
+# TODO: Insteadd of lib extensions
+
 
 #configure directories
 set (LIBRARY_MODULE_PATH "${PROJECT_SOURCE_DIR}/lib/${MODULE_NAME}")

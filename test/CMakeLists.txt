@@ -3,8 +3,9 @@ SET(TestMain "ZenoTest")
 #TODO: Maybe have seperate executables per module?
 
 ADD_EXECUTABLE(${TestMain} "main.cpp")
-TARGET_COMPILE_FEATURES(${TestMain} PRIVATE cxx_std_17)
 TARGET_LINK_LIBRARIES(${TestMain} PRIVATE Catch2)
+#SET_PROPERTY(TARGET ${TestMain} PROPERTY CXX_STANDARD 17)
+#SET_PROPERTY(TARGET ${TestMain} PROPERTY CXX_STANDARD_REQUIRED ON)
 
 # Core Module Tests
 ADD_SUBDIRECTORY("core")
