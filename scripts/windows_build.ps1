@@ -1,11 +1,18 @@
 function Generate-ZenoBuildFiles {
-	param([string] $BuildType)
+	param(
+		[string] $BuildType,
+		[bool] $GlewStatic
+	)
 
 	Write-Host "===================================" -ForegroundColor Yellow
 	Write-Host "Generating Build Files" -ForegroundColor Yellow
 	Write-Host "===================================" -ForegroundColor Yellow
 
-	$cmd = 'cmake -DGLEW_STATIC=ON -DCMAKE_BUILD_TYPE=' + $BuildType + ' ..'
+	$cmd = 'cmake'
+	if ($GlewStatic) {
+		$cmd = $cmd + ' -DGLEW_STATIC=ON'
+	}
+	$cmd = $cmd + ' -DCMAKE_BUILD_TYPE=' + $BuildType + ' ..'
 	Write-Host $cmd -ForegroundColor Cyan
 	Invoke-Expression $cmd
 
@@ -50,10 +57,10 @@ function Run-ZenoTests {
 function Do-TheThing {
 	param(
 		[string] $BuildType,
+		[bool] $GlewStatic,
 		[bool] $Install
 	)
-	# Build-Glew -BuildType $BuildType
-	Generate-ZenoBuildFiles -BuildType $BuildType
+	Generate-ZenoBuildFiles -BuildType $BuildType -GlewStatic $GlewStatic
 	Build-ZenoSolution -BuildType $BuildType
 	if ($Install){
 		Install-ZenoArtifacts -BuildType $BuildType
