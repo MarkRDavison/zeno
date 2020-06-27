@@ -88,47 +88,47 @@ namespace ze {
 		static T getAttribute(const XmlNode* _node, const std::string& _name) {
 			throw std::exception("Could not get attribute.");
 		}
-
-		template <>
-		static std::string getAttribute(const XmlNode* _node, const std::string& _name) {
-			if (_node->attributes.count(_name) > 0) {
-				return _node->attributes.at(_name);
-			}
-			return "";
-		}
-		template <>
-		static bool getAttribute(const XmlNode* _node, const std::string& _name) {
-			if (_node->attributes.count(_name) > 0) {
-				return _node->attributes.at(_name) == "true";
-			}
-			return false;
-		}
-
-		template <>
-		static unsigned getAttribute(const XmlNode* _node, const std::string& _name) {
-			if (_node->attributes.count(_name) > 0) {
-				return (unsigned)std::atol(_node->attributes.at(_name).c_str());
-			}
-			return 0;
-		}
-
-		template <>
-		static int getAttribute(const XmlNode* _node, const std::string& _name) {
-			if (_node->attributes.count(_name) > 0) {
-				return std::atoi(_node->attributes.at(_name).c_str());
-			}
-			return 0;
-		}
-
-		template <>
-		static float getAttribute(const XmlNode* _node, const std::string& _name) {
-			if (_node->attributes.count(_name) > 0) {
-				return (float)std::atof(_node->attributes.at(_name).c_str());
-			}
-			return 0.0f;
-		}
 	};
 
+
+	template <>
+	inline static std::string Xml::getAttribute(const XmlNode* _node, const std::string& _name) {
+		if (_node->attributes.count(_name) > 0) {
+			return _node->attributes.at(_name);
+		}
+		return "";
+	}
+	template <>
+	inline static bool Xml::getAttribute(const XmlNode* _node, const std::string& _name) {
+		if (_node->attributes.count(_name) > 0) {
+			return _node->attributes.at(_name) == "true";
+		}
+		return false;
+	}
+
+	template <>
+	inline static unsigned Xml::getAttribute(const XmlNode* _node, const std::string& _name) {
+		if (_node->attributes.count(_name) > 0) {
+			return (unsigned)std::atol(_node->attributes.at(_name).c_str());
+		}
+		return 0;
+	}
+
+	template <>
+	inline static int Xml::getAttribute(const XmlNode* _node, const std::string& _name) {
+		if (_node->attributes.count(_name) > 0) {
+			return std::atoi(_node->attributes.at(_name).c_str());
+		}
+		return 0;
+	}
+
+	template <>
+	inline static float Xml::getAttribute(const XmlNode* _node, const std::string& _name) {
+		if (_node->attributes.count(_name) > 0) {
+			return (float)std::atof(_node->attributes.at(_name).c_str());
+		}
+		return 0.0f;
+	}
 }
 
 #endif // INCLUDED_ZENO_UTILITY_XML_HPP_
