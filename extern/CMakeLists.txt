@@ -37,7 +37,6 @@ IF (${ZENO_BUILD_TESTS})
 	add_subdirectory(FakeIt)
 
 	add_library(fakeit INTERFACE)
-	target_compile_definitions(fakeit INTERFACE CATCH_INTERNAL_UNSUPPRESS_PARENTHESES_WARNINGS=/*"NOTHING"*/) # Weird issue where that isn't defined
 	target_include_directories(fakeit INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/FakeIt/single_header/catch")
 ENDIF()
 
