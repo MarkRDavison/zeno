@@ -34,22 +34,9 @@ ENDIF()
 #################
 #	GLEW
 #################
-IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extern/glew/include/GL/glew.h")
-	MESSAGE(STATUS "GL/glew.h does not exist, making it")
-	IF (${CMAKE_CXX_COMPILER_ID} STREQUAL ${MSVC})
-		MESSAGE(TRACE "Visual Studio Compiler detected, need to 'make extensions' via the project upgrade")
-		SET(MAKE_GLEW_PROJECT_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/build_glew_extensions.ps1")
-		execute_process(COMMAND powershell -ExecutionPolicy Bypass -File ${MAKE_GLEW_PROJECT_SCRIPT} OUTPUT VERBOSE)
-
-	ENDIF()
-
-	IF(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extern/glew/include/GL/glew.h")
-		MESSAGE(FATAL ERROR "We were supposed to make GL/glew.h and we didnt shits broke yall")
-	ENDIF()
-ELSE()
-	MESSAGE(STATUS "GL/glew.h does exist, carrying on")
-ENDIF()
-
+if(POLICY CMP0048)
+  cmake_policy(SET CMP0048 OLD)
+endif()
 find_package(GLEW QUIET)
 IF (GLEW_FOUND) 
 	MESSAGE(NOTICE "We found GLEW!!!! dont use the submodule")
@@ -80,7 +67,6 @@ ELSE(GLEW_FOUND)
 	add_subdirectory(glew EXCLUDE_FROM_ALL)
 	
 	add_library(zeno-glew INTERFACE)
-	target_link_libraries(zeno-glew INTERFACE libglew_static)
 	target_include_directories(zeno-glew INTERFACE ${GLEW_INCLUDE_DIR})
 	IF (GLEW_STATIC)
 		target_link_libraries(zeno-glew INTERFACE libglew_static)
