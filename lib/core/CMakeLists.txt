@@ -1,19 +1,13 @@
-# CMake build : library
-
-#configure variables
 SET(MODULE_NAME "core")
 SET(LIB_NAME "zeno-${MODULE_NAME}${LIBRARY_EXTENSION}")
 
-#configure directories
 set (LIBRARY_MODULE_PATH "${PROJECT_SOURCE_DIR}/lib/${MODULE_NAME}")
 set (LIBRARY_SRC_PATH "${LIBRARY_MODULE_PATH}/src" )
 set (LIBRARY_INCLUDE_PATH "${LIBRARY_MODULE_PATH}/include")
 
-#set sources
 file (GLOB_RECURSE LIB_HEADER_FILES "${LIBRARY_INCLUDE_PATH}/*.hpp")
 file (GLOB_RECURSE LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 
-#set library
 add_library (${LIB_NAME} ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
 target_link_libraries(${LIB_NAME} PRIVATE zeno-glfw)
 target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})
