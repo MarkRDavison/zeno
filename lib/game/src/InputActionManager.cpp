@@ -39,15 +39,19 @@ namespace ze {
 	}
 
 	bool InputActionManager::isActionInvoked(const std::string& _key) const {
+		std::cout << "Here2" << std::endl;
 		const auto& iter = registeredActions.find(_key);
+		std::cout << "Here3" << std::endl;
 		if (iter == registeredActions.end()) {
+			std::cout << "Here3.5" << std::endl;
 			return false;
 		}
-
+		std::cout << "Here4" << std::endl;
 		return isActionInvoked((*iter).second);
 	}
 
 	bool InputActionManager::isActionInvoked(const InputAction& _action) const {
+		std::cout << "Here51" << std::endl;
 		if (_action.primaryActivationType == InputAction::InputActivationType::KeyHold ||
 			_action.primaryActivationType == InputAction::InputActivationType::KeyPress) {
 			if (m_InputManager.isKeyDown(_action.primaryKey) &&
