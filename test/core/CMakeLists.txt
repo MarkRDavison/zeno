@@ -1,3 +1,15 @@
+SET(MODULE "core")
+SET(TestMain "${MODULE}-test")
+
 FILE(GLOB_RECURSE LIB_TEST_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
+ADD_EXECUTABLE(${TestMain} "${MODULE}.cpp")
 TARGET_SOURCES(${TestMain} PRIVATE ${LIB_TEST_FILES})
+TARGET_LINK_LIBRARIES(${TestMain} PRIVATE zeno-core)
+TARGET_LINK_LIBRARIES(${TestMain} PRIVATE Catch2)
+SET_PROPERTY(TARGET ${TestMain} PROPERTY CXX_STANDARD 17)
+SET_PROPERTY(TARGET ${TestMain} PROPERTY CXX_STANDARD_REQUIRED ON)
+
+include(CTest)
+include("${PROJECT_SOURCE_DIR}/extern/Catch2/contrib/ParseAndAddCatchTests.cmake")
+ParseAndAddCatchTests(${TestMain})
