@@ -34,6 +34,21 @@ ENDIF()
 #################
 #	GLEW
 #################
+IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extern/glew/include/GL/glew.h")
+	MESSAGE(STATUS "GL/glew.h does not exist, making it")
+	IF (${CMAKE_CXX_COMPILER_ID} STREQUAL ${MSVC})
+		MESSAGE(TRACE "Visual Studio Compiler detected, need to 'make extensions' via the project upgrade")
+		SET(MAKE_GLEW_PROJECT_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/build_glew_extensions.ps1")
+		execute_process(COMMAND powershell -ExecutionPolicy Bypass -File ${MAKE_GLEW_PROJECT_SCRIPT} OUTPUT VERBOSE)
+
+	ENDIF()
+
+	IF(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extern/glew/include/GL/glew.h")
+		MESSAGE(FATAL ERROR "We were supposed to make GL/glew.h and we didnt shits broke yall")
+	ENDIF()
+ELSE()
+	MESSAGE(STATUS "GL/glew.h does exist, carrying on")
+ENDIF()
 
 find_package(GLEW QUIET)
 IF (GLEW_FOUND) 
@@ -62,15 +77,6 @@ ELSE(GLEW_FOUND)
 	ENDIF()
 
 	SET(ONLY_LIBS ON CACHE BOOL "Do not build executables")
-
-	IF (${CMAKE_CXX_COMPILER_ID} STREQUAL ${MSVC})
-		MESSAGE(TRACE "Visual Studio Compiler detected, need to 'make extensions' via the project upgrade")
-		SET(MAKE_GLEW_PROJECT_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/build_glew_extensions.ps1")
-		execute_process(COMMAND powershell -ExecutionPolicy Bypass -File ${MAKE_GLEW_PROJECT_SCRIPT} OUTPUT VERBOSE)
-
-
-	ENDIF()
-
 	add_subdirectory(glew EXCLUDE_FROM_ALL)
 	
 	add_library(zeno-glew INTERFACE)
