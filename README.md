@@ -3,6 +3,6 @@
 To Build need to specify with CMake
 Require:
 	GLEW_STATIC
-	GLEW_LOCATION
 Option: (Will use submodules if not given)
 	GLFW_ROOT
+	GLEW_LOCATION
