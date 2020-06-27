@@ -7,3 +7,6 @@
 [submodule "extern/stb"]
 	path = extern/stb
 	url = https://github.com/nothings/stb
+[submodule "extern/glew"]
+	path = extern/glew
+	url = https://github.com/Perlmint/glew-cmake
