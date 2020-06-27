@@ -75,6 +75,7 @@ ELSE(GLEW_FOUND)
 	
 	add_library(zeno-glew INTERFACE)
 	target_link_libraries(zeno-glew INTERFACE glew)
+	target_include_directories(zeno-glew INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/glew/include")
 	IF (${GLEW_STATIC})
 		target_compile_definitions(zeno-glew INTERFACE GLEW_STATIC=ON)
 	ENDIF()
