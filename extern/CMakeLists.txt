@@ -29,9 +29,11 @@ ENDIF()
 #	GLEW
 #################
 
-find_package(glew QUIET)
+find_package(GLEW QUIET)
 IF (GLEW_FOUND) 
 	MESSAGE(STATUS "We found GLEW!!!! dont use the submodule")
+	MESSAGE(STATUS "GLEW_LIBRARY: ${GLEW_LIBRARY}")
+	MESSAGE(STATUS "GLEW_INCLUDE_DIR: ${GLEW_INCLUDE_DIR}")
 
 	add_library(glew INTERFACE)
 	target_include_directories(glew INTERFACE ${GLEW_INCLUDE_DIR})
@@ -60,9 +62,16 @@ ELSE(GLEW_FOUND)
 		SET(MAKE_GLEW_PROJECT_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/build_glew_extensions.ps1")
 		execute_process(COMMAND powershell -ExecutionPolicy Bypass -File ${MAKE_GLEW_PROJECT_SCRIPT} OUTPUT VERBOSE)
 
+
 	ENDIF()
 
 	add_subdirectory(glew EXCLUDE_FROM_ALL)
+	
+	SET(GLEW_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/glew")
+
+	find_package(GLEW REQUIRED)
+	MESSAGE(STATUS "GLEW_LIBRARY: ${GLEW_LIBRARY}")
+	MESSAGE(STATUS "GLEW_INCLUDE_DIR: ${GLEW_INCLUDE_DIR}")	
 
 	IF (${GLEW_STATIC} AND ${glew-cmake_BUILD_STATIC})
 		target_compile_definitions(glew INTERFACE GLEW_STATIC=ON)

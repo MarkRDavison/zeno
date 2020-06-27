@@ -14,20 +14,28 @@ Write-Host "===================================" -ForegroundColor Yellow
 Write-Host "Building Glew Extensions" -ForegroundColor Yellow
 Write-Host "===================================" -ForegroundColor Yellow
 
-Push-Directory
+Push-Location
 
 $visualStudioPath = Get-VisualStudioInstallPath
 
 Write-Host "VS Path" $visualStudioPath
+$BuildType = "Release"
 
-cd glew/build/vc15
+$externLoc = Join-Path -Path $PSScriptRoot -ChildPath "../extern/"
+Write-Host "ExternalLoc:" $externLoc
+Set-Location $externLoc
+Set-Location glew/build/vc15
 
 $cmd = 'devenv glew.sln /upgrade'
 Write-Host $cmd -ForegroundColor Cyan
-#Invoke-Expression $cmd
+Invoke-Expression $cmd
 
-$cmd = 'devenv glew.sln /build ' + $BuildType + ' /projectconfig ' + $BuildType
+$cmd = 'devenv glew_static.vcxproj /build ' + $BuildType + ' /projectconfig ' + $BuildType
 Write-Host $cmd -ForegroundColor Cyan
-#Invoke-Expression $cmd
+Invoke-Expression $cmd
 
-Pop-Directory
+$cmd = 'devenv glew_shared.vcxproj /build ' + $BuildType + ' /projectconfig ' + $BuildType
+Write-Host $cmd -ForegroundColor Cyan
+Invoke-Expression $cmd
+
+Pop-Location

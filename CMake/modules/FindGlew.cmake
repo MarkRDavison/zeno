@@ -46,10 +46,14 @@ if (WIN32)
         DOC "The directory where GL/glew.h resides" )
 
     if ("${CMAKE_GENERATOR}" MATCHES "[Ww]in64")
-        set(ARCH x64)
+        set(ARCH1 x64)
+        set(ARCH2 x64)
     else()
-        set(ARCH x86)
+        set(ARCH1 x86)
+        set(ARCH2 Win32)
     endif()
+
+    
 
     find_library(GLEW_LIBRARY
         NAMES
@@ -62,7 +66,8 @@ if (WIN32)
             "${PROJECT_SOURCE_DIR}/extern/glew/bin"
             "${PROJECT_SOURCE_DIR}/extern/glew/lib"
         PATH_SUFFIXES
-            Release/${ARCH}
+            Release/${ARCH1}
+            Release/${ARCH2}
         DOC "The GLEW library")
 endif ()
 
