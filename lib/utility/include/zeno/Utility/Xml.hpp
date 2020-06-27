@@ -84,22 +84,22 @@ namespace ze {
 			return _node->attributes.count(_name) > 0;
 		}
 
-		template <typename T>
-		static T getAttribute(const XmlNode* _node, const std::string& _name) {
-			throw std::exception("Could not get attribute.");
-		}
 	};
 
+	template <typename T>
+	static T getAttribute(const XmlNode* _node, const std::string& _name) {
+		throw std::exception("Could not get attribute.");
+	}
 
 	template <>
-	std::string Xml::getAttribute(const XmlNode* _node, const std::string& _name) {
+	std::string getAttribute(const XmlNode* _node, const std::string& _name) {
 		if (_node->attributes.count(_name) > 0) {
 			return _node->attributes.at(_name);
 		}
 		return "";
 	}
 	template <>
-	bool Xml::getAttribute(const XmlNode* _node, const std::string& _name) {
+	bool getAttribute(const XmlNode* _node, const std::string& _name) {
 		if (_node->attributes.count(_name) > 0) {
 			return _node->attributes.at(_name) == "true";
 		}
@@ -107,7 +107,7 @@ namespace ze {
 	}
 
 	template <>
-	unsigned Xml::getAttribute(const XmlNode* _node, const std::string& _name) {
+	unsigned getAttribute(const XmlNode* _node, const std::string& _name) {
 		if (_node->attributes.count(_name) > 0) {
 			return (unsigned)std::atol(_node->attributes.at(_name).c_str());
 		}
@@ -115,7 +115,7 @@ namespace ze {
 	}
 
 	template <>
-	int Xml::getAttribute(const XmlNode* _node, const std::string& _name) {
+	int getAttribute(const XmlNode* _node, const std::string& _name) {
 		if (_node->attributes.count(_name) > 0) {
 			return std::atoi(_node->attributes.at(_name).c_str());
 		}
@@ -123,7 +123,7 @@ namespace ze {
 	}
 
 	template <>
-	float Xml::getAttribute(const XmlNode* _node, const std::string& _name) {
+	float getAttribute(const XmlNode* _node, const std::string& _name) {
 		if (_node->attributes.count(_name) > 0) {
 			return (float)std::atof(_node->attributes.at(_name).c_str());
 		}
