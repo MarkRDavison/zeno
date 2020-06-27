@@ -11,7 +11,8 @@ namespace ze {
 		fakeit::Mock<IInputManager> inputManager;
 		InputActionManager actionManager(inputManager.get());
 		std::cout << "Here1" << std::endl;
-		REQUIRE_FALSE(actionManager.isActionInvoked("ACTION_NAME"));
+		InputAction ac;
+		REQUIRE_FALSE(actionManager.isActionInvoked(ac));
 	}
 
 	TEST_CASE("registered button down action is invoked and delegates to input manager", "[InputActionManager]") {
