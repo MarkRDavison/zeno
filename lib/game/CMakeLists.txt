@@ -13,6 +13,7 @@ target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})
 target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/core/include")
 target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/graphics/include")
 target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/window/include")
+target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/utility/include")
 
 add_library("zeno-${MODULE_NAME}" INTERFACE)
 target_include_directories("zeno-${MODULE_NAME}" INTERFACE ${LIBRARY_INCLUDE_PATH})
