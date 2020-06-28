@@ -176,7 +176,6 @@ namespace ze {
 	}
 	void Json::createTreeFromStreamingDocument(JsonDocument& _document) {
 		JsonNode* root{ nullptr };
-		JsonNode* current{ root };
 
 		int callbackId = _document.tokenFound.registerCallback([&](JsonToken _token) -> void {
 

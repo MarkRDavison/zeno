@@ -1,7 +1,7 @@
 ﻿{
   "configurations": [
     {
-      "name": "x86-Debug",
+      "name": "x86-DebugMsvc",
       "generator": "Ninja",
       "configurationType": "Debug",
       "buildRoot": "${projectDir}\\out\\build\\${name}",
@@ -10,6 +10,18 @@
       "buildCommandArgs": "",
       "ctestCommandArgs": "",
       "inheritEnvironments": [ "msvc_x86" ],
+      "variables": []
+    },
+    {
+      "name": "x86-DebugClang",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "-DGLEW_LOCATION=\"C:/Workspace/Libraries/glew-2.1.0\" -DGLEW_STATIC=ON -DGLFW_ROOT=\"C:/Workspace/Libraries/glfw-3.2.1.bin.WIN32\"",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "clang_cl_x86" ],
       "variables": []
     }
   ]

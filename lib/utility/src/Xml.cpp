@@ -370,4 +370,7 @@ namespace ze {
 
 		return result;
 	}
+	bool Xml::hasAttribute(const XmlNode* _node, const std::string& _name) {
+		return _node->attributes.count(_name) > 0;
+	}
 }

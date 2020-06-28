@@ -1,6 +1,8 @@
 #ifndef INCLUDED_ZENO_UTILITY_XML_HPP_
 #define INCLUDED_ZENO_UTILITY_XML_HPP_
 
+#pragma clang diagnostic ignored "-Wunused-function"
+
 #include <zeno/Core/Signal.hpp>
 #include <unordered_map>
 #include <string>
@@ -70,64 +72,57 @@ namespace ze {
 		std::string m_Text;
 	};
 
-	class Xml {
-	private:
-		Xml() = delete;
-		~Xml() = delete;
-	public:
-		static XmlDocument parseFromFile(const std::string& _file);
-		static XmlDocument parseFromText(const std::string& _text);
-		static bool validate(const std::string& _text);
-		static bool createTreeFromStreamingDocument(XmlDocument& _document);
+	namespace Xml {
+		XmlDocument parseFromFile(const std::string& _file);
+		XmlDocument parseFromText(const std::string& _text);
+		bool validate(const std::string& _text);
+		bool createTreeFromStreamingDocument(XmlDocument& _document);
 
-		static bool hasAttribute(const XmlNode* _node, const std::string& _name) {
-			return _node->attributes.count(_name) > 0;
+		bool hasAttribute(const XmlNode* _node, const std::string& _name);
+
+		template <typename T>
+		static T getAttribute(const XmlNode* _node, const std::string& _name) {
+			throw std::exception();
 		}
 
-	};
-
-	template <typename T>
-	static T getAttribute(const XmlNode* _node, const std::string& _name) {
-		throw std::exception();
-	}
-
-	template <>
-	std::string getAttribute(const XmlNode* _node, const std::string& _name) {
-		if (_node->attributes.count(_name) > 0) {
-			return _node->attributes.at(_name);
+		template <>
+		std::string getAttribute(const XmlNode* _node, const std::string& _name) {
+			if (_node->attributes.count(_name) > 0) {
+				return _node->attributes.at(_name);
+			}
+			return "";
 		}
-		return "";
-	}
-	template <>
-	bool getAttribute(const XmlNode* _node, const std::string& _name) {
-		if (_node->attributes.count(_name) > 0) {
-			return _node->attributes.at(_name) == "true";
+		template <>
+		bool getAttribute(const XmlNode* _node, const std::string& _name) {
+			if (_node->attributes.count(_name) > 0) {
+				return _node->attributes.at(_name) == "true";
+			}
+			return false;
 		}
-		return false;
-	}
 
-	template <>
-	unsigned getAttribute(const XmlNode* _node, const std::string& _name) {
-		if (_node->attributes.count(_name) > 0) {
-			return (unsigned)std::atol(_node->attributes.at(_name).c_str());
+		template <>
+		unsigned getAttribute(const XmlNode* _node, const std::string& _name) {
+			if (_node->attributes.count(_name) > 0) {
+				return (unsigned)std::atol(_node->attributes.at(_name).c_str());
+			}
+			return 0;
 		}
-		return 0;
-	}
 
-	template <>
-	int getAttribute(const XmlNode* _node, const std::string& _name) {
-		if (_node->attributes.count(_name) > 0) {
-			return std::atoi(_node->attributes.at(_name).c_str());
+		template <>
+		int getAttribute(const XmlNode* _node, const std::string& _name) {
+			if (_node->attributes.count(_name) > 0) {
+				return std::atoi(_node->attributes.at(_name).c_str());
+			}
+			return 0;
 		}
-		return 0;
-	}
 
-	template <>
-	float getAttribute(const XmlNode* _node, const std::string& _name) {
-		if (_node->attributes.count(_name) > 0) {
-			return (float)std::atof(_node->attributes.at(_name).c_str());
+		template <>
+		float getAttribute(const XmlNode* _node, const std::string& _name) {
+			if (_node->attributes.count(_name) > 0) {
+				return (float)std::atof(_node->attributes.at(_name).c_str());
+			}
+			return 0.0f;
 		}
-		return 0.0f;
 	}
 }
 

@@ -5,8 +5,8 @@ namespace ze {
 	VideoMode::VideoMode(unsigned _width, unsigned _height, const std::string& _title, int _decoration) :
 		width(_width),
 		height(_height),
-		title(_title),
-		decoration(_decoration) {
+		decoration(_decoration),
+		title(_title) {
 	}
 	VideoMode::VideoMode(unsigned _width, unsigned _height, const std::string& _title) :
 		VideoMode(_width, _height, _title, 1) {

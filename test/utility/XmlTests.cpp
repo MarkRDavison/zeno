@@ -49,7 +49,7 @@ namespace ze {
             XmlDocument doc;
             REQUIRE(doc.readFromText(text));
 
-            const int expectedItems = 2;
+            const unsigned expectedItems = 2;
             std::vector<ItemDiscovered> items;
 
             doc.itemDiscovered.registerCallback([&](ItemDiscovered _item) -> void {
@@ -57,7 +57,7 @@ namespace ze {
                 });
 
             REQUIRE(doc.parse(doc.getInputRepresentation()));
-            REQUIRE(2 == items.size());
+            REQUIRE(expectedItems == items.size());
 
             ItemDiscovered rootOpen = items[0];
             ItemDiscovered rootClose = items[1];
@@ -80,12 +80,11 @@ namespace ze {
             XmlDocument doc;
             REQUIRE(doc.readFromText(text));
 
-            const int expectedItems = 2;
             std::vector<ItemDiscovered> items;
 
             doc.itemDiscovered.registerCallback([&](ItemDiscovered _item) -> void {
                 items.push_back(_item);
-                });
+            });
 
             REQUIRE(doc.parse(doc.getInputRepresentation()));
 
@@ -114,7 +113,6 @@ namespace ze {
             XmlDocument doc;
             REQUIRE(doc.readFromText(text));
 
-            const int expectedItems = 2;
             std::vector<ItemDiscovered> items;
 
             doc.itemDiscovered.registerCallback([&](ItemDiscovered _item) -> void {
@@ -147,7 +145,6 @@ namespace ze {
             XmlDocument doc;
             REQUIRE(doc.readFromText(text));
 
-            const int expectedItems = 2;
             std::vector<ItemDiscovered> items;
 
             doc.itemDiscovered.registerCallback([&](ItemDiscovered _item) -> void {
@@ -179,7 +176,6 @@ namespace ze {
             XmlDocument doc;
             REQUIRE(doc.readFromText(text));
 
-            const int expectedItems = 2;
             std::vector<ItemDiscovered> items;
 
             doc.itemDiscovered.registerCallback([&](ItemDiscovered _item) -> void {
@@ -298,5 +294,22 @@ namespace ze {
             REQUIRE(4 == greatgrandchild.size());
 
         }
+    }
+
+
+    TEST_CASE("xml getAttribute methods work", "[Xml]") {
+        const std::string text = R"xml(
+<root a1='value1' a2="true" a3="123" a4="222" a5="1.5">
+</root>
+)xml";
+
+        XmlDocument doc(Xml::parseFromText(text));
+
+        REQUIRE("value1" == ze::Xml::getAttribute<std::string>(doc.m_Node, "a1"));
+        REQUIRE(true == ze::Xml::getAttribute<bool>(doc.m_Node, "a2"));
+        REQUIRE(123u == ze::Xml::getAttribute<unsigned>(doc.m_Node, "a3"));
+        REQUIRE(222 == ze::Xml::getAttribute<int>(doc.m_Node, "a4"));
+        REQUIRE(1.5f == ze::Xml::getAttribute<float>(doc.m_Node, "a5"));
+
     }
 }

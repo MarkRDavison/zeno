@@ -3,9 +3,9 @@
 namespace ze {
 
 	Transformable2D::Transformable2D() :
-		m_AccumulatedTransform(1.0f),
 		m_Scale(1.0f, 1.0f),
-		m_Rotation(0.0f) {
+		m_Rotation(0.0f),
+		m_AccumulatedTransform(1.0f) {
 
 	}
 	Transformable2D::~Transformable2D() {}
