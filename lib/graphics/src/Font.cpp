@@ -6,6 +6,7 @@
 #include <zeno/Graphics/Colour.hpp>
 #include <algorithm>
 #include <iostream>
+#include <cmath>
 
 #define MARGIN 2
 #define DIST_MARGIN 4
