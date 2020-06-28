@@ -35,10 +35,12 @@ namespace ze {
         void bind() const;
         static void unbind();
 
-        static void createDefaultShaders();
+        static bool createDefaultShaders();
 
         static Shader VertexArrayShader;
         static Shader VertexArrayTextureShader;
+        static Shader TextShader;
+        static Shader SdfTextShader;
 
     private:
         bool m_Loaded{ false };

@@ -19,7 +19,7 @@ IF(GLFW_FOUND)
 	target_include_directories(zeno-glfw INTERFACE ${GLFW_INCLUDE_DIRS})
 	target_link_libraries(zeno-glfw INTERFACE ${GLFW_LIBRARIES})
 
-ELSE(GLFW_FOUND)
+ELSE()
 	set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build GLFW without examples")
 	set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build GLFW without tests")
 	set(GLFW_BUILD_DOCS OFF CACHE BOOL "Build GLFW without docs")
@@ -63,7 +63,7 @@ IF (GLEW_FOUND)
 	IF (${GLEW_STATIC})
 		target_compile_definitions(zeno-glew INTERFACE GLEW_STATIC=ON)
 	ENDIF()
-ELSE(GLEW_FOUND)
+ELSE()
 	SET(ONLY_LIBS ON CACHE BOOL "Do not build executables")
 	SET(glew-cmake_BUILD_STATIC ON CACHE BOOL "Build the static glew library")
 	SET(glew-cmake_BUILD_SHARED OFF CACHE BOOL "Build the shared glew library")
@@ -85,6 +85,20 @@ ELSE(GLEW_FOUND)
 	ELSE()
 		target_link_libraries(zeno-glew INTERFACE libglew_shared)
 	ENDIF()
+ENDIF()
+
+#################
+#	Freetype2
+#################
+FIND_PACKAGE(FREETYPE QUIET)
+IF (FREETYPE_FOUND)
+	add_library(zeno-freetype INTERFACE)
+	target_include_directories(zeno-freetype INTERFACE ${FREETYPE_INCLUDE_DIRS})
+	target_link_libraries(zeno-freetype INTERFACE ${FREETYPE_LIBRARY})
+ELSE()
+	add_subdirectory(freetype2 EXCLUDE_FROM_ALL)	
+	add_library(zeno-freetype INTERFACE)
+	target_link_libraries(zeno-freetype INTERFACE freetype)
 ENDIF()
 
 #################

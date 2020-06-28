@@ -12,6 +12,8 @@ namespace ze {
 
     Shader Shader::VertexArrayShader;
     Shader Shader::VertexArrayTextureShader;
+    Shader Shader::TextShader;
+    Shader Shader::SdfTextShader;
 
     void CheckStatus(GLuint obj) {
         GLint status = GL_FALSE;
@@ -159,7 +161,7 @@ namespace ze {
     }
 
 
-    void Shader::createDefaultShaders() {
+    bool Shader::createDefaultShaders() {
         const std::string vertexArray_Vertex = R"(
 #version 410 core
 
@@ -217,7 +219,102 @@ void main() {
     FragColor = texture(tex, texUV) * fragColor;
 })";
 
-        VertexArrayShader.createShader(vertexArray_Vertex, vertexArray_Fragment, {"model", "view", "projection"});
-        VertexArrayTextureShader.createShader(vertexArrayTexture_Vertex, vertexArrayTexture_Fragment, { "model", "view", "projection" });
+        const std::string text_Vertex = R"(
+#version 410 core
+
+layout(location = 0) in vec3 in_Position;
+layout(location = 1) in vec4 in_Color;
+layout(location = 2) in vec2 in_TexUV;
+
+uniform mat4 model = mat4(1.0f);
+uniform mat4 view = mat4(1.0f);
+uniform mat4 projection = mat4(1.0f);
+uniform vec4 colour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+out vec4 fragColor;
+out vec2 texUV;
+
+void main() {
+	gl_Position = projection * model * view * vec4(in_Position, 1.0);
+	fragColor = colour;
+	texUV = in_TexUV;
+})";
+        const std::string text_Fragment = R"(
+#version 410 core
+
+in vec4 fragColor;
+in vec2 texUV;
+out vec4 FragColor;
+uniform sampler2D tex;
+
+void main() {
+	float val = texture(tex, texUV).r;
+	FragColor = fragColor;
+	FragColor.a = val;
+})";
+        const std::string sdfText_Vertex = R"(
+#version 410 core
+
+layout(location = 0) in vec3 in_Position;
+layout(location = 1) in vec4 in_Color;
+layout(location = 2) in vec2 in_TexUV;
+
+uniform mat4 model = mat4(1.0f);
+uniform mat4 view = mat4(1.0f);
+uniform mat4 projection = mat4(1.0f);
+
+uniform vec4 internalColour;
+uniform vec4 externalColour;
+uniform float thickness;
+uniform float characterSize;
+
+out vec4 internalColourOut;
+out vec4 externalColourOut;
+out float thicknessOut;
+out float characterSizeOut;
+out vec2 texUV;
+
+void main() {
+    gl_Position = projection * model * view * vec4(in_Position, 1.0);
+    internalColourOut = internalColour;
+	externalColourOut = externalColour;
+	thicknessOut = thickness;
+	characterSizeOut = characterSize;
+    texUV = in_TexUV;
+})";
+        const std::string sdfText_Fragment = R"(
+#version 410 core
+
+in vec4 internalColourOut;
+in vec4 externalColourOut;
+in float thicknessOut;
+in float characterSizeOut;
+in vec2 texUV;
+
+uniform sampler2D tex;
+out vec4 FragColor;
+
+const float smoothing = 1.0f / 128.0f;
+
+void main() {
+	float outlineWidth = thicknessOut / characterSizeOut;
+	float outerEdgeCenter = 0.5f - outlineWidth;
+
+	float distance = texture2D(tex, texUV).r;
+    float alpha = smoothstep(outerEdgeCenter - smoothing, outerEdgeCenter + smoothing, distance);
+    float border = smoothstep(0.5 - smoothing, 0.5 + smoothing, distance);
+
+    FragColor = vec4( mix(externalColourOut.rgb, internalColourOut.rgb, border), alpha );
+})";
+
+
+        if (!VertexArrayShader.createShader(vertexArray_Vertex, vertexArray_Fragment, { "model", "view", "projection" }) ||
+            !VertexArrayTextureShader.createShader(vertexArrayTexture_Vertex, vertexArrayTexture_Fragment, { "model", "view", "projection" }) ||
+            !TextShader.createShader(text_Vertex, text_Fragment, { "model", "view", "projection", "colour" }) ||
+            !SdfTextShader.createShader(sdfText_Vertex, sdfText_Fragment, { "model", "view", "projection", "thickness", "characterSize", "internalColour", "externalColour" })) {
+            return false;
+        }
+
+        return true;
     }
 }
