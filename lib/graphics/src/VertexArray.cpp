@@ -5,14 +5,22 @@
 
 namespace ze {
 
-    VertexArray::VertexArray() : VertexArray(0) {
+    VertexArray::VertexArray() :
+        VertexArray(DrawType::Triangles) {
 
     }
+    VertexArray::VertexArray(DrawType _type) :
+        VertexArray(_type, 0) {
 
+    }
     VertexArray::VertexArray(std::size_t _size) :
+        VertexArray(DrawType::Triangles, _size) {
+
+    }
+    VertexArray::VertexArray(DrawType _type, std::size_t _size) :
+        m_Type(_type),
         m_Verticies(_size) {
     }
-
     VertexArray:: ~VertexArray() {
         glDeleteBuffers(1, &m_Vbo);
         glDeleteVertexArrays(1, &m_Vao);
@@ -94,7 +102,18 @@ namespace ze {
         _info.shader->passUniform("projection", _info.projection);
 
         glBindVertexArray(getVao());
-        glDrawArrays(GL_TRIANGLES, 0, static_cast<int>(size()));
+        switch (m_Type) {
+        case DrawType::LineStrip:
+            glDrawArrays(GL_LINE_STRIP, 0, static_cast<int>(size()));
+            break;
+        case DrawType::Lines:
+            glDrawArrays(GL_LINES, 0, static_cast<int>(size()));
+            break;
+        case DrawType::Triangles:
+        default:
+            glDrawArrays(GL_TRIANGLES, 0, static_cast<int>(size()));
+            break;
+        }
         glBindVertexArray(0);
 
         if (_info.texture != nullptr) {
@@ -122,6 +141,12 @@ namespace ze {
         }
 
         m_Bounds = FloatRect(minX, minY, maxX - minX, maxY - minY);
+    }
+    void VertexArray::setDrawType(DrawType _type) {
+        m_Type = _type;
+    }
+    DrawType VertexArray::getDrawType() const {
+        return m_Type;
     }
 
 }

@@ -8,10 +8,18 @@
 
 namespace ze {
 
+    enum class DrawType {
+        Triangles,
+        Lines,
+        LineStrip
+    };
+
     class VertexArray : public Renderable {
     public:
         VertexArray();
+        VertexArray(DrawType _type);
         VertexArray(std::size_t _size);
+        VertexArray(DrawType _type, std::size_t _size);
         ~VertexArray();
 
         void clear();
@@ -27,16 +35,20 @@ namespace ze {
 
         void render(const Window& _window, RenderInfo _info) const override;
 
+        void setDrawType(DrawType _type);
+        DrawType getDrawType() const;
+
         ze::FloatRect getBounds() const;
         void calculateBounds();
-
     private:
         bool m_Created{ false };
+        DrawType m_Type{ DrawType::Triangles };
         std::vector<Vertex> m_Verticies;
         unsigned m_Vao{ 0 };
         unsigned m_Vbo{ 0 };
 
         FloatRect m_Bounds;
+
     };
 
 }
