@@ -11,6 +11,7 @@ file (GLOB_RECURSE LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 add_library (${LIB_NAME} ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
 target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})
 target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/core/include")
+target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/graphics/include")
 target_include_directories(${LIB_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/lib/window/include")
 
 add_library("zeno-${MODULE_NAME}" INTERFACE)

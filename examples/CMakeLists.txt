@@ -1,2 +1,3 @@
+add_subdirectory(Game)
 add_subdirectory(Mat4x4Printer)
 add_subdirectory(Window)
