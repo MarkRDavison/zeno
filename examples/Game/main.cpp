@@ -22,7 +22,7 @@ public:
         c.setOutlineColour(ze::Colour::Magenta);
         c.setOutlineThickness(8.0f);
 
-        info.model.translate({ 0.0f, 4.0f * std::sinf(m_Time) * 180.0f / 3.14159265f, 0.0f });
+        info.model.translate(ze::Vector3f(0.0f, 4.0f * sinf(m_Time) * 180.0f / 3.14159265f, 0.0f));
 
         c.render(_window, info);
     }
