@@ -86,7 +86,7 @@ namespace ze {
 		}
 
 		glBindVertexArray(m_VertexArray.getVao());
-		glDrawArrays(GL_TRIANGLES, 0, m_VertexArray.size());
+		glDrawArrays(GL_TRIANGLES, 0, static_cast<int>(m_VertexArray.size()));
 		glBindVertexArray(0);
 
 		if (_info.texture != nullptr) {
