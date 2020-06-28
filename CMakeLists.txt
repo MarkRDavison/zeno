@@ -14,16 +14,17 @@ endif()
 
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 option(ZENO_BUILD_EXAMPLES "Build the Zeno example programs" ${ZENO_STANDALONE})
-option(ZENO_BUILD_TESTS "Build the Zeno test program" ${ZENO_STANDALONE})
+option(ZENO_BUILD_TESTS "Build the Zeno test programs" ${ZENO_STANDALONE})
 
 list(APPEND CMAKE_MODULE_PATH "${ZENO_SOURCE_DIR}/CMake/modules")
 # include(GNUInstallDirs) // TODO:
 SET(LIBRARY_INSTALL_FOLDER "lib") #TODO: include(GNUInstallDirs) and/or CMAKE_INSTALL_LIBDIR
-
+SET(BINARY_INSTALL_FOLDER "bin") #TODO: include(GNUInstallDirs) and/or CMAKE_INSTALL_LIBDIR
+SET(HEADER_INSTALL_FOLDER "include") #TODO: include(GNUInstallDirs) and/or CMAKE_INSTALL_LIBDIR
 
 IF (BUILD_SHARED_LIBS)
 	SET(LIBRARY_EXTENSION "${LIBRARY_EXTENSION}")
-ELSE (BUILD_SHARED_LIBS)
+ELSE ()
 	SET(LIBRARY_EXTENSION "${LIBRARY_EXTENSION}-s")
 ENDIF()
 

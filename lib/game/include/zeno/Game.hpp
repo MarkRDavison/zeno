@@ -2,6 +2,7 @@
 #define INCLUDED_ZENO_GAME_HPP_
 
 #include <zeno/Game/Application.hpp>
+#include <zeno/Game/FontManager.hpp>
 #include <zeno/Game/InputAction.hpp>
 #include <zeno/Game/InputManager.hpp>
 #include <zeno/Game/InputActionManager.hpp>

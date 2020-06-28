@@ -133,7 +133,6 @@ install:
 script:
     -   mkdir build
     -   cd build
-
     -   cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DGLEW_STATIC=ON ..
     -   cmake --build . --config $BUILD_TYPE
     -   if [ $BUILD_TYPE != "Debug" ]; then travis_terminate 0; fi
