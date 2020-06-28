@@ -33,14 +33,14 @@ ENDIF()
 #	Catch2
 #################
 IF (${ZENO_BUILD_TESTS})
-	add_subdirectory(Catch2)
+	add_subdirectory(Catch2 EXCLUDE_FROM_ALL)
 ENDIF()
 
 #################
 #	FakeIt
 #################
 IF (${ZENO_BUILD_TESTS})
-	add_subdirectory(FakeIt)
+	add_subdirectory(FakeIt EXCLUDE_FROM_ALL)
 
 	add_library(fakeit INTERFACE)
 	target_include_directories(fakeit INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/FakeIt/single_header/catch")
