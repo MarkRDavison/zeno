@@ -5,6 +5,51 @@
 
 namespace ze {
 
+	bool Application::startSplash(const VideoMode& _videoMode, Scene* _splashScene) {
+		m_StartingMode = _videoMode;
+		m_SplashShowing = true;
+
+		VideoMode splashVideoMode = _videoMode;
+		splashVideoMode.fullscreen = false;
+		splashVideoMode.decorated = false;
+		splashVideoMode.width = 800;
+		splashVideoMode.height = 400;
+		if (!m_Window.initialise(splashVideoMode)) {
+			std::cerr << "Failed to initialise splash screen." << std::endl;
+			return false;
+		}
+
+		if (!ze::Shader::createDefaultShaders()) {
+			std::cerr << "Failed to initialise default shaders." << std::endl;
+			return false;
+		}
+
+		setScene(_splashScene);
+
+		return true;
+	}
+	void Application::renderSplash() {
+		render(0.0f);
+	}
+	bool Application::splashFinished() {
+		return splashFinished(m_StartingMode);
+	}
+	bool Application::splashFinished(const VideoMode& _videoMode) {
+
+		if (m_Window.getWindowFullscreen()) {
+			m_Window.setWindowFullscreen(_videoMode.fullscreen);
+		}
+		else {
+			m_Window.setSize(ze::Vector2u(_videoMode.width, _videoMode.height));
+			m_Window.setWindowDecorated(_videoMode.decorated);
+			m_Window.center();
+		}
+
+		setScene(nullptr);
+
+		m_Initialised = true;
+		return true;
+	}
 	bool Application::initialise(const Vector2u& _resolution, const std::string& _name) {
 		VideoMode mode{ _resolution, _name };
 		mode.contextMajor = 4;
@@ -20,9 +65,12 @@ namespace ze {
 			std::cerr << "Failed to initialise window." << std::endl;
 			return false;
 		}
+		if (!ze::Shader::createDefaultShaders()) {
+			std::cerr << "Failed to initialise default shaders." << std::endl;
+			return false;
+		}
 
-		ze::Shader::createDefaultShaders();
-
+		m_StartingMode = _videoMode;
 		m_Initialised = true;
 		return true;
 	}

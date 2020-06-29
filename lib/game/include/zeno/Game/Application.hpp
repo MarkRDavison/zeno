@@ -14,6 +14,11 @@ namespace ze {
         void start();
         void stop();
 
+        bool startSplash(const VideoMode& _videoMode, Scene* _splashScene);
+        void renderSplash();
+        bool splashFinished();
+        bool splashFinished(const VideoMode& _videoMode);
+
         void setScene(Scene* _scene);
 
         const Window& getWindow() const;
@@ -26,6 +31,8 @@ namespace ze {
         GLFWContext context{};
         bool m_Running{ false };
         bool m_Initialised{ false };
+        bool m_SplashShowing{ false };
+        VideoMode m_StartingMode;
 
         Window m_Window;
         Scene* m_Scene{ nullptr };

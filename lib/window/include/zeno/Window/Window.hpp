@@ -37,8 +37,10 @@ namespace ze {
 
         bool getWindowDecorated() const;
         void setWindowDecorated(bool _decorated);
+        bool getWindowFullscreen() const;
+        void setWindowFullscreen(bool _fullscreen);
 
-        void centerCurrentWindow();
+        void center();
 
         GLFWwindow* getHandle() const { return m_Window; }
 
@@ -50,7 +52,7 @@ namespace ze {
         static void windowSizeCallback(GLFWwindow* _w, int _width, int _height);
         static void windowFocusCallback(GLFWwindow* _w, int _focused);
         static void scrollCallback(GLFWwindow* _w, double _xoffset, double _yoffset);
-        static void centerWindow(GLFWwindow* _window, GLFWmonitor* _monitor);
+        void centerWindow(GLFWwindow* _window, GLFWmonitor* _monitor);
         static void characterCallback(GLFWwindow* _window, unsigned _char);
     private:
         GLFWwindow* m_Window{ nullptr };
@@ -58,6 +60,9 @@ namespace ze {
         std::queue<Event> m_Events;
 
         bool m_WindowDecorated{ true };
+        bool m_Fullscreen{ false };
+        bool m_VerticalSync{ true };
+        ze::Vector2i m_WindowOffset;
     };
 
 }

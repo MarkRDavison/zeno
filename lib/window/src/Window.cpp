@@ -156,7 +156,7 @@ namespace ze {
         glfwSetScrollCallback(m_Window, scrollCallback);
         glfwSetCharCallback(m_Window, characterCallback);
 
-        centerCurrentWindow();
+        center();
 
         return true;
     }
@@ -209,13 +209,28 @@ namespace ze {
     void Window::setWindowDecorated(bool _decorated) {
         if (m_WindowDecorated != _decorated) {
             m_WindowDecorated = _decorated;
-            glfwSetWindowAttrib(m_Window, GLFW_RESIZABLE, m_WindowDecorated ? 1 : 0);
+            glfwSetWindowAttrib(m_Window, GLFW_DECORATED, m_WindowDecorated ? 1 : 0);
+        }
+    }
+    bool Window::getWindowFullscreen() const {
+        return m_Fullscreen;
+    }
+    void Window::setWindowFullscreen(bool _fullscreen) {
+        if (m_Fullscreen != _fullscreen) {
+            m_Fullscreen = _fullscreen;
+            if (m_Fullscreen) {
+                auto monitor = glfwGetPrimaryMonitor();
+                auto mode = glfwGetVideoMode(monitor);
+                glfwSetWindowMonitor(m_Window, monitor, 0, 0, mode->width, mode->height, m_VerticalSync ? mode->refreshRate : GLFW_DONT_CARE);
+            }
+            else {
+
+            }
         }
     }
 
-    void Window::centerCurrentWindow() {
-        GLFWmonitor* primary = glfwGetPrimaryMonitor();
-        centerWindow(m_Window, primary);
+    void Window::center() {
+        centerWindow(m_Window, glfwGetPrimaryMonitor());
     }
     void Window::centerWindow(GLFWwindow* _window, GLFWmonitor* _monitor) {
         if (!_monitor) {
@@ -233,9 +248,11 @@ namespace ze {
         int windowWidth, windowHeight;
         glfwGetWindowSize(_window, &windowWidth, &windowHeight);
 
-        glfwSetWindowPos(_window,
+        m_WindowOffset = ze::Vector2i(
             monitorX + (mode->width - windowWidth) / 2,
-            monitorY + (mode->height - windowHeight) / 2);
+            monitorY + (mode->height - windowHeight) / 2
+        );
+        glfwSetWindowPos(_window, m_WindowOffset.x, m_WindowOffset.y);
     }
 
     GLFWContext::GLFWContext() {
