@@ -112,12 +112,14 @@ namespace ze {
     }
 
     bool Window::initialise(VideoMode _videoMode) {
+        m_WindowDecorated = _videoMode.decorated;
+
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, _videoMode.contextMajor);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, _videoMode.contextMinor);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_SAMPLES, 4);
-        glfwWindowHint(GLFW_DECORATED, _videoMode.decoration);
+        glfwWindowHint(GLFW_DECORATED, m_WindowDecorated ? 1 : 0);
 
         if (m_Window != nullptr) {
             close();
@@ -144,7 +146,7 @@ namespace ze {
             std::cerr << "Failed to initialise Glew: " << glewGetErrorString(err) << std::endl;
             return false;
         }
-
+        
         glfwSetKeyCallback(m_Window, keyCallback);
         glfwSetWindowCloseCallback(m_Window, closeCallback);
         glfwSetMouseButtonCallback(m_Window, mouseButtonCallback);
@@ -199,6 +201,16 @@ namespace ze {
 
     void Window::setSize(const Vector2u& _size) const {
         glfwSetWindowSize(m_Window, static_cast<int>(_size.x), static_cast<int>(_size.y));
+    }
+
+    bool Window::getWindowDecorated() const {
+        return m_WindowDecorated;
+    }
+    void Window::setWindowDecorated(bool _decorated) {
+        if (m_WindowDecorated != _decorated) {
+            m_WindowDecorated = _decorated;
+            glfwSetWindowAttrib(m_Window, GLFW_RESIZABLE, m_WindowDecorated ? 1 : 0);
+        }
     }
 
     void Window::centerCurrentWindow() {

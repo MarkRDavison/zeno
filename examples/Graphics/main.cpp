@@ -4,17 +4,16 @@
 int main(int _argc, char** _argv) {
     ze::GLFWContext context{};
 
-    ze::VideoMode mode = ze::VideoMode(800, 640, "Zeno Graphics");
+    ze::VideoMode mode = ze::VideoMode(640, 480, "Zeno Graphics");
     mode.contextMajor = 4;
     mode.contextMinor = 5;
     ze::Window window;
+
     if (!window.initialise(mode)) {
         return EXIT_FAILURE;
     }
 
-    ze::Vector2f size(window.getSize());
-
-    if (!ze::Shader::createDefaultShaders()){
+    if (!ze::Shader::createDefaultShaders()) {
         return EXIT_FAILURE;
     }
 
@@ -27,6 +26,7 @@ int main(int _argc, char** _argv) {
 #else
     std::string fontPath = "C:/Windows/Fonts/arial.ttf";
 #endif
+
     if (_argc == 2) {
         fontPath = _argv[1];
     }
@@ -72,6 +72,12 @@ int main(int _argc, char** _argv) {
         ze::Event event;
         window.pumpEvents();
         while (window.pollEvent(event)) {
+            if (event.type == ze::Event::EventType::KeyDown) {
+                if (event.key.key == ze::Keyboard::Key::Q &&
+                    event.key.control) {
+                    running = false;
+                }
+            }
             if (event.type == ze::Event::EventType::WindowClosed) {
                 running = false;
             }
@@ -82,7 +88,7 @@ int main(int _argc, char** _argv) {
 
         window.clear();
 
-        size = ze::Vector2f(window.getSize());
+        auto size = ze::Vector2f(window.getSize());
 
         ze::RenderInfo info;
         info.projection = ze::Mat4x4::Orthographic3D(-size.x / 2.0f, +size.x / 2.0f, +size.y / 2.0f, -size.y / 2.0f, -1.0f, +1.0f);

@@ -10,14 +10,12 @@ namespace ze {
     public:
         VideoMode();
         VideoMode(unsigned _width, unsigned _height, const std::string& _title);
-        VideoMode(unsigned _width, unsigned _height, const std::string& _title, int _decoration);
         explicit VideoMode(const Vector2u& _size, const std::string& _title);
 
         unsigned width;
         unsigned height;
 
-        int decoration;
-
+        bool decorated{ true };
         bool fullscreen{ false };
 
         std::string title;

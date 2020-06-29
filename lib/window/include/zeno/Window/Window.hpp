@@ -35,6 +35,9 @@ namespace ze {
         Vector2u getSize() const;
         void setSize(const Vector2u& _size) const;
 
+        bool getWindowDecorated() const;
+        void setWindowDecorated(bool _decorated);
+
         void centerCurrentWindow();
 
         GLFWwindow* getHandle() const { return m_Window; }
@@ -53,6 +56,8 @@ namespace ze {
         GLFWwindow* m_Window{ nullptr };
 
         std::queue<Event> m_Events;
+
+        bool m_WindowDecorated{ true };
     };
 
 }
