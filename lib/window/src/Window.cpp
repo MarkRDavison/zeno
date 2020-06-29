@@ -73,6 +73,7 @@ namespace ze {
     }
 
     void Window::windowSizeCallback(GLFWwindow* _w, int _width, int _height) {
+        glViewport(0, 0, _width, _height);
         Window* window = static_cast<Window*>(glfwGetWindowUserPointer(_w));
         Event e{};
         e.type = Event::EventType::WindowSizeChanged;

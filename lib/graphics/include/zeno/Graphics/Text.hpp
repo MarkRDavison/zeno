@@ -25,6 +25,9 @@ namespace ze {
 		void centerText();
 
 		std::string getString() const;
+		unsigned getCharacterSize() const {
+			return m_CharacterSize;
+		}
 
 		FloatRect getBounds() const;
 

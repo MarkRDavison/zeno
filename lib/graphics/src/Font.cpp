@@ -236,7 +236,7 @@ namespace ze {
     void Font::generateText(ze::VertexArray& _vertexArray, const std::string& _text, unsigned _characterSize) {
         _vertexArray = ze::VertexArray(_text.size() * 6);
 
-        ze::Vector2f penPosition{};
+        ze::Vector2f penPosition;
         const ze::Vector2u textureSize = m_Texture.getSize();
         const float charSize = static_cast<float>(_characterSize);
         const float ratio = charSize / static_cast<float>(m_GenerationSize);
@@ -245,7 +245,7 @@ namespace ze {
             const char _c = _text[i];
 
             if (_c == ' ') {
-                penPosition.x += charSize * ratio * 0.25f;
+                penPosition.x += charSize / 8.0f;
                 continue;
             }
 
