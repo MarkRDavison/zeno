@@ -10,6 +10,9 @@ FindZeno.cmake
 Multi threaded font generation
 Quad tree/spatial partitioning
 
+CI
+	-	Replace submodules with steps to download pre-built binaries
+
 Done:
 	Vertex array lines
 

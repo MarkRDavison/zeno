@@ -17,10 +17,19 @@ find_path(OPENALSOFT_INCLUDE_DIR
     /opt/local/include
 )
 
+if ("${CMAKE_GENERATOR}" MATCHES "[Ww]in64")
+    set(ARCH Win64)
+else()
+    set(ARCH Win32)
+endif()
+
 find_library(OPENALSOFT_LIBRARY DOC "Absolute path to OpenAlSoft library." 
   NAMES libopenal openal libOpenAL32 OpenAL32 OpenAL32.dll soft_oal.dll
   HINTS
+    "${OPENALSOFT_ROOT}/libs"
+    "${OPENALSOFT_ROOT}/libs/${ARCH}"
     "${OPENALSOFT_ROOT}/lib"
+    "${OPENALSOFT_ROOT}/lib/${ARCH}"
   PATHS
     /usr/local/lib
     /usr/lib
