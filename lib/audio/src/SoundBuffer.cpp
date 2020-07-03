@@ -1,8 +1,9 @@
 #include <zeno/Audio/SoundBuffer.hpp>
 #include <zeno/Audio/WaveLoader.hpp>
+#include <iostream>
+#include <climits>
 #include <AL/al.h>
 #include <AL/alc.h>
-#include <iostream>
 
 namespace ze {
 
