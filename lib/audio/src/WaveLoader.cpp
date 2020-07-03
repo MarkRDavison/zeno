@@ -1,6 +1,7 @@
 #include <zeno/Audio/WaveLoader.hpp>
 #include <iostream>
 #include <cstdlib>
+#include <cstring>
 #include <AL/al.h>
 #include <AL/alc.h>
 
