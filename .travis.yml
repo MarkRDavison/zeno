@@ -145,7 +145,7 @@ install:
     -   git submodule update --init --recursive
     -   cmake --version
     -   $CXX --version
-    -   if [ $OPERATINGSYSTEM = "WINDOWS" ]; then .\scripts\download_extract_extern.ps1; fi
+    -   if [ $OPERATINGSYSTEM = "WINDOWS" ]; then ./scripts/download_extract_extern.ps1; fi
 
 script:
     -   mkdir build
