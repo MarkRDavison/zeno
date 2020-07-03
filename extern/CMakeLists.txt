@@ -118,16 +118,12 @@ endif()
 #################
 #	OpenAl
 #################
-MESSAGE(STATUS "1-TRYING TO FIND OPENAL, ROOT: ${OPENALSOFT_ROOT}")
 FIND_PACKAGE(OPENALSOFT QUIET)
-MESSAGE(STATUS "2-TRYING TO FIND OPENAL, ROOT: ${OPENALSOFT_ROOT}")
 IF (OPENALSOFT_FOUND)
-	MESSAGE(STATUS "FOUND OPENAL")
 	add_library(zeno-openal INTERFACE)
 	target_include_directories(zeno-openal INTERFACE ${OPENALSOFT_INCLUDE_DIR})
 	target_link_libraries(zeno-openal INTERFACE ${OPENALSOFT_LIBRARY})
 ELSE()
-	MESSAGE(STATUS "DID NOT FIND OPENAL")
 	set(ALSOFT_UTILS OFF CACHE BOOL "Build utility programs")
 	set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "Disable building the alsoft-config utility")
 	set(ALSOFT_EXAMPLES OFF CACHE BOOL "Build example programs")
