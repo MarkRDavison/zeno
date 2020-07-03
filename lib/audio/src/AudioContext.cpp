@@ -5,7 +5,7 @@
 
 namespace ze {
 
-    float AudioContext::volume{ Start };
+    float AudioContext::volume{ 1.0f };
     bool AudioContext::mute{ false };
     int AudioContext::instances{ 0 };
 
