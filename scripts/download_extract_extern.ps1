@@ -27,3 +27,7 @@ pwd
 cd zeno
 
 pwd
+
+ls C:/Users/travis/build/MarkRDavison/external/OpenAL
+ls C:/Users/travis/build/MarkRDavison/external/OpenAL/include
+ls C:/Users/travis/build/MarkRDavison/external/OpenAL/include/AL
