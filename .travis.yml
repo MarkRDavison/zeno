@@ -129,12 +129,14 @@ jobs:
             env: 
                 - BUILD_TYPE=Debug
                 - OPERATINGSYSTEM=WINDOWS
+                - OPENALSOFT_ROOT="../../external/OpenAL"
 
         -   name: "Windows Release"
             os: windows
             env: 
                 - BUILD_TYPE=RelWithDebInfo
                 - OPERATINGSYSTEM=WINDOWS
+                - OPENALSOFT_ROOT="../../external/OpenAL"
 
 
 
