@@ -128,7 +128,7 @@ ELSE()
 	set(ALSOFT_NO_CONFIG_UTIL ON CACHE BOOL "Disable building the alsoft-config utility")
 	set(ALSOFT_EXAMPLES OFF CACHE BOOL "Build example programs")
 
-	add_subdirectory(OpenAl-Soft EXCLUDE_FROM_ALL)
+	add_subdirectory(OpenAL EXCLUDE_FROM_ALL)
 
 	add_library(zeno-openal INTERFACE)
 	target_link_libraries(zeno-openal INTERFACE OpenAL)

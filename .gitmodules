@@ -16,6 +16,6 @@
 [submodule "extern/freetype2"]
 	path = extern/freetype2
 	url = git://git.savannah.gnu.org/freetype/freetype2.git
-[submodule "extern/OpenAL-Soft"]
-	path = extern/OpenAL-Soft
+[submodule "extern/OpenAL"]
+	path = extern/OpenAL
 	url = https://repo.or.cz/openal-soft.git
