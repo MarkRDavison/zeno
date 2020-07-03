@@ -1,6 +1,6 @@
 pushd
 
-cd..
+cd ..
 
 mkdir external
 
@@ -17,6 +17,14 @@ cd OpenAL
 ls
 
 cd ..
+
+ls
+
+cd ..
+
+ls
+
+cd zeno
 
 ls
 
