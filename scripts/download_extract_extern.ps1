@@ -1,4 +1,4 @@
-pushd
+pwd
 
 cd ..
 
@@ -10,22 +10,20 @@ wget https://kcat.strangesoft.net/openal-binaries/openal-soft-1.20.1-bin.zip -O 
 
 7z x OpenAL.zip -oOpenAL
 
-ls
+pwd
 
 cd OpenAL
 
-ls
+pwd
 
 cd ..
 
-ls
+pwd
 
 cd ..
 
-ls
+pwd
 
 cd zeno
 
-ls
-
-popd
+pwd
