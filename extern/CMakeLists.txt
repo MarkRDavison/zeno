@@ -118,6 +118,7 @@ endif()
 #################
 #	OpenAl
 #################
+MESSAGE(STATUS "TRYING TO FIND OPENAL, ROOT: ${OPENALSOFT_ROOT}")
 FIND_PACKAGE(OPENALSOFT QUIET)
 IF (OPENALSOFT_FOUND)
 	add_library(zeno-openal INTERFACE)
