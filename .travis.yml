@@ -138,6 +138,8 @@ jobs:
 
 
 
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install openal; fi
 
 install:
     -   git submodule update --init --recursive
@@ -149,7 +151,7 @@ script:
     -   mkdir build
     -   cd build
     -   if [ $OPERATINGSYSTEM = "WINDOWS" ]; then ls ; fi
-    -   if ! cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DGLEW_STATIC=ON -DOPENALSOFT_ROOT="C:/Users/travis/build/MarkRDavison/external/OpenAL/openal-soft-1.19.1-bin" ..; then travis_terminate 1; fi 
+    -   if ! cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DGLEW_STATIC=ON ..; then travis_terminate 1; fi 
     -   if ! cmake --build . --config $BUILD_TYPE; then travis_terminate 1; fi 
     -   if [ $BUILD_TYPE != "Debug" ]; then travis_terminate 0; fi
     -   ctest --build-config $BUILD_TYPE --output-on-failure --no-label-summary --no-subproject-summary --progress
