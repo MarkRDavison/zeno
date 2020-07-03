@@ -1,23 +1,23 @@
-Push-Location
+pushd
 
-Set-Location ..
+cd..
 
 mkdir external
 
-Set-Location external
+cd external
 
 wget https://kcat.strangesoft.net/openal-binaries/openal-soft-1.20.1-bin.zip -O OpenAL.zip
 
 7z x OpenAL.zip -oOpenAL
 
-Get-ChildItem
+ls
 
-Set-Location OpenAL
+cd OpenAL
 
-Get-ChildItem
+ls
 
-Set-Location ..
+cd ..
 
-Get-ChildItem
+ls
 
-Pop-Location
+popd
