@@ -102,7 +102,7 @@ namespace ze {
 			m_Buffer,
 			WaveLoader::getFormat(m_NumberChannels, m_BitsPerSample),
 			&m_Data[0],
-			m_Data.size(),
+			(ALsizei)m_Data.size(),
 			m_SampleRate);
 	}
 
@@ -119,7 +119,7 @@ namespace ze {
 		return m_BitsPerSample;
 	}
 	unsigned SoundBuffer::getSampleCount() const {
-		return m_Data.size();
+		return (unsigned)m_Data.size();
 	}
 	const char* SoundBuffer::getSamples() const {
 		return m_Data.data();

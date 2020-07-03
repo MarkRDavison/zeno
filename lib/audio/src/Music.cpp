@@ -73,10 +73,10 @@ namespace ze {
 				m_Buffers[i],
 				WaveLoader::getFormat(m_NumberChannels, m_BitsPerSample), 
 				Scratch,
-				dataSizeToCopy,
+				(ALsizei)dataSizeToCopy,
 				m_SampleRate);
 
-			m_Cursor += dataSizeToCopy;
+			m_Cursor += static_cast<unsigned>(dataSizeToCopy);
 		}
 		alSourceQueueBuffers(m_Source, NUM_BUFFERS, &m_Buffers[0]);
 		m_CursorStart = m_Cursor;
@@ -129,18 +129,18 @@ namespace ze {
 		
 			file.read(&Scratch[0], dataSizeToCopy);
 
-			m_Cursor += dataSizeToCopy;
+			m_Cursor += static_cast<unsigned>(dataSizeToCopy);
 		
 			if (dataSizeToCopy < BUFFER_SIZE &&
 				!m_LoopEndReached) {
 				m_Cursor = 0;
 				file.seekg(0, file.beg);
 				file.read(&Scratch[dataSizeToCopy], BUFFER_SIZE - dataSizeToCopy);
-				m_Cursor = BUFFER_SIZE - dataSizeToCopy;
+				m_Cursor = static_cast<unsigned>(BUFFER_SIZE - dataSizeToCopy);
 				dataSizeToCopy = BUFFER_SIZE;
 			}
 		
-			alBufferData(b, WaveLoader::getFormat(m_NumberChannels, m_BitsPerSample), Scratch, dataSizeToCopy, m_SampleRate);
+			alBufferData(b, WaveLoader::getFormat(m_NumberChannels, m_BitsPerSample), Scratch, (ALsizei)dataSizeToCopy, m_SampleRate);
 			alSourceQueueBuffers(m_Source, 1, &b);
 		}
 		
