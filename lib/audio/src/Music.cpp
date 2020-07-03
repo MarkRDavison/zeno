@@ -2,6 +2,8 @@
 #include <zeno/Audio/WaveLoader.hpp>
 #include <iostream>
 #include <cassert>
+#include <cstring>
+#include <climits>
 #include <AL/al.h>
 #include <AL/alc.h>
 
