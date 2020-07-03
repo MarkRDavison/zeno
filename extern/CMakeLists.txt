@@ -118,7 +118,14 @@ endif()
 #################
 #	OpenAl
 #################
-FIND_PACKAGE(OPENALSOFT REQUIRED)
-add_library(zeno-openal INTERFACE)
-target_include_directories(zeno-openal INTERFACE ${OPENALSOFT_INCLUDE_DIR})
-target_link_libraries(zeno-openal INTERFACE ${OPENALSOFT_LIBRARY})
+FIND_PACKAGE(OPENALSOFT QUIET)
+IF (OPENALSOFT_FOUND)
+	add_subdirectory(OpenAl-Soft)
+	add_library(zeno-openal INTERFACE)
+	target_include_directories(zeno-openal INTERFACE ${OPENALSOFT_INCLUDE_DIR})
+	target_link_libraries(zeno-openal INTERFACE ${OPENALSOFT_LIBRARY})
+ELSE()
+	add_library(zeno-openal INTERFACE)
+	target_include_directories(zeno-openal INTERFACE ${OPENALSOFT_INCLUDE_DIR})
+	target_link_libraries(zeno-openal INTERFACE ${OPENALSOFT_LIBRARY})
+ENDIF()
