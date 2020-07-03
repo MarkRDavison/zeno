@@ -21,6 +21,7 @@ namespace ze {
 
         void setScene(Scene* _scene);
 
+        Window& getWindow();
         const Window& getWindow() const;
 
     private:

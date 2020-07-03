@@ -135,7 +135,7 @@ namespace ze {
 
         glfwSetWindowUserPointer(m_Window, this);
         glfwMakeContextCurrent(m_Window);
-        setVerticalSync(false);
+        setVerticalSync(_videoMode.vsync);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

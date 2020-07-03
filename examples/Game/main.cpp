@@ -73,11 +73,10 @@ public:
 
 int main(int _argc, char** _argv) {
     ze::Application app;
-    ze::VideoMode mode = ze::VideoMode(0, 0, "Loading...");
 
     SplashScene splashScene;
 
-    if (!app.startSplash(mode, &splashScene)) {
+    if (!app.startSplash(ze::VideoMode(), &splashScene)) {
         return EXIT_FAILURE;
     }
 

@@ -12,7 +12,7 @@ namespace ze {
         float restart() {
             return restart<float>();
         }
-        float getElapsedTime() {
+        float getElapsedTime() const {
             return getElapsedTime<float>();
         }
 
@@ -26,7 +26,7 @@ namespace ze {
             return result;
         }
         template <typename T>
-        T getElapsedTime() {
+        T getElapsedTime() const {
             const std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
 
             return std::chrono::duration<T>(now - m_Start).count();

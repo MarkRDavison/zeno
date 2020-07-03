@@ -1,9 +1,20 @@
+Audio
+	-	Separate Thread
+Memory
+	-	Custom allocator????
+
+equiv of sf::Err, tie in with logger??
 Profiling
 Example app consuming
 FindZeno.cmake
-Splash screen
 Multi threaded font generation
 Quad tree/spatial partitioning
 
 Done:
 	Vertex array lines
+
+Audio	
+	-	Sounds
+	-	Music
+		
+Splash screen

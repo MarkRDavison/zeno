@@ -84,7 +84,7 @@ namespace ze {
 	void Application::render(float _alpha) {
 		RenderInfo info{};
 		info.projection = Mat4x4::Orthographic3D(0.0f, static_cast<float>(m_Window.getSize().x), static_cast<float>(m_Window.getSize().y), 0.0f, -1.0f, +1.0f);
-
+		info.alpha = _alpha;
 		ze::Window::clear();
 
 		if (m_Scene != nullptr) {
@@ -159,6 +159,9 @@ namespace ze {
 
 	void Application::setScene(Scene* _scene) {
 		m_Scene = _scene;
+	}
+	Window& Application::getWindow() {
+		return m_Window;
 	}
 	const Window& Application::getWindow() const {
 		return m_Window;

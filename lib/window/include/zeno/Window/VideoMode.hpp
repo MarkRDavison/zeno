@@ -17,6 +17,7 @@ namespace ze {
 
         bool decorated{ true };
         bool fullscreen{ false };
+        bool vsync{ true };
 
         std::string title;
 

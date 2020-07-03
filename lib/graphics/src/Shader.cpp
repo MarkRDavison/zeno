@@ -28,7 +28,9 @@ namespace ze {
     }
 
     Shader::~Shader() {
-        glDeleteProgram(m_ProgramId);
+        if (m_ProgramId != 0) {
+            glDeleteProgram(m_ProgramId);
+        }
     }
 
     bool Shader::loadShaderFiles(const std::string& _vertex, const std::string& _fragment) {

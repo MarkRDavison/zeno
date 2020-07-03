@@ -90,7 +90,7 @@ ENDIF()
 #################
 #	Freetype2
 #################
-FIND_PACKAGE(FREETYPE QUIET)
+FIND_PACKAGE(Freetype QUIET)
 IF (FREETYPE_FOUND)
 	add_library(zeno-freetype INTERFACE)
 	target_include_directories(zeno-freetype INTERFACE ${FREETYPE_INCLUDE_DIRS})
@@ -114,3 +114,11 @@ target_link_libraries(zeno-opengl INTERFACE ${OPENGL_LIBRARIES})
 if(UNIX AND NOT APPLE)
 	target_link_libraries(zeno-opengl INTERFACE GL)
 endif()
+
+#################
+#	OpenAl
+#################
+FIND_PACKAGE(OPENALSOFT REQUIRED)
+add_library(zeno-openal INTERFACE)
+target_include_directories(zeno-openal INTERFACE ${OPENALSOFT_INCLUDE_DIR})
+target_link_libraries(zeno-openal INTERFACE ${OPENALSOFT_LIBRARY})
