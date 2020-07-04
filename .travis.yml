@@ -145,7 +145,6 @@ install:
 script:
     -   mkdir build
     -   cd build
-    -   if [ $OPERATINGSYSTEM = "WINDOWS" ]; then ls ; fi
     -   if ! cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DGLEW_STATIC=ON ..; then travis_terminate 1; fi 
     -   if ! cmake --build . --config $BUILD_TYPE; then travis_terminate 1; fi 
     -   if [ $BUILD_TYPE != "Debug" ]; then travis_terminate 0; fi
