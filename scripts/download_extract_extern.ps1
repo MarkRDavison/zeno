@@ -12,4 +12,6 @@ cd ..
 
 cd zeno
 
-ls C:\ProgramData\chocolatey\lib
+ls C:/ProgramData
+ls C:/ProgramData/chocolatey
+ls C:/ProgramData/chocolatey/lib
