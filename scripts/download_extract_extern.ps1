@@ -11,3 +11,5 @@ wget https://kcat.strangesoft.net/openal-binaries/openal-soft-1.19.1-bin.zip -O 
 cd ..
 
 cd zeno
+
+ls C:\ProgramData\chocolatey\lib
