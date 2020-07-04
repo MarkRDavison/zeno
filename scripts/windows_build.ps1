@@ -1,13 +1,14 @@
 function Generate-ZenoBuildFiles {
 	param(
-		[string] $BuildType
+		[string] $BuildType,
+		[string] $AdditionalConfigureParams
 	)
 
 	Write-Host "===================================" -ForegroundColor Yellow
 	Write-Host "Generating Build Files" -ForegroundColor Yellow
 	Write-Host "===================================" -ForegroundColor Yellow
 
-	$cmd = 'cmake -DGLEW_STATIC=ON -DCMAKE_BUILD_TYPE=' + $BuildType + ' ..'
+	$cmd = 'cmake -A Win32 -DGLEW_STATIC=ON -DCMAKE_BUILD_TYPE=' + $BuildType + ' ' + $AdditionalConfigureParams + ' ..'
 	Write-Host $cmd -ForegroundColor Cyan
 	Invoke-Expression $cmd
 
@@ -24,16 +25,17 @@ function Build-ZenoSolution {
 	Invoke-Expression $cmd
 }
 function Install-ZenoArtifacts {
-	param([string] $BuildType)
-
-	$install_dir_root = "installed"
+	param(
+		[string] $BuildType,		
+		[Parameter(Mandatory=$true)]
+		[string] $InstallRoot
+	)
 
 	Write-Host "===================================" -ForegroundColor Yellow
 	Write-Host "Installing Artifacts" -ForegroundColor Yellow
 	Write-Host "===================================" -ForegroundColor Yellow
 
-	New-Item -Path $install_dir_root -ItemType directory | Out-Null
-	$cmd = 'cmake --install . --prefix ' + $install_dir_root + ' --config ' + $BuildType
+	$cmd = 'cmake --install . --prefix ' + $InstallRoot + ' --config ' + $BuildType
 	Write-Host $cmd -ForegroundColor Cyan
 	Invoke-Expression $cmd
 }
@@ -52,12 +54,14 @@ function Run-ZenoTests {
 function Do-TheThing {
 	param(
 		[string] $BuildType,
-		[bool] $Install
+		[string] $InstallRoot,
+		[string] $AdditionalConfigureParams
 	)
-	Generate-ZenoBuildFiles -BuildType $BuildType
+
+	Generate-ZenoBuildFiles -BuildType $BuildType -AdditionalConfigureParams $AdditionalConfigureParams
 	Build-ZenoSolution -BuildType $BuildType
-	if ($Install){
-		Install-ZenoArtifacts -BuildType $BuildType
+	if ($InstallRoot){
+		Install-ZenoArtifacts -BuildType $BuildType -InstallRoot $InstallRoot
 	}
 	Run-ZenoTests -BuildType $BuildType
 }
