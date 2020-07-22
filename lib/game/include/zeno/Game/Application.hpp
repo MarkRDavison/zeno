@@ -9,6 +9,12 @@ namespace ze {
 
     class Application {
     public:
+        Application() = default;
+        Application(const Application & _other) = delete;
+        Application(Application && _other) noexcept = delete;
+        Application& operator=(const Application & _other) = delete;
+        Application& operator=(Application && _other) noexcept = delete;
+
         bool initialise(const Vector2u& _resolution, const std::string& _name);
         bool initialise(const VideoMode& _videoMode);
         void start();

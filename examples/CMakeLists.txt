@@ -1,5 +1,5 @@
 add_subdirectory(Audio)
 add_subdirectory(Game)
 add_subdirectory(Graphics)
-add_subdirectory(Mat4x4Printer)
+add_subdirectory(Interaction)
 add_subdirectory(Window)

@@ -7,6 +7,7 @@
 #include <zeno/Game/InputManager.hpp>
 #include <zeno/Game/InputActionManager.hpp>
 #include <zeno/Game/Scene.hpp>
+#include <zeno/Game/SceneTransitionManager.hpp>
 #include <zeno/Game/ShaderManager.hpp>
 #include <zeno/Game/TextureManager.hpp>
 

@@ -60,8 +60,8 @@ function Do-TheThing {
 
 	Generate-ZenoBuildFiles -BuildType $BuildType -AdditionalConfigureParams $AdditionalConfigureParams
 	Build-ZenoSolution -BuildType $BuildType
+	Run-ZenoTests -BuildType $BuildType
 	if ($InstallRoot){
 		Install-ZenoArtifacts -BuildType $BuildType -InstallRoot $InstallRoot
 	}
-	Run-ZenoTests -BuildType $BuildType
 }

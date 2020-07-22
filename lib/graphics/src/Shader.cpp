@@ -165,7 +165,7 @@ namespace ze {
 
     bool Shader::createDefaultShaders() {
         const std::string vertexArray_Vertex = R"(
-#version 410 core
+#version 330 core
 
 layout(location = 0) in vec3 in_Position;
 layout(location = 1) in vec4 in_Color;
@@ -181,7 +181,7 @@ void main() {
     fragColor = in_Color;
 })";
         const std::string vertexArray_Fragment = R"(
-#version 410 core
+#version 330 core
 
 in vec4 fragColor;
 out vec4 FragColor;
@@ -190,7 +190,7 @@ void main() {
     FragColor = fragColor;
 })";
         const std::string vertexArrayTexture_Vertex = R"(
-#version 410 core
+#version 330 core
 
 layout(location = 0) in vec3 in_Position;
 layout(location = 1) in vec4 in_Color;
@@ -209,7 +209,7 @@ void main() {
     texUV = in_TexUV;
 })";
         const std::string vertexArrayTexture_Fragment = R"(
-#version 410 core
+#version 330 core
 
 in vec4 fragColor;
 in vec2 texUV;
@@ -222,7 +222,7 @@ void main() {
 })";
 
         const std::string text_Vertex = R"(
-#version 410 core
+#version 330 core
 
 layout(location = 0) in vec3 in_Position;
 layout(location = 1) in vec4 in_Color;
@@ -242,7 +242,7 @@ void main() {
 	texUV = in_TexUV;
 })";
         const std::string text_Fragment = R"(
-#version 410 core
+#version 330 core
 
 in vec4 fragColor;
 in vec2 texUV;
@@ -255,7 +255,7 @@ void main() {
 	FragColor.a = val;
 })";
         const std::string sdfText_Vertex = R"(
-#version 410 core
+#version 330 core
 
 layout(location = 0) in vec3 in_Position;
 layout(location = 1) in vec4 in_Color;
@@ -285,7 +285,7 @@ void main() {
     texUV = in_TexUV;
 })";
         const std::string sdfText_Fragment = R"(
-#version 410 core
+#version 330 core
 
 in vec4 internalColourOut;
 in vec4 externalColourOut;

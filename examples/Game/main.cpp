@@ -43,9 +43,9 @@ public:
     float m_Percentage{ 0.0f };
 };
 
-class ExampleScene : public ze::Scene {
+class ConstraintScene : public ze::Scene {
 public:
-    ~ExampleScene() override = default;
+    ~ConstraintScene() override = default;
 
     void update(float _delta) override {
         m_Time += _delta;
@@ -111,7 +111,7 @@ int main(int _argc, char** _argv) {
         return EXIT_FAILURE;
     }
 
-    ExampleScene scene;
+    ConstraintScene scene;
 
     app.setScene(&scene);
 

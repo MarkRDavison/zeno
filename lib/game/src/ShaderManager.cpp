@@ -33,6 +33,9 @@ namespace ze {
 		return true;
 	}
 	bool ShaderManager::loadShader(const std::string& _vertexPath, const std::string& _fragmentPath, const std::string& _shaderName) {
+		return loadShader(_vertexPath, _fragmentPath, _shaderName, {});
+	}
+	bool ShaderManager::loadShader(const std::string& _vertexPath, const std::string& _fragmentPath, const std::string& _shaderName, const std::vector<std::string>& _uniformNames) {
 		const auto vertex = StringExtensions::loadFileToString(_vertexPath);
 		const auto fragment = StringExtensions::loadFileToString(_fragmentPath);
 
@@ -54,6 +57,13 @@ namespace ze {
 
 		assert(m_Shaders.count(_shaderName) == 0);
 		m_Shaders[_shaderName] = shader;
+
+		for (const auto& u : _uniformNames) {
+			if (!shader->findLocationOfUniform(u)) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 	Shader& ShaderManager::getShader(const std::string& _shaderName) {

@@ -37,10 +37,14 @@ namespace ze {
 					}), m_Callbacks.end());
 		}
 
-		void invoke(T... params) {
+		void operator()(T... _params) {
+			invoke(_params...);
+		}
+
+		void invoke(T... _params) {
 			for (auto& p : m_Callbacks) {
 				if (p.second) {
-					p.second(params...);
+					p.second(_params...);
 				}
 			}
 		}

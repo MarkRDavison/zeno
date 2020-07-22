@@ -13,6 +13,7 @@ namespace ze {
 		bool createShader(const std::string& _shaderName, const std::vector<std::string>& _uniformNames);
 		bool loadShaderFiles(const std::string& _vertexPath, const std::string& _fragmentPath, const std::string& _shaderName);
 		bool loadShader(const std::string& _vertexPath, const std::string& _fragmentPath, const std::string& _shaderName);
+		bool loadShader(const std::string& _vertexPath, const std::string& _fragmentPath, const std::string& _shaderName, const std::vector<std::string>& _uniformNames);
 		Shader& getShader(const std::string& _shaderName);
 		const Shader& getShader(const std::string& _shaderName) const;
 

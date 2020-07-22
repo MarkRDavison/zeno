@@ -3,10 +3,19 @@ Audio
 Memory
 	-	Custom allocator????
 
+Interaction
+	-	https://www.youtube.com/watch?v=80b2oqecN4s&list=PLRIWtICgwaX2_2R9UcpGo1_vw050fZbTY&index=3
+	-	Constraints/animations
+	-	Remove all the shared_ptr where no ownership is required
+
+Graphics
+	-	RenderTexture
+
 equiv of sf::Err, tie in with logger??
 Profiling
 Example app consuming
 FindZeno.cmake
+
 Multi threaded font generation
 Quad tree/spatial partitioning
 
