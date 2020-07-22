@@ -12,3 +12,7 @@ TARGET_LINK_LIBRARIES(${AppMain} PRIVATE zeno-graphics)
 TARGET_LINK_LIBRARIES(${AppMain} PRIVATE zeno-window)
 TARGET_LINK_LIBRARIES(${AppMain} PRIVATE zeno-core)
 TARGET_LINK_LIBRARIES(${AppMain} PRIVATE zeno-audio)
+
+ADD_CUSTOM_COMMAND(TARGET ${AppMain} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_CURRENT_SOURCE_DIR}/data $<TARGET_FILE_DIR:${AppMain}>/data)

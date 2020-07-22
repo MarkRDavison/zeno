@@ -3,13 +3,7 @@
 #include <chrono>
 
 int main(int _argc, char** _argv) {
-
-    if (_argc < 2) {
-        std::cout << "Please pass the path to a sound file as the parameter" << std::endl;
-        return EXIT_FAILURE;
-    }
-
-    std::string soundPath = _argv[1];
+    std::string soundPath = "./data/sound.wav";
 
     ze::AudioContext context;
 
