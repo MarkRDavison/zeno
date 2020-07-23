@@ -15,10 +15,23 @@
 
 namespace ze {
 
-	JsonDocument::JsonDocument() {}
-	JsonDocument::JsonDocument(JsonDocument& _document) {}
-	JsonDocument::~JsonDocument() {}
+	JsonDocument::JsonDocument() {
+	}
+	JsonDocument::JsonDocument(JsonDocument& _document) {
+		this->m_Root = _document.m_Root;
+		this->m_Text = std::move(_document.m_Text);
 
+		_document.m_Root = nullptr;
+	}
+	JsonDocument::~JsonDocument() {
+		if (m_Root != nullptr) {
+			delete m_Root;
+		}
+	}
+
+	void JsonDocument::readFromText(const std::string& _text) {
+		m_Text = _text;
+	}
 	void JsonDocument::parse(const std::string& _text) {
 		m_Text = _text;
 		std::string text(_text);
@@ -115,109 +128,129 @@ namespace ze {
 	const std::string& JsonDocument::getInputRepresentation() const {
 		return m_Text;
 	}
-
 	JsonDocument Json::parseFromText(const std::string& _text) {
-		JsonDocument doc;
-
-		std::string json;
-		std::vector<JsonToken> tokens;
-
-		int callback = doc.tokenFound.registerCallback([&](JsonToken _token) -> void {
-			switch (_token.type) {
-			case JsonToken::Type::ObjectStart:
-				json += "'{' ";
-				break;
-			case JsonToken::Type::ObjectEnd:
-				json += "'}' ";
-				break;
-			case JsonToken::Type::ArrayStart:
-				json += "'[' ";
-				break;
-			case JsonToken::Type::ArrayEnd:
-				json += "']' ";
-				break;
-			case JsonToken::Type::ValueSeperator:
-				json += "':' ";
-				break;
-			case JsonToken::Type::Comma:
-				json += "',' ";
-				break;
-			case JsonToken::Type::ValueString:
-				json += "'\"" + _token.content + "\"' ";
-				break;
-			case JsonToken::Type::ValueNumber:
-			case JsonToken::Type::ValueInteger:
-				json += "'" + _token.content + "' ";
-				break;
-			case JsonToken::Type::ValueBoolean:
-				if (_token.content == "true" ||
-					_token.content == "True" ||
-					_token.content == "TRUE") {
-					json += "'True' ";
-				} else if (_token.content == "false" ||
-					_token.content == "False" ||
-					_token.content == "FALSE") {
-					json += "'False' ";
-				}
-				break;
-			default:
-				assert(false);
-			}
-			tokens.push_back(_token);
-			});
-
-		doc.parse(_text);
-
-		doc.tokenFound.unregisterCallback(callback);
-
-		std::cout << json << std::endl;
+		JsonDocument doc; 
+		doc.readFromText(_text);
+		createTreeFromStreamingDocument(doc);
 
 		return doc;
 	}
 	void Json::createTreeFromStreamingDocument(JsonDocument& _document) {
 		JsonNode* root{ nullptr };
+		JsonNode* current{ nullptr };
+		JsonNode* next{ nullptr };
 
 		int callbackId = _document.tokenFound.registerCallback([&](JsonToken _token) -> void {
 
 			switch (_token.type) {
 			case JsonToken::Type::ObjectStart:
 			{
+				if (root == nullptr) {
+					current = new JsonNode();
+					current->type = JsonNode::Type::Object;
+					root = current;
+				}
+				else if (next != nullptr) {
+					// We are creating a new object, and it has a name from previous tokens
+					next->type = JsonNode::Type::Object;
+					current = next;
+					next = nullptr;
+				}
+				else if (current->type == JsonNode::Type::Array) {
+					assert(next == nullptr);
+					// We are creating a new object in an array, so it has no name
+					next = new JsonNode();
+					next->type = JsonNode::Type::Object;
+					next->parent = current;
+					current->children.push_back(next);
+					current = next;
+					next = nullptr;
+				} else {
+					assert(false);
+				}
 				break;
 			}
 			case JsonToken::Type::ObjectEnd:
 			{
+				assert(current != nullptr && current->type == JsonNode::Type::Object);
+				current = current->parent;
 				break;
 			}
 			case JsonToken::Type::ArrayStart:
 			{
+				if (root == nullptr) {
+					current = new JsonNode();
+					current->type = JsonNode::Type::Array;
+					root = current;
+				}
+				else if (next != nullptr) {
+					// We are creating a new array, and it has a name from previous tokens
+					next->type = JsonNode::Type::Array;
+					current = next;
+					next = nullptr;
+				} else {
+					assert(false);
+				}
 				break;
 			}
 			case JsonToken::Type::ArrayEnd:
 			{
+				assert(current != nullptr && current->type == JsonNode::Type::Array);
+				current = current->parent;
 				break;
 			}
 			case JsonToken::Type::ValueSeperator:
 			{
+				assert(next != nullptr);
 				break;
 			}
 			case JsonToken::Type::Comma:
 			{
+				assert(next == nullptr);
 				break;
 			}
 			case JsonToken::Type::ValueString:
 			{
+				if (next != nullptr && next->type == JsonNode::Type::None) {
+					next->type = JsonNode::Type::ValueString;
+					next->content = _token.content;
+					next = nullptr;
+				}
+				else if (current->type == JsonNode::Type::Object) {
+					next = new JsonNode();
+					next->parent = current;
+					next->name = _token.content;
+					current->children.push_back(next);
+				} else {
+					assert(false);
+				}
 				break;
 			}
 			case JsonToken::Type::ValueNumber:
 			{
+				assert(next != nullptr && next->type == JsonNode::Type::None);
+				next->type = JsonNode::Type::ValueNumber;
+				next->content = _token.content;
+				next->number = stof(_token.content);
+				next = nullptr;
 				break;
 			}
 			case JsonToken::Type::ValueInteger:
 			{
+				assert(next != nullptr && next->type == JsonNode::Type::None);
+				next->type = JsonNode::Type::ValueInteger;
+				next->content = _token.content;
+				next->integer = stoi(_token.content);
+				next = nullptr;
 				break;
 			}
 			case JsonToken::Type::ValueBoolean:
 			{
+				assert(next != nullptr && next->type == JsonNode::Type::None);
+				next->type = JsonNode::Type::ValueBoolean;
+				next->content = _token.content;
+				next->boolean = "true" == _token.content;
+				next = nullptr;
 				break;
 			}
 			default:
@@ -232,4 +265,22 @@ namespace ze {
 		_document.m_Root = root;
 	}
 
+	JsonNode::~JsonNode() {
+		std::cout << "Deleted " << name << std::endl;
+		for (auto c : children) {
+			delete c;
+		}
+	}
+	JsonNode& JsonNode::operator[](const std::string& _name) const {
+		for (auto c : children) {
+			if (c->name == _name) {
+				return *c;
+			}
+		}
+
+		throw std::string("Invalid key for json object: ") + _name;
+	}
+	JsonNode& JsonNode::operator[](std::size_t _index) const {
+		return *children[_index];
+	}
 }

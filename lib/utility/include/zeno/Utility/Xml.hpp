@@ -1,7 +1,9 @@
 #ifndef INCLUDED_ZENO_UTILITY_XML_HPP_
 #define INCLUDED_ZENO_UTILITY_XML_HPP_
 
+#ifndef _WIN32
 #pragma clang diagnostic ignored "-Wunused-function"
+#endif
 
 #include <zeno/Core/Signal.hpp>
 #include <unordered_map>
