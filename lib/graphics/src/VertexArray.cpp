@@ -77,7 +77,7 @@ namespace ze {
         m_Verticies.emplace_back(_vertex);
     }
 
-    void VertexArray::render(const Window& _window, RenderInfo _info) const {
+    void VertexArray::render(const RenderTarget& _target, RenderInfo _info) const {
         if (!m_Created) {
             std::cerr << "Trying to draw vertex array that hasn't been created" << std::endl;
         }

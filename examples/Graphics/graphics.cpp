@@ -7,7 +7,7 @@ int main(int _argc, char** _argv) {
     ze::VideoMode mode = ze::VideoMode(640, 480, "Zeno Graphics");
     mode.contextMajor = 4;
     mode.contextMinor = 5;
-    ze::Window window;
+    ze::RenderWindow window;
 
     if (!window.initialise(mode)) {
         return EXIT_FAILURE;
@@ -51,6 +51,7 @@ int main(int _argc, char** _argv) {
     textSdf.setOutlineThickness(0.0f);
     textSdf.centerText();
 
+    ze::Vector2i windowSize = { (int)mode.width, (int)mode.height };
     ze::VertexArray lines = ze::VertexArray(ze::DrawType::LineStrip, 5);
     auto updateGraphics = [&lines](int _w, int _h) {
         ze::Vector2f size((float)_w, (float)_h);
@@ -82,17 +83,18 @@ int main(int _argc, char** _argv) {
                 running = false;
             }
             if (event.type == ze::Event::EventType::WindowSizeChanged) {
+                windowSize = { (int)event.size.width, (int)event.size.height };
                 updateGraphics(event.size.width, event.size.height);
             }
         }
 
         window.clear();
 
-        auto size = ze::Vector2f(window.getSize());
+        auto size = ze::Vector2f(windowSize);
 
         ze::RenderInfo info;
         info.projection = ze::Mat4x4::Orthographic3D(-size.x / 2.0f, +size.x / 2.0f, +size.y / 2.0f, -size.y / 2.0f, -1.0f, +1.0f);
-        info.model.translate(ze::Vector3f(0.0f, size.y/4.0f, 0.0f));
+        info.model.translate(ze::Vector3f(0.0f, +size.y / 4.0f, 0.0f));
         textDefault.render(window, info);
         info.model.translate(ze::Vector3f(0.0f, -size.y / 4.0f, 0.0f));
         lines.render(window, info);

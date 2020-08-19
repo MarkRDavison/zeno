@@ -18,7 +18,7 @@ namespace ze {
 
 		void update(float _delta);
 		bool handleEvent(const ze::Event& _event);
-		void render(const ze::Window& _window, ze::RenderInfo _info) const override;
+		void render(const ze::RenderTarget& _target, ze::RenderInfo _info) const override;
 
 		ze::Vector2f getMousePositionRelative() const noexcept;
 		ze::Vector2f getMousePositionPixel() const noexcept;

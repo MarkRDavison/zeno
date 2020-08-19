@@ -43,9 +43,6 @@ namespace ze {
 		height = getConstraintRelativeOr(constraintSet.heightConstraint, 1.0f) * parent->height * HEIGHT_MODIFIER * GET_ANIM_HEIGHT;
 	}
 
-	void Component::initialise() {
-
-	}
 	void Component::initialiseAllChildren() {
 
 	}
@@ -115,11 +112,11 @@ namespace ze {
 			c->update(_delta);
 		}
 	}
-	void Component::render(const ze::Window& _window, ze::RenderInfo _info) const {
-		renderComponent(_window, _info);
+	void Component::render(const ze::RenderTarget& _target, ze::RenderInfo _info) const {
+		renderComponent(_target, _info);
 
 		for (const auto& c : children) {
-			c->render(_window, _info);
+			c->render(_target, _info);
 		}
 	}
 

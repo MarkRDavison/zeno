@@ -33,7 +33,7 @@ namespace ze {
 
         unsigned getVao() const noexcept { return m_Vao; }
 
-        void render(const Window& _window, RenderInfo _info) const override;
+        void render(const RenderTarget& _target, RenderInfo _info) const override;
 
         void setDrawType(DrawType _type);
         DrawType getDrawType() const;

@@ -24,7 +24,7 @@ namespace ze {
 
 		FloatRect getBounds(void) const;
 
-		void render(const Window& _window, RenderInfo _info) const override;
+		void render(const RenderTarget& _target, RenderInfo _info) const override;
 
 	protected:
 		void updateInternalPositions(void);

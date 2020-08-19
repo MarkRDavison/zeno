@@ -6,7 +6,7 @@ namespace ze {
 
     namespace Test {
 
-        TEST_CASE("Sample json parsing works", "[Json]") {
+        TEST_CASE("Sample json token detection works", "[Json]") {
             const std::string text = R"json(
 {
     "menu": {
@@ -31,11 +31,170 @@ namespace ze {
             std::vector<JsonToken> tokens;
             doc.tokenFound.registerCallback([&](JsonToken _token) -> void {
                 tokens.push_back(_token);
-                });
+            });
 
             doc.parse(text);
 
             REQUIRE(91 == tokens.size());
+        }
+
+        TEST_CASE("Nested arrays work", "[Json]") {
+            const std::string text = R"json([1, [2, [3], 2], 1])json";
+            JsonDocument doc = Json::parseFromText(text);
+            JsonNode& root = *doc.m_Root;
+
+            {
+                // root
+                JsonNode& current = root;
+                REQUIRE(current.name.empty());
+                REQUIRE(JsonNode::Type::Array == current.type);
+                REQUIRE(current.content.empty());
+                REQUIRE(3 == current.children.size());
+
+                {
+                    // root[0]
+                    JsonNode& current = root[0];
+                    REQUIRE(current.name.empty());
+                    REQUIRE(JsonNode::Type::ValueInteger == current.type);
+                    REQUIRE("1" == current.content);
+                    REQUIRE(1 == current.integer);
+                    REQUIRE(current.children.empty());
+                }
+                {
+                    // root[1]
+                    JsonNode& current = root[1];
+                    REQUIRE(current.name.empty());
+                    REQUIRE(JsonNode::Type::Array == current.type);
+                    REQUIRE(current.content.empty());
+                    REQUIRE(3 == current.children.size());
+
+                    {
+                        // root[1][0]
+                        JsonNode& current = root[1][0];
+                        REQUIRE(current.name.empty());
+                        REQUIRE(JsonNode::Type::ValueInteger == current.type);
+                        REQUIRE("2" == current.content);
+                        REQUIRE(2 == current.integer);
+                        REQUIRE(current.children.empty());
+                    }
+                    {
+                        // root[1][1]
+                        JsonNode& current = root[1][1];
+                        REQUIRE(current.name.empty());
+                        REQUIRE(JsonNode::Type::Array == current.type);
+                        REQUIRE(current.content.empty());
+                        REQUIRE(1 == current.children.size());
+
+                        {
+                            // root[1][1][0]
+                            JsonNode& current = root[1][1][0];
+                            REQUIRE(current.name.empty());
+                            REQUIRE(JsonNode::Type::ValueInteger == current.type);
+                            REQUIRE("3" == current.content);
+                            REQUIRE(3 == current.integer);
+                            REQUIRE(current.children.empty());
+                        }
+                    }
+                    {
+                        // root[1][2]
+                        JsonNode& current = root[1][2];
+                        REQUIRE(current.name.empty());
+                        REQUIRE(JsonNode::Type::ValueInteger == current.type);
+                        REQUIRE("2" == current.content);
+                        REQUIRE(2 == current.integer);
+                        REQUIRE(current.children.empty());
+                    }
+                }
+                {
+                    // root[2]
+                    JsonNode& current = root[2];
+                    REQUIRE(current.name.empty());
+                    REQUIRE(JsonNode::Type::ValueInteger == current.type);
+                    REQUIRE("1" == current.content);
+                    REQUIRE(1 == current.integer);
+                    REQUIRE(current.children.empty());
+                }
+            }
+        }
+        
+        TEST_CASE("Advent of code json examples work", "[Json]") {
+            SECTION("Array inside an object") {
+                const std::string text = R"json({"d":"red","e":[1,2,3.2,"4x4"],"f":5})json";
+
+                JsonDocument doc = Json::parseFromText(text);
+                JsonNode& root = *doc.m_Root;
+
+                {
+                    // Root Node
+                    JsonNode& current = root;
+                    REQUIRE(current.name.empty());
+                    REQUIRE(JsonNode::Type::Object == current.type);
+                    REQUIRE(current.content.empty());
+                    REQUIRE(3 == current.children.size());
+
+                    {
+                        // d
+                        JsonNode& current = root["d"];
+                        REQUIRE("d" == current.name);
+                        REQUIRE(JsonNode::Type::ValueString == current.type);
+                        REQUIRE("red" == current.content);
+                        REQUIRE(current.children.empty());
+                    }
+                    {
+                        // e
+                        JsonNode& current = root["e"];
+                        REQUIRE("e" == current.name);
+                        REQUIRE(JsonNode::Type::Array == current.type);
+                        REQUIRE(current.content.empty());
+                        REQUIRE(4 == current.children.size());
+
+                        {
+                            // e[0]
+                            JsonNode& current = root["e"][0];
+                            REQUIRE(current.name.empty());
+                            REQUIRE(JsonNode::Type::ValueInteger == current.type);
+                            REQUIRE("1" == current.content);
+                            REQUIRE(1 == current.integer);
+                            REQUIRE(current.children.empty());
+                        }
+                        {
+                            // e[1]
+                            JsonNode& current = root["e"][1];
+                            REQUIRE(current.name.empty());
+                            REQUIRE(JsonNode::Type::ValueInteger == current.type);
+                            REQUIRE("2" == current.content);
+                            REQUIRE(2 == current.integer);
+                            REQUIRE(current.children.empty());
+                        }
+                        {
+                            // e[2]
+                            JsonNode& current = root["e"][2];
+                            REQUIRE(current.name.empty());
+                            REQUIRE(JsonNode::Type::ValueNumber == current.type);
+                            REQUIRE("3.2" == current.content);
+                            REQUIRE(3.2f == current.number);
+                            REQUIRE(current.children.empty());
+                        }
+                        {
+                            // e[3]
+                            JsonNode& current = root["e"][3];
+                            REQUIRE(current.name.empty());
+                            REQUIRE(JsonNode::Type::ValueString == current.type);
+                            REQUIRE("4x4" == current.content);
+                            REQUIRE(current.children.empty());
+                        }
+                    }
+                    {
+                        // f
+                        JsonNode& current = root["f"];
+                        REQUIRE("f" == current.name);
+                        REQUIRE(JsonNode::Type::ValueInteger == current.type);
+                        REQUIRE("5" == current.content);
+                        REQUIRE(5 == current.integer);
+                        REQUIRE(current.children.empty());
+                    }
+                }
+            }
         }
 
         TEST_CASE("Default streaming method creates json tree as expected", "[Json]") {

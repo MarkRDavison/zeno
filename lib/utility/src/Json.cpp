@@ -1,5 +1,4 @@
 #include <zeno/Utility/Json.hpp>
-#include <iostream>
 #include <cassert>
 
 #define TOKEN_START_OBJECT '{'
@@ -149,14 +148,12 @@ namespace ze {
 					current = new JsonNode();
 					current->type = JsonNode::Type::Object;
 					root = current;
-				}
-				else if (next != nullptr) {
+				} else if (next != nullptr) {
 					// We are creating a new object, and it has a name from previous tokens
 					next->type = JsonNode::Type::Object;
 					current = next;
 					next = nullptr;
-				}
-				else if (current->type == JsonNode::Type::Array) {
+				} else if (current->type == JsonNode::Type::Array) {
 					assert(next == nullptr);
 					// We are creating a new object in an array, so it has no name
 					next = new JsonNode();
@@ -182,10 +179,17 @@ namespace ze {
 					current = new JsonNode();
 					current->type = JsonNode::Type::Array;
 					root = current;
-				}
-				else if (next != nullptr) {
+				} else if (next != nullptr) {
 					// We are creating a new array, and it has a name from previous tokens
 					next->type = JsonNode::Type::Array;
+					current = next;
+					next = nullptr;
+				} else if (current->type == JsonNode::Type::Array) {
+					// Nested array
+					next = new JsonNode();
+					next->type = JsonNode::Type::Array;
+					next->parent = current;
+					current->children.push_back(next);
 					current = next;
 					next = nullptr;
 				} else {
@@ -215,12 +219,17 @@ namespace ze {
 					next->type = JsonNode::Type::ValueString;
 					next->content = _token.content;
 					next = nullptr;
-				}
-				else if (current->type == JsonNode::Type::Object) {
+				} else if (current->type == JsonNode::Type::Object) {
 					next = new JsonNode();
 					next->parent = current;
 					next->name = _token.content;
 					current->children.push_back(next);
+				} else if (current->type == JsonNode::Type::Array) {
+					next = new JsonNode();
+					next->type = JsonNode::Type::ValueString;
+					next->content = _token.content;
+					current->children.push_back(next);
+					next = nullptr;
 				} else {
 					assert(false);
 				}
@@ -228,29 +237,68 @@ namespace ze {
 			}
 			case JsonToken::Type::ValueNumber:
 			{
-				assert(next != nullptr && next->type == JsonNode::Type::None);
-				next->type = JsonNode::Type::ValueNumber;
-				next->content = _token.content;
-				next->number = stof(_token.content);
-				next = nullptr;
+				const float value = stof(_token.content);
+				if (next != nullptr && next->type == JsonNode::Type::None) {
+					next->type = JsonNode::Type::ValueNumber;
+					next->content = _token.content;
+					next->number = value;
+					next = nullptr;
+				} else if (current->type == JsonNode::Type::Object) {
+					assert(false);
+				} else if (current->type == JsonNode::Type::Array) {
+					next = new JsonNode();
+					next->type = JsonNode::Type::ValueNumber;
+					next->content = _token.content;
+					next->number = value;
+					current->children.push_back(next);
+					next = nullptr;
+				} else {
+					assert(false);
+				}
 				break;
 			}
 			case JsonToken::Type::ValueInteger:
 			{
-				assert(next != nullptr && next->type == JsonNode::Type::None);
-				next->type = JsonNode::Type::ValueInteger;
-				next->content = _token.content;
-				next->integer = stoi(_token.content);
-				next = nullptr;
+				const int value = stoi(_token.content);
+				if (next != nullptr && next->type == JsonNode::Type::None) {
+					next->type = JsonNode::Type::ValueInteger;
+					next->content = _token.content;
+					next->integer = value;
+					next = nullptr;
+				} else if (current->type == JsonNode::Type::Object) {
+					assert(false);
+				} else if (current->type == JsonNode::Type::Array) {
+					next = new JsonNode();
+					next->type = JsonNode::Type::ValueInteger;
+					next->content = _token.content;
+					next->integer = value;
+					current->children.push_back(next);
+					next = nullptr;
+				} else {
+					assert(false);
+				}
 				break;
 			}
 			case JsonToken::Type::ValueBoolean:
 			{
-				assert(next != nullptr && next->type == JsonNode::Type::None);
-				next->type = JsonNode::Type::ValueBoolean;
-				next->content = _token.content;
-				next->boolean = "true" == _token.content;
-				next = nullptr;
+				const bool value = "true" == _token.content;
+				if (next != nullptr && next->type == JsonNode::Type::None) {
+					next->type = JsonNode::Type::ValueBoolean;
+					next->content = _token.content;
+					next->boolean = value;
+					next = nullptr;
+				} else if (current->type == JsonNode::Type::Object) {
+					assert(false);
+				} else if (current->type == JsonNode::Type::Array) {
+					next = new JsonNode();
+					next->type = JsonNode::Type::ValueBoolean;
+					next->content = _token.content;
+					next->boolean = value;
+					current->children.push_back(next);
+					next = nullptr;
+				} else {
+					assert(false);
+				}
 				break;
 			}
 			default:
@@ -266,7 +314,6 @@ namespace ze {
 	}
 
 	JsonNode::~JsonNode() {
-		std::cout << "Deleted " << name << std::endl;
 		for (auto c : children) {
 			delete c;
 		}
@@ -281,6 +328,6 @@ namespace ze {
 		throw std::string("Invalid key for json object: ") + _name;
 	}
 	JsonNode& JsonNode::operator[](std::size_t _index) const {
-		return *children[_index];
+		return *children.at(_index);
 	}
 }

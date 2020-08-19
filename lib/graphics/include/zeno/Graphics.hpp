@@ -9,6 +9,9 @@
 #include <zeno/Graphics/RectangleShape.hpp>
 #include <zeno/Graphics/Renderable.hpp>
 #include <zeno/Graphics/RenderInfo.hpp>
+#include <zeno/Graphics/RenderTarget.hpp>
+#include <zeno/Graphics/RenderTexture.hpp>
+#include <zeno/Graphics/RenderWindow.hpp>
 #include <zeno/Graphics/Shader.hpp>
 #include <zeno/Graphics/Shape.hpp>
 #include <zeno/Graphics/Text.hpp>

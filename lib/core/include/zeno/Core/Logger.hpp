@@ -23,26 +23,26 @@ namespace ze {
 
 		std::ostream& operator()() { return m_Ostream; }
 
-		void log(Severity _severity, const std::string& _str) {
+		void log(Severity _severity, const std::string& _str) const {
 			if (_severity >= m_Severity) {
 				log(_str);
 			}
 		}
 
 		template<typename T, typename... Targs>
-		void log(Severity _severity, const std::string& _format, const T& _value, const Targs&... _args) {
+		void log(Severity _severity, const std::string& _format, const T& _value, const Targs&... _args)  const {
 			if (_severity >= m_Severity) {
 				log(_format, _value, _args...);
 			}
 		}
 
 	private:
-		void log(const std::string& _str) {
+		void log(const std::string& _str)  const {
 			m_Ostream << _str << std::endl;
 		}
 
 		template<typename T, typename... Targs>
-		void log(const std::string& _format, const T& _value, const Targs&... _args) {
+		void log(const std::string& _format, const T& _value, const Targs&... _args) const {
 			for (unsigned i = 0; i < _format.size(); ++i) {
 				const char fc = _format[i];
 				if (fc == '%' && (i == 0 || _format[i] != '\\')) {

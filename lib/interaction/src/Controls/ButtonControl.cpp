@@ -10,7 +10,7 @@ namespace ze {
 		return true;
 	}
 
-	void ButtonControl::renderComponent(const ze::Window& _window, ze::RenderInfo _info) const {
+	void ButtonControl::renderComponent(const ze::RenderTarget& _target, ze::RenderInfo _info) const {
 		ze::VertexArray v(ze::DrawType::Triangles);
 
 		ze::Colour colour = m_MouseOver
@@ -26,7 +26,7 @@ namespace ze {
 
 		v.create();
 
-		v.render(_window, _info);
+		v.render(_target, _info);
 	}
 
 }

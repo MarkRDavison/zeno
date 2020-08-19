@@ -12,7 +12,7 @@ namespace ze {
 
         virtual void update(float _delta) = 0;
         virtual bool handleEvent(const Event& _event) = 0;
-        void render(const Window& _window, RenderInfo _info) const override = 0;
+        void render(const RenderTarget& _target, RenderInfo _info) const override = 0;
     };
 
     inline Scene::~Scene() = default;

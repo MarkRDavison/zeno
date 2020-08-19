@@ -29,13 +29,13 @@ namespace ze {
 		return true;
 	}
 	void Application::renderSplash() {
-		render(0.0f);
+		render(m_Window, 0.0f);
 	}
 	bool Application::splashFinished() {
 		return splashFinished(m_StartingMode);
 	}
 	bool Application::splashFinished(const VideoMode& _videoMode) {
-
+		m_Window.clear();
 		if (m_Window.getWindowFullscreen()) {
 			m_Window.setWindowFullscreen(_videoMode.fullscreen);
 		}
@@ -81,14 +81,14 @@ namespace ze {
 		}
 	}
 
-	void Application::render(float _alpha) {
+	void Application::render(RenderTarget& _target, float _alpha) {
 		RenderInfo info{};
-		info.projection = Mat4x4::Orthographic3D(0.0f, static_cast<float>(m_Window.getSize().x), static_cast<float>(m_Window.getSize().y), 0.0f, -1.0f, +1.0f);
+		info.projection = Mat4x4::Orthographic3D(0.0f, static_cast<float>(_target.getSize().x), static_cast<float>(_target.getSize().y), 0.0f, -1.0f, +1.0f);
 		info.alpha = _alpha;
-		ze::Window::clear();
+		m_Window.clear();
 
 		if (m_Scene != nullptr) {
-			m_Scene->render(m_Window, info);
+			m_Scene->render(_target, info);
 		}
 
 		m_Window.display();
@@ -146,7 +146,7 @@ namespace ze {
 			}
 
 			// Render
-			render(accumulator / delta);
+			render(m_Window, accumulator / delta);
 			fps++;
 		}
 
@@ -160,10 +160,10 @@ namespace ze {
 	void Application::setScene(Scene* _scene) {
 		m_Scene = _scene;
 	}
-	Window& Application::getWindow() {
+	RenderWindow& Application::getWindow() {
 		return m_Window;
 	}
-	const Window& Application::getWindow() const {
+	const RenderWindow& Application::getWindow() const {
 		return m_Window;
 	}
 

@@ -14,9 +14,9 @@ public:
     bool handleEvent(const ze::Event & _event) override {
         return false;
     }
-    void render(const ze::Window & _window, ze::RenderInfo _info) const override {
+    void render(const ze::RenderTarget& _target, ze::RenderInfo _info) const override {
         ze::RenderInfo info(_info);
-        const ze::Vector2f size(_window.getSize());
+        const ze::Vector2f size(_target.getSize());
         info.projection = ze::Mat4x4::Orthographic3D(-size.x / 2.0f, +size.x / 2.0f, +size.y / 2.0f, -size.y / 2.0f, -1.0f, +1.0f);
 
         ze::CircleShape c(96.0f);
@@ -24,7 +24,7 @@ public:
         c.setOutlineColour(ze::Colour::Red);
         c.setOutlineThickness(8.0f);
 
-        c.render(_window, info);
+        c.render(_target, info);
 
         const float margin = 4.0f;
         const float barSize = 32.0f;
@@ -33,11 +33,11 @@ public:
         ze::RectangleShape progress = ze::RectangleShape(ze::Vector2f(barLength, barSize), ze::Vector2f(-barLength / 2.0f, -size.y / 2.0f + barSize  / 2.0f));
 
         progress.setInternalColour(ze::Colour::Blue);
-        progress.render(_window, info);
+        progress.render(_target, info);
         progress.setSize(ze::Vector2f(barLength * m_Percentage / 100.0f - margin * 2.0f, progress.getBounds().height - margin * 2.0f));
         progress.translate(ze::Vector2f(margin, margin));
         progress.setInternalColour(ze::Colour::Green);
-        progress.render(_window, info);
+        progress.render(_target, info);
     }
 
     float m_Percentage{ 0.0f };
@@ -53,9 +53,9 @@ public:
     bool handleEvent(const ze::Event& _event) override {
         return false;
     }
-    void render(const ze::Window& _window, ze::RenderInfo _info) const override {
+    void render(const ze::RenderTarget& _target, ze::RenderInfo _info) const override {
         ze::RenderInfo info(_info);
-        const ze::Vector2f size(_window.getSize());
+        const ze::Vector2f size(_target.getSize());
         info.projection = ze::Mat4x4::Orthographic3D(-size.x / 2.0f, +size.x / 2.0f, +size.y / 2.0f, -size.y / 2.0f, -1.0f, +1.0f);
 
         ze::CircleShape c(64.0f);
@@ -65,7 +65,7 @@ public:
 
         info.model.translate(ze::Vector3f(0.0f, size.y / 150.f * sinf(m_Time) * 180.0f / 3.14159265f, 0.0f));
 
-        c.render(_window, info);
+        c.render(_target, info);
     }
 
     float m_Time{ 0.0f };

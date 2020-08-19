@@ -32,7 +32,7 @@ namespace ze {
 		glDeleteVertexArrays(1, &m_OutlineVAO);
 	}
 
-	void Shape::render(const Window& _window, RenderInfo _info) const {
+	void Shape::render(const RenderTarget& _target, RenderInfo _info) const {
 		if (_info.shader == nullptr) {
 			if (_info.texture == nullptr) {
 				_info.shader = &Shader::VertexArrayShader;

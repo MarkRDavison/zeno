@@ -14,9 +14,10 @@ namespace ze {
 		float getRelativeValue() override;
 		void setPixelValue(int _pixels) override;
 		void setRelativeValue(float _value) override;
+		void finishSetup(ConstraintSet& _set) override;
 	private:
 		float m_Margin;
-
+		std::shared_ptr<Constraint> m_PositionConstraint;
 	};
 
 }

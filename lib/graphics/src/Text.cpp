@@ -43,7 +43,7 @@ namespace ze {
 		m_ExternalColour = _colour;
 	}
 
-	void Text::render(const Window& _window, RenderInfo _info) const {
+	void Text::render(const RenderTarget& _target, RenderInfo _info) const {
 		if (m_Text.empty() || m_Font == nullptr) {
 			return;
 		}

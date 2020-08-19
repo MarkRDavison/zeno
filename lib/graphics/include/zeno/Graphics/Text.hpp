@@ -21,7 +21,7 @@ namespace ze {
 		void setInternalColour(const Colour& _colour);
 		void setExternalColour(const Colour& _colour);
 
-		void render(const Window& _window, RenderInfo _info) const override;
+		void render(const RenderTarget& _target, RenderInfo _info) const override;
 		void centerText();
 
 		std::string getString() const;

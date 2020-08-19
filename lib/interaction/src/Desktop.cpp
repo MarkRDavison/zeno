@@ -39,11 +39,11 @@ namespace ze {
 
 		return false;
 	}
-	void Desktop::render(const ze::Window& _window, ze::RenderInfo _info) const {
+	void Desktop::render(const ze::RenderTarget& _target, ze::RenderInfo _info) const {
 		ze::RenderInfo info(_info);
 		info.projection = ze::Mat4x4::Orthographic3D(0.0f, 1.0f, 1.0f, 0.0f, 10.0f, 0.0f);
 
-		m_Root->render(_window, info);
+		m_Root->render(_target, info);
 	}
 
 	ze::Vector2f Desktop::getMousePositionRelative() const noexcept {

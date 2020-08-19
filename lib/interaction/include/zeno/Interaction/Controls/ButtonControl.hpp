@@ -11,7 +11,7 @@ namespace ze {
 		~ButtonControl() override = default;
 		void update(float _delta) override;
 		bool onClick(ze::Mouse::Button _button) override;
-		void renderComponent(const ze::Window& _window, ze::RenderInfo _info) const override;
+		void renderComponent(const ze::RenderTarget& _target, ze::RenderInfo _info) const override;
 
 		ze::Signal<ze::Mouse::Button> clickSignal;
 		ze::Colour defaultColour;

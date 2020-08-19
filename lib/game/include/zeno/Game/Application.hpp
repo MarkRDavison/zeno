@@ -3,7 +3,7 @@
 
 #include <zeno/Core/Vector2.hpp>
 #include <zeno/Game/Scene.hpp>
-#include <zeno/Window/Window.hpp>
+#include <zeno/Graphics/RenderWindow.hpp>
 
 namespace ze {
 
@@ -27,12 +27,12 @@ namespace ze {
 
         void setScene(Scene* _scene);
 
-        Window& getWindow();
-        const Window& getWindow() const;
+        RenderWindow& getWindow();
+        const RenderWindow& getWindow() const;
 
     private:
         void update(float _delta);
-        void render(float _alpha);
+        void render(RenderTarget& _target, float _alpha);
 
     private:
         GLFWContext context{};
@@ -41,7 +41,7 @@ namespace ze {
         bool m_SplashShowing{ false };
         VideoMode m_StartingMode;
 
-        Window m_Window;
+        RenderWindow m_Window;
         Scene* m_Scene{ nullptr };
     };
 

@@ -5,7 +5,7 @@ int main(int _argc, char** _argv) {
     ze::GLFWContext context{};
 
     ze::VideoMode mode = ze::VideoMode(800, 600, "Zeno Window");
-    ze::Window window;
+    ze::RenderWindow window;
     if (!window.initialise(mode)) {
         return EXIT_FAILURE;
     }

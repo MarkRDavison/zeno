@@ -3,13 +3,14 @@
 
 #include <zeno/Window/Window.hpp>
 #include <zeno/Graphics/RenderInfo.hpp>
+#include <zeno/Graphics/RenderTarget.hpp>
 
 namespace ze {
 
     class Renderable {
     public:
         virtual ~Renderable() = default;
-        virtual void render(const Window& _window, RenderInfo _info) const = 0;
+        virtual void render(const RenderTarget& _target, RenderInfo _info) const = 0;
     };
 
 }

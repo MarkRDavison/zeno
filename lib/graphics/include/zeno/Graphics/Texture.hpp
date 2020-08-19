@@ -34,7 +34,7 @@ namespace ze {
 
 		bool isLoaded() const;
 
-	private:
+	//private:
 		bool m_Loaded{ false };
 		unsigned int 				m_TextureHandle;
 

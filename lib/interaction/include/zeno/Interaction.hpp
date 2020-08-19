@@ -10,6 +10,7 @@
 #include <zeno/Interaction/Constraints/AspectRatioConstraint.hpp>
 #include <zeno/Interaction/Constraints/BestFitConstraint.hpp>
 #include <zeno/Interaction/Constraints/CenterConstraint.hpp>
+#include <zeno/Interaction/Constraints/DockConstraint.hpp>
 #include <zeno/Interaction/Constraints/FillConstraint.hpp>
 #include <zeno/Interaction/Constraints/FollowConstraint.hpp>
 #include <zeno/Interaction/Constraints/RelativeConstraint.hpp>

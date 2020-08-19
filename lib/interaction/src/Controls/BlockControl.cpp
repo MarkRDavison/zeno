@@ -13,7 +13,7 @@ namespace ze {
 		return false;
 	}
 	
-	void BlockControl::renderComponent(const ze::Window& _window, ze::RenderInfo _info) const {
+	void BlockControl::renderComponent(const ze::RenderTarget& _target, ze::RenderInfo _info) const {
 		ze::RenderInfo info(_info);
 		info.texture = texture;
 		ze::VertexArray v(ze::DrawType::Triangles);
@@ -32,7 +32,7 @@ namespace ze {
 
 		v.create();
 
-		v.render(_window, info);
+		v.render(_target, info);
 	}
 
 }

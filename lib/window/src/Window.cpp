@@ -178,14 +178,6 @@ namespace ze {
         return false;
     }
 
-    void Window::clear() {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
-
-    void Window::display() const {
-        glfwSwapBuffers(m_Window);
-    }
-
     void Window::close() {
         if (m_Window != nullptr) {
             glfwDestroyWindow(m_Window);

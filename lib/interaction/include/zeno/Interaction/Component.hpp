@@ -15,7 +15,6 @@ namespace ze {
 	public:
 		virtual ~Component() = 0;
 
-		virtual bool handleEvent(const ze::Event& _event) = 0;
 
 		void forceInitialisation(const ze::FloatRect& _bounds);
 		void forceInitialisation(float _x, float _y, float _width, float _height);
@@ -25,7 +24,7 @@ namespace ze {
 
 		void recalculatePositions();
 
-		void initialise();
+		virtual void initialise() {};
 		void initialiseAllChildren();
 		void initialiseChild(std::shared_ptr<Component> _child);
 		void reset();
@@ -40,8 +39,9 @@ namespace ze {
 		void addComponent(std::shared_ptr<Component> _component, ConstraintSet _constraintSet);
 
 		virtual void update(float _delta);
-		void render(const ze::Window& _window, ze::RenderInfo _info) const;
-		virtual void renderComponent(const ze::Window& _window, ze::RenderInfo _info) const = 0;
+		virtual bool handleEvent(const ze::Event& _event) = 0;
+		void render(const ze::RenderTarget& _target, ze::RenderInfo _info) const;
+		virtual void renderComponent(const ze::RenderTarget& _target, ze::RenderInfo _info) const = 0;
 
 		int level{ 0 };
 

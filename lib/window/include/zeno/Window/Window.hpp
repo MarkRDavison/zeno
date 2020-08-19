@@ -20,17 +20,15 @@ namespace ze {
     class Window {
     public:
         Window();
-        ~Window();
+        virtual ~Window();
 
         bool initialise(VideoMode _videoMode);
 
         void pumpEvents() const;
         bool pollEvent(Event& _event);
-        static void clear();
-        void display() const;
-        void close();
 
         void setVerticalSync(bool _vsync);
+        void close();
 
         Vector2u getSize() const;
         void setSize(const Vector2u& _size) const;

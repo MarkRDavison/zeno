@@ -9,11 +9,12 @@ namespace ze {
 	}
 
 	float FillConstraint::getRelativeValue() {
-		float gap = m_Margin / ( 
+		const float pos = m_PositionConstraint->getRelativeValue();
+		const float gap = m_Margin / ( 
 			xAxis
 				? parent->getPixelWidth()
 				: parent->getPixelHeight());
-		return 1.0f - gap * 2.0f;
+		return 1.0f - gap - pos;
 	}
 	void FillConstraint::setPixelValue(int _pixels) {
 		m_Margin = static_cast<float>(_pixels);
@@ -25,6 +26,11 @@ namespace ze {
 			: parent->getPixelHeight();
 
 		setPixelValue(static_cast<int>(_value / parentSize));
+	}
+	void FillConstraint::finishSetup(ConstraintSet& _set) {
+		m_PositionConstraint = xAxis
+			? _set.xConstraint
+			: _set.yConstraint;
 	}
 
 }

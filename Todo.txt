@@ -9,7 +9,7 @@ Interaction
 	-	Remove all the shared_ptr where no ownership is required
 
 Graphics
-	-	RenderTexture
+	-	RenderTexture/RenderTarget
 
 equiv of sf::Err, tie in with logger??
 Profiling
@@ -21,6 +21,9 @@ Quad tree/spatial partitioning
 
 CI
 	-	Replace submodules with steps to download pre-built binaries
+
+CMake
+	-	Install needs to respect the hierachy that the header files are found in
 
 Done:
 	Vertex array lines

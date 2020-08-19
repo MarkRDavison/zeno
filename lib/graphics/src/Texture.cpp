@@ -13,6 +13,7 @@ namespace ze {
 	}
 
 	Texture::~Texture(void) {
+		// TODO: STOP LEAKING
 	}
 
 

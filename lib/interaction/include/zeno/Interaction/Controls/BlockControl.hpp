@@ -10,7 +10,7 @@ namespace ze {
 	public:
 		~BlockControl() override = default;
 		bool handleEvent(const ze::Event & _event) override;
-		void renderComponent(const ze::Window& _window, ze::RenderInfo _info) const override;
+		void renderComponent(const ze::RenderTarget& _target, ze::RenderInfo _info) const override;
 
 		ze::Colour colour{ ze::Colour::Magenta };
 		ze::Texture* texture{ nullptr };
