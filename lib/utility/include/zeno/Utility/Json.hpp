@@ -48,7 +48,7 @@ namespace ze {
 
 		template<size_t N>
 		JsonNode& operator[](const char _name[N]) const {
-			return this->[std::string(_name)];
+			return [std::string(_name)];
 		}
 		JsonNode& operator[](const std::string& _name) const;
 		JsonNode& operator[](std::size_t _index) const;

@@ -1,3 +1,4 @@
+== == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 Audio
 	-	Separate Thread
 Memory
@@ -7,14 +8,20 @@ Interaction
 	-	https://www.youtube.com/watch?v=80b2oqecN4s&list=PLRIWtICgwaX2_2R9UcpGo1_vw050fZbTY&index=3
 	-	Constraints/animations
 	-	Remove all the shared_ptr where no ownership is required
+	-	Controls
+		-	Buttons
+			-	texture
+			-	text
+		-	tooltip
+		-	slider
+		-	progress bar
+		-	text box
+		-	check box
 
 Graphics
-	-	RenderTexture/RenderTarget
 
 equiv of sf::Err, tie in with logger??
 Profiling
-Example app consuming
-FindZeno.cmake
 
 Multi threaded font generation
 Quad tree/spatial partitioning
@@ -25,11 +32,17 @@ CI
 CMake
 	-	Install needs to respect the hierachy that the header files are found in
 
+== == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 Done:
 	Vertex array lines
 
 Audio	
 	-	Sounds
 	-	Music
+
+Graphics
+	-	RenderTexture/RenderTarget
 		
 Splash screen
+Example app consuming
+FindZeno.cmake
