@@ -46,10 +46,6 @@ namespace ze {
 		int integer;
 		bool boolean;
 
-		template<size_t N>
-		JsonNode& operator[](const char _name[N]) const {
-			return [std::string(_name)];
-		}
 		JsonNode& operator[](const std::string& _name) const;
 		JsonNode& operator[](std::size_t _index) const;
 	};
