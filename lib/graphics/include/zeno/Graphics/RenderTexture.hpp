@@ -9,7 +9,7 @@ namespace ze {
 	public:
 		~RenderTexture() override;
 
-		Vector2u getSize() const;
+		Vector2u getSize() const override;
 
 		bool create(const Vector2u& _size);
 

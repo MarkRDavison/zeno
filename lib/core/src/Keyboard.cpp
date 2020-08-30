@@ -4,7 +4,7 @@
 
 namespace ze {
 
-    bool Keyboard::isKeyPressed(Key _key, const const Window& _window) {
+    bool Keyboard::isKeyPressed(Key _key, const Window& _window) {
         return glfwGetKey(static_cast<GLFWwindow*>(_window.getHandle()), zenoToGlfwKey(_key)) == GLFW_PRESS;
     }
 

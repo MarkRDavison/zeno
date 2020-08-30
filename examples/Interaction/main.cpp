@@ -125,7 +125,7 @@ public:
             ));
         }
 
-        auto & c = std::make_shared<ze::BlockControl>();
+        auto c = std::make_shared<ze::BlockControl>();
         c->colour = ze::Colour::Red;
 
         const float gap = 10.0f;
@@ -140,7 +140,7 @@ public:
 
         {
             // right
-            auto& r = std::make_shared<ze::BlockControl>();
+            auto r = std::make_shared<ze::BlockControl>();
             r->colour = ze::Colour::Blue;
 
             desktop.m_Root->addComponent(r, ze::ConstraintSet(
@@ -151,7 +151,7 @@ public:
             ));
             {
                 // right right
-                auto& rr = std::make_shared<ze::BlockControl>();
+                auto rr = std::make_shared<ze::BlockControl>();
                 rr->colour = ze::Colour::Magenta;
 
                 desktop.m_Root->addComponent(rr, ze::ConstraintSet(
@@ -164,7 +164,7 @@ public:
         }
         {
             // top
-            auto& r = std::make_shared<ze::BlockControl>();
+            auto r = std::make_shared<ze::BlockControl>();
             r->colour = ze::Colour::Green;
 
             desktop.m_Root->addComponent(r, ze::ConstraintSet(
@@ -176,7 +176,7 @@ public:
         }
         {
             // top right
-            auto& r = std::make_shared<ze::BlockControl>();
+            auto r = std::make_shared<ze::BlockControl>();
             r->colour = ze::Colour::Yellow;
 
             desktop.m_Root->addComponent(r, ze::ConstraintSet(
